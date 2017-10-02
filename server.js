@@ -111,6 +111,7 @@ app.get('/auth/google/callback', userController.authGoogleCallback);
 app.get('/api/content/:collection', commonController.getRows);
 app.get('/api/content/:collection/:id', commonController.getRow);
 app.post('/api/content/:collection', commonController.addRow);
+//app.post('/api/content/:collection', commonController.addRow);
 
 // React server rendering
 app.use(function(req, res) {
