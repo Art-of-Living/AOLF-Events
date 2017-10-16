@@ -25,13 +25,13 @@ dotenv.load();
 require('babel-core/register');
 require('babel-polyfill');
 
-
 // React and Server-Side Rendering
 var routes = require('./app/routes');
 var configureStore = require('./app/store/configureStore').default;
 
 var app = express();
 
+// connection with the mongodb
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
@@ -41,13 +41,6 @@ mongoose.connection.on('error', function() {
 mongoose.connection.once('open', function() {
   require('./models')(app, mongoose);
 });
-
-require('./models')(app, mongoose);
-
-// Controllers
-var userController = require('./controllers/user');
-var contactController = require('./controllers/contact');
-var commonController = require('./controllers/common');
 
 var hbs = exphbs.create({
   defaultLayout: 'main',
@@ -64,6 +57,7 @@ var hbs = exphbs.create({
   }
 });
 
+/* ----------------------- Used features in the framework --------------------------------*/ // Begin
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
@@ -84,9 +78,12 @@ var limiter = new RateLimit({
   delayMs: 0 // disable delaying - full speed until the max limit is reached 
 });
  
-//  apply to all requests 
+// apply to all requests 
 app.use(limiter);
 
+/* ----------------------- Used features in the framework --------------------------------*/ // END
+
+// Authentication for the user
 app.use(function(req, res, next) {
   req.isAuthenticated = function() {
     var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
@@ -108,23 +105,8 @@ app.use(function(req, res, next) {
   }
 });
 
-app.post('/contact', contactController.contactPost);
-app.put('/account', userController.ensureAuthenticated, userController.accountPut);
-app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
-app.post('/signup', userController.signupPost);
-app.post('/login', userController.loginPost);
-app.post('/forgot', userController.forgotPost);
-app.post('/reset/:token', userController.resetPost);
-app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
-app.post('/auth/facebook', userController.authFacebook);
-app.get('/auth/facebook/callback', userController.authFacebookCallback);
-app.post('/auth/google', userController.authGoogle);
-app.get('/auth/google/callback', userController.authGoogleCallback);
-
-// Common API
-app.get('/api/content/:collection', commonController.getRows);
-app.get('/api/content/:collection/:id', commonController.getRow);
-app.post('/api/content/:collection', userController.ensureAuthenticated, commonController.addRow);
+// Requiring API's for the backend process
+require('./api')(app);
 
 // React server rendering
 app.use(function(req, res) {

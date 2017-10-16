@@ -8,6 +8,7 @@ import getRoutes from './routes';
 
 const store = configureStore(window.INITIAL_STATE);
 
+// Rendering the view
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory} routes={getRoutes(store)}/>

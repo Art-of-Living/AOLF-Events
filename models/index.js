@@ -1,6 +1,3 @@
-/**
- * Created by samcom84 on 09-Dec-16.
- */
 var fs = require('fs');
 
 module.exports = function (app,mongoose) {

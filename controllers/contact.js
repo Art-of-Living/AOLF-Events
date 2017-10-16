@@ -1,4 +1,7 @@
+var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
+var request = require('request');
+
 var transporter = nodemailer.createTransport({
   service: 'Mailgun',
   auth: {
@@ -19,7 +22,7 @@ exports.contactGet = function(req, res) {
 /**
  * POST /contact
  */
-exports.contactPost = function(req, res) {
+exports.contactPost = function(req, res, next) {
   req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('email', 'Email cannot be blank').notEmpty();
@@ -31,15 +34,19 @@ exports.contactPost = function(req, res) {
   if (errors) {
     return res.status(400).send(errors);
   }
-
-  var mailOptions = {
-    from: req.body.name + ' ' + '<'+ req.body.email + '>',
-    to: 'your@email.com',
-    subject: '✔ Contact Form | Mega Boilerplate',
-    text: req.body.message
-  };
-
-  transporter.sendMail(mailOptions, function(err) {
-    res.send({ msg: 'Thank you! Your feedback has been submitted.' });
-  });
+  
+  var Model = mongoose.model('contact');
+  Model.create(req.body, function(err, results){
+	if(err){
+	  next(err);
+	}
+	
+	// Pardot API to save the data;
+    request.post({url:'http://www1.artofliving.org/l/23282/2017-10-02/53nsmb', formData: {name : req.body.name, email : req.body.email, message : req.body.message}}, function optionalCallback(err, httpResponse, body) {
+      if (err) {
+        next(err);
+      }
+      res.status(200).send({ msg: 'Thank you! Your feedback has been submitted.' });
+    });  
+  })
 };

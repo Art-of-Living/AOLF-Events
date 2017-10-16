@@ -9,7 +9,7 @@ var User = require('../models/user.model');
 
 function generateToken(user) {
   var payload = {
-    iss: 'my.domain.com',
+    iss: 'http://events.us.artofliving.org',
     sub: user.id,
     iat: moment().unix(),
     exp: moment().add(7, 'days').unix()
