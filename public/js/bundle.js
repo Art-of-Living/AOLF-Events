@@ -2049,7 +2049,7 @@ var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function submitContactForm(name, email, message) {
+function submitContactForm(name, email, message, event_id) {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -2060,7 +2060,8 @@ function submitContactForm(name, email, message) {
       body: JSON.stringify({
         name: name,
         email: email,
-        message: message
+        message: message,
+        event_id: event_id
       })
     }).then(function (response) {
       if (response.ok) {
@@ -5093,7 +5094,7 @@ var Contact = function (_get__$Component) {
 
     var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
-    _this.state = { name: '', email: '', message: '' };
+    _this.state = { name: '', email: '', message: '', event_id: '' };
     return _this;
   }
 
@@ -5106,7 +5107,8 @@ var Contact = function (_get__$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.message));
+      this.state.event_id = this.props.event_id;
+      this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.message, this.state.event_id));
     }
   }, {
     key: 'render',
@@ -7573,7 +7575,7 @@ var Index = function (_get__$Component) {
 												)
 										)
 								),
-								_react2.default.createElement(_Contact_Component, null)
+								_react2.default.createElement(_Contact_Component, { event_id: event._id })
 						);
 				}
 		}]);
@@ -7807,7 +7809,7 @@ var Index = function (_get__$Component) {
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component, null)
+				_react2.default.createElement(_Contact_Component, { event_id: event._id })
 			);
 		}
 	}]);
@@ -7987,6 +7989,8 @@ var _routes2 = _interopRequireDefault(_routes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = _get__('configureStore')(window.INITIAL_STATE);
+
+// Rendering the view
 
 var _Provider_Component = _get__('Provider');
 

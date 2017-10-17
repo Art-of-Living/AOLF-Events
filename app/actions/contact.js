@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-export function submitContactForm(name, email, message) {
+export function submitContactForm(name, email, message, event_id) {
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -10,7 +10,8 @@ export function submitContactForm(name, email, message) {
       body: JSON.stringify({
         name: name,
         email: email,
-        message: message
+        message: message,
+		event_id : event_id
       })
     }).then((response) => {
       if (response.ok) {

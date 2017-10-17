@@ -20,7 +20,7 @@ class Index extends React.Component {
 				</div>
 			</div>
 		</div>
-		<Contact />
+		<Contact event_id={event._id}/>
       </div>
     );
   }
