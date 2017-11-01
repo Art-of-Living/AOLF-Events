@@ -12,12 +12,15 @@ var schemaOptions = {
 
 var eventSchema = new mongoose.Schema({
   event_name: {type : String, required : true},
+  event_series_name: {type : String, required : true},
   event_description: {type : String},
-  template_id: {type : Schema.Types.ObjectId, ref: 'template', autopopulate: true},
+  template_id: {type : Schema.Types.ObjectId, ref: 'template', autopopulate: true, required : true},
   contact_email: {type : String},
   contact_number: {type : String},
-  event_date : {type: Date},
-  event_time : {type : Number},
+  event_start_date : {type: Date, required : true},
+  event_end_date : {type: Date, required : true},
+  event_start_time : {type : Number, required : true},
+  event_end_time : {type : Number, required : true},
   street_address : {type : String},
   zipcode : {type : String},
   state : {type : String},

@@ -41,11 +41,15 @@ exports.contactPost = function(req, res, next) {
 	  next(err);
 	}
 	
+	var pardotUrl = 'http://www1.artofliving.org/l/23282/2017-10-02/53nsmb';
+	var body =  'email=' + req.body.email + '&firstname=' + req.body.name;
+	
 	// Pardot API to save the data;
-    request.post({url:'http://www1.artofliving.org/l/23282/2017-10-02/53nsmb', formData: {name : req.body.name, email : req.body.email, message : req.body.message}}, function optionalCallback(err, httpResponse, body) {
+    request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
       if (err) {
         next(err);
       }
+	  
       res.status(200).send({ msg: 'Thank you! Your feedback has been submitted.' });
     });  
   })

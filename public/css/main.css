@@ -1610,3 +1610,3086 @@ a:hover { text-decoration: underline }
     h3 { page-break-after: avoid }
 }
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+/*Font Family 
+
+font-family: 'Open Sans', sans-serif;
+
+*/
+
+/* Slick Slider  */
+
+.slick-prev, .slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    padding: 0;
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Top function*/
+
+#scroll {
+    position:fixed;
+    right:10px;
+    bottom:10px;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    background-color: #f39026;
+    text-indent:-9999px;
+    display:none;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+#scroll span {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-8px;
+    margin-top:-12px;
+    height:0;
+    width:0;
+    border:8px solid transparent;
+    border-bottom-color:#ffffff
+}
+#scroll:hover {
+    background-color: #ff9600;
+    opacity:1;
+    filter:"alpha(opacity=100)";
+    -ms-filter:"alpha(opacity=100)";
+}
+
+/* General Classes */
+
+.mt{    
+    margin-top: 100px;
+}
+.mt-1{
+    margin-top: 240px;
+}
+.mt-2{
+    margin-top: 50px;
+}
+.mt-3{
+    margin-top: 80px;
+}
+.mb{
+    height: 100px;
+}
+
+.pad{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+a{
+    text-decoration: none;  
+}
+a:hover{
+    text-decoration: none;
+}
+/* HEADER SECTION START */
+
+.home-banner{
+    background-image: url('../images/home-banner.jpg');
+    background-size: cover;
+    height: 980px;
+}
+
+/* .logo img{
+    margin: auto;
+ } */ 
+.home-banner-tageline h1 {
+    font-size: 56px;
+    font-weight:  900;
+    padding-bottom: 25px;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+}
+.home-banner-tageline h4 {
+    font-size: 42px;
+    max-width: 50%;
+    font-style: italic;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 50px;
+    margin-bottom: 60px;
+    color: #000;
+}
+.home-banner-tageline h4 span{
+    font-weight:  bold;
+}
+.home-banner-tageline .btn-submit {
+    background-color: #ff7e00;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight:  700;
+    border-radius:  5px;
+    text-align: center;
+    color: #fff;
+    margin: auto;
+    margin-left: 0;
+    margin-right: 0;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.home-banner-tageline .btn-submit:hover {
+    background-color: #f39026;
+}
+
+.btn-submit .button {
+    background-color: #ff7e00;
+    padding: 15px 50px;
+    text-transform: uppercase;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #ff7e00; -webkit-box-shadow: 0 0 3px #ff7e00; }
+  50% { background-color: #f39026; -webkit-box-shadow: 0 0 40px #f39026; }
+  100% { background-color: #ff7e00; -webkit-box-shadow: 0 0 3px #ff7e00; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #ff7e00; -moz-box-shadow: 0 0 3px #ff7e00; }
+  50% { background-color: #f39026; -moz-box-shadow: 0 0 40px #f39026; }
+  100% { background-color: #ff7e00; -moz-box-shadow: 0 0 3px #ff7e00; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #ff7e00; box-shadow: 0 0 3px #ff7e00; }
+  50% { background-color: #f39026; box-shadow: 0 0 40px #f39026; }
+  100% { background-color: #ff7e00; box-shadow: 0 0 3px #ff7e00; }
+}
+
+@keyframes glowing {
+  0% { background-color: #ff7e00; box-shadow: 0 0 3px #ff7e00; }
+  50% { background-color: #f39026; box-shadow: 0 0 40px #f39026; }
+  100% { background-color: #ff7e00; box-shadow: 0 0 3px #ff7e00; }
+}
+
+.button {
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+
+/* SERVICE SECTION START */
+
+/* .service-part-cw {
+    text-align: center;
+    margin: auto;
+    border-left: 1px solid #acb0b1;
+} */
+
+.service-section{
+    background-image: url('../images/logo-banner.jpg');
+    background-size: cover;
+    padding: 85px 0px;
+} 
+.service-part-cw{
+    padding: 40px;
+}
+
+.service-part-yoga {
+    text-align: center;
+    margin: auto;
+    border-left: 1px solid #acb0b1;
+    padding: 20px;
+    margin: 0 auto;
+/*     width: 95%; */
+    height: 210px;
+}
+
+.service-part-cw img ,
+.service-part-yoga img{
+    text-align: center;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.service-part-cw p ,
+.service-part-yoga p{
+    text-align: center;
+    margin: auto;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    max-width: 70%;
+}
+
+
+/* ABOUTUS SECTION START */
+
+.aboutus-section {
+    background-image: url(../images/aboutus-banner.jpg);
+    background-size: cover;
+    height: 1200px;
+    background-position: bottom;
+}
+
+.aboutus-content h4 {
+    font-size: 42px;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+.aboutus-content h4 span{
+    font-weight: 900;
+}
+
+.aboutus-content p {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    text-align: center;
+    margin: auto;
+    max-width: 65%;
+    padding: 10px 0 20px;
+}
+.aboutus-content h6 {
+    font-size: 28px;
+    color: #000;
+    text-align: center;
+    padding: 20px 0;
+    font-weight: 900;
+}
+
+.aboutus-box{
+    background-color: #ff9600;
+    text-align: center;
+    height: 250px;
+    
+}
+
+.aboutus-box i {
+    font-size: 42px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 0 0;
+}
+
+.aboutus-box h6 {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 0 5px;
+}
+
+.aboutus-box p {
+    color: #fff;
+    margin: auto;
+    max-width: 90%;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+.aboutus-workshop {
+    background-color: #fff;
+    height: 450px;
+    margin-top: 50px;
+    box-shadow: 0px 0px 50px -5px rgba(0, 0, 0, 0.69);
+}
+.aboutus-workshop h4 {
+    font-size: 42px;
+    color: #000;
+    text-align: center;
+    padding: 50px 0;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.aboutus-workshop h4 span{
+    font-size: 42px;
+    color: #000;
+    text-align: center;
+    padding: 50px 0 20px;
+    font-weight: bolder;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.aboutus-workshop img{
+    text-align: center;
+    margin: auto;
+}
+
+/* .aboutus-workshop-box {
+    border-left: 1px solid #acb0b1;
+    height: 200px;
+} */
+
+.aboutus-workshop-box-circle{
+    border-left: 1px solid #acb0b1;
+    height: 235px;
+}
+
+.aboutus-workshop-box,
+.aboutus-workshop-box-circle{
+    padding: 10px;
+}
+
+.aboutus-workshop-box h4 ,
+.aboutus-workshop-box-circle h4{
+    font-size: 26px;
+    color: #000;
+    text-align: center;
+    padding: 20px 0 0px;
+    font-weight: 900;
+    font-family: 'Open Sans', sans-serif;
+}
+.aboutus-workshop-box p,
+.aboutus-workshop-box-circle p{
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    text-align: center;
+    margin: auto;
+    max-width: 75%;
+}
+
+.aboutus-calender {
+    background-color: #ff7e00;
+    height: 60px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.aboutus-calender:hover{
+    background-color: #ff9600;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.aboutus-calender i, 
+.aboutus-direction i {
+    font-size: 42px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+    float: left;
+}
+
+.aboutus-calender h6{
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    float: left;
+    padding: 10px 0;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    left: 42px;
+} 
+.aboutus-direction h6{
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    float: left;
+    padding: 10px 0;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    left: -25px;
+}
+
+
+
+
+.aboutus-direction{
+    background-color: #ff9600;
+    height: 60px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.aboutus-direction:hover{
+    background-color: #ff7e00;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+
+}
+
+/* SPOT SECTION START */
+.spot-section{
+    background-image: url(../images/spot-banner.jpg);
+    background-size: cover;
+    height: 950px;
+    background-position: center;
+}
+
+.spot-section h1{
+    font-size: 52px;
+    margin: 15px auto;
+    max-width: 80%;
+    color: #000;
+    text-align: center;
+    font-weight: 700;
+    line-height: 30px;
+    padding: 15px 0;
+    margin-top: 60px;
+}
+
+.spot-section h1 span{
+    font-size: 52px;
+    margin: 15px auto;
+    max-width: 80%;
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    line-height: 30px;
+    padding: 15px 0;
+}
+
+.spot-form{
+    margin: 135px;
+}
+
+.spot-form h1 {
+    font-size: 32px;
+    max-width: 100%;
+    margin: auto;
+    font-weight: 600;
+    color: #fff;
+    padding: 60px 0 40px;
+}
+
+.spot-form-lable{
+    margin: auto;
+    width: 40%;
+    display: block;
+    color: #023456;
+    text-transform: uppercase;
+    
+}
+
+.spot-form-input{
+    width: 40% !important;
+    margin: auto;
+    height: 50px !important;
+    background-color: rgba(240, 248, 255, 0.59) !important;
+    border: 1px solid #f7f7f7 !important;
+    font-size: 18px !important;
+    color: #000 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+
+}
+
+.spot-form-datepicker {
+    width: 26% !important;
+    margin: auto;
+    margin-left: 260px;
+    background-color: rgba(240, 248, 255, 0.59) !important;
+    border: 1px solid #f7f7f7 !important;
+    height: 50px !important;
+    color: #000 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+
+}
+
+.spot-form .btn-submit {
+    margin: auto;
+    width: 40%;
+    display: block;
+    padding: 15px 20px;
+    background-color: #f39026;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.spot-form .btn-submit{
+    text-decoration: none !important;
+    background-color: #ff7e00;
+    color: #fff;
+}
+
+.spot-form .btn-submit:hover{
+    background-color: #f39026;
+    color: #fff;
+}
+
+
+
+/* TRAINERS SECTION START */
+
+.trainer-section h4 {
+    font-size: 40px;
+    color: #000;
+    padding: 50px 45px 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.trainer-section h4 span {
+    font-size: 40px;
+    color: #000;
+    text-align: left;
+    padding: 50px 0 5px;
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.trainer-box {
+    text-align: center;
+    padding-right: 0px !important;
+    margin: 0;
+    padding-left: 0px !important;
+}
+
+.trainer-box img{
+    margin: auto;
+}
+
+.trainer-box h4 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    padding: 10px 0 0;
+}
+
+.trainer-box h6 {
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+.trainer-box .btn-submit {
+    background-color:  #ff7e00;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    margin: 13px auto;
+    margin-right: 0;
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.trainer-box .btn-submit:hover {
+    background-color: #f39026;
+}
+
+
+
+/* OURVENUE SECTION START */
+
+.ourvenue-section{
+    background-image: url(../images/our-vision-banner.jpg);
+    background-size: cover;
+    opacity: 0.;
+}
+.ourvenue-content{
+    margin: 100px 0;
+}
+
+.ourvenue-content h1 {
+    font-size: 60px;
+    color: #fff;
+    font-weight: 900;
+    margin: auto;
+    max-width: 90%;
+    padding-bottom: 20px;
+}
+
+.ourvenue-content p {
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    margin: auto;
+    max-width: 88%;
+    padding: 0 0 40px;
+}
+
+/* SOCIALLINK SECTION START */
+
+.sociallink-section{
+    background-image: url(../images/social-banner.jpg);
+    background-size: cover;
+}
+
+.sociallink-section h4 {
+    font-size: 52px;
+    color: #fff;
+    text-align: center;
+    margin: 60px 0 30px;
+}
+
+.sociallink-section h4 span {
+    font-size: 52px;
+    color: #fff;
+    text-align: left;
+    font-weight: 900;
+}
+
+.social-link {
+    width: 100%;
+    text-align: center;
+    margin: 40px 0 60px;
+}
+
+.social-link img {
+    padding: 0px 15px 10px;
+    display: inline-block;
+}
+
+/* HAPPY PROGRAM SECTION START */
+.happyprogram-section{
+    background-image: url(../images/program-banner.jpg);
+    background-size: cover;
+    height: 1625px;
+}
+
+.happyprogram-content h1 {
+    font-size: 52px;
+    text-align: center;
+    color: #000;
+}
+
+.happyprogram-content h1 span {
+    font-weight: 800;
+}
+
+.happyprogram-content p {
+    text-align: center;
+    margin: auto;
+    max-width: 80%;
+    font-size: 20px;
+    padding: 10px 0 60px;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.video-container {
+    width: 100%;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.video-container h4{
+    font-size: 30px;
+    text-align: center;
+    padding: 30px 0 20px;
+    color: #000;
+    font-weight: 600; 
+}
+
+iframe{
+    margin: 0 0 60px; 
+}
+
+/* .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe,
+object,
+embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+} */
+
+.testimonial-section{
+
+}
+
+.testimonial-section h4{
+    font-size: 42px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    font-weight: 600;
+}
+
+.testimonial-section h4 span{
+    font-size: 42px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    font-weight: 900;
+}
+
+.testimonial-box {
+    background-color: #fff;
+    padding: 30px 0;
+    height: 520px;
+}
+
+.testimonial-box img {
+    margin: 10px auto;
+}
+
+.testimonial-box p {
+    margin: 20px auto 30px;
+    max-width: 85%;
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    height: 170px;
+}
+
+.testimonial-box h4 {
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 20px 0 5px;
+}
+
+.testimonial-box h6 {
+    text-align: center;
+    color: #000;
+    margin: auto;
+    max-width: 65%;
+    padding: 5px 0;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 20px;
+}
+
+.testimonial-box h6 span {
+    text-align: center;
+    color: #000;
+    margin: auto;
+    max-width: 50%;
+    padding: 10px 0;
+}
+
+/* RESEARCH SECTION START */
+.Research-section {
+    background-image: url(../images/research-banner.jpg);
+    background-size: cover;
+    height: 1325px;
+    background-position: center;
+}
+
+.Research-section h4 {
+    text-align: center;
+    color: #fff;
+    font-size: 42px;
+    margin: 40px 0 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.Research-section h4 span{
+    text-align: center;
+    color: #fff;
+    font-size: 42px;
+    font-weight: 900;
+}
+
+.Research-section h6 {
+    text-align: center;
+    color: #fff;
+    font-size: 28px;
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    padding: 0;
+    margin: 5px 0 30px;
+}
+
+.Research-section p {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 85%;
+}
+
+.research-box {
+
+}
+
+/* .research-box i{
+      font-size: 42px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 0 0;
+} */
+
+.research-box img{
+    margin:auto;
+}
+ 
+.research-box h4 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 20px auto;
+    max-width: 80%;
+    line-height: 25px;
+    text-align: center;
+}
+
+.research-box h4 span {
+    color: #f39026;
+    font-size: 16px;
+    line-height: 0;
+    font-weight: 600;
+    max-width: 85%;
+}
+
+.research-box h1 {
+    font-size: 52px;
+    font-weight: 700;
+    margin: 15px auto;
+    max-width: 80%;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    padding: 15px 0;
+}
+
+.research-box h1 span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f39026;
+    text-align: center;
+    line-height: 0px;
+}
+
+.research-box p {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 15px auto;
+    max-width: 75%;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+}
+
+.research-box p span {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 15px auto;
+    max-width: 45%;
+    color: #f39026;
+    text-align: center;
+    line-height: 20px;
+}
+
+/* MINDMIDATION SECTION START */
+.mindsection-content h1 {
+    font-size: 72px;
+    color: #fff;
+    font-weight: 800;
+    max-width: 70%;
+    padding: 20px 0;
+}
+
+.mindsection-content h6 {
+    font-size: 36px;
+    text-align: left;
+    font-style: italic;
+    padding-bottom: 40px;
+    text-transform: uppercase;
+    max-width: 60%;
+    margin: 0;
+    line-height: 50px;
+}
+
+.mindsection-content h6 span {
+    font-size: 42px;
+    text-align: left;
+    font-style: italic;
+    max-width: 70%;
+    margin: 0;
+    line-height: 50px;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.mindsection-content .btn-submit {
+    background-color: #ff7e00;;
+    padding: 15px 50px;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    margin: 13px auto;
+    margin-right: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+ }
+.mindsection-content .btn-submit:hover{
+   background-color: #f39026;
+ }
+
+.footer-section{
+    background-color: #60b0f5;
+}
+.copyright{
+    float: left;
+}
+.copyright p {
+    text-align: center;
+    padding: 30px 0 30px;
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+}
+
+.privacypolicy{
+    float: right;
+    padding: 30px;
+    
+}
+
+.privacypolicy span {
+    color: #fff;
+    text-decoration: none !important;
+    margin: 10px;
+}
+
+.privacypolicy span:hover{
+    color: #023456;
+}
+
+/* 
+
+===========================
+    MEDIA QUERIES
+===========================
+
+ */
+
+
+
+/* Smartphones | <320px */
+
+@media only screen and (min-width : 320px) and (max-width : 380px) {
+
+.mt{
+    margin-top: 60px;
+}
+.mt-1{
+    margin-top: 80px;
+}
+.mt-2{
+    margin-top: 30px;
+}
+
+.mt-3{
+    margin-top: 30px;
+}
+
+
+.logo img{
+    margin: auto;
+}   
+
+.home-banner {
+    height: 530px;
+    background-position: center;
+}
+
+.home-banner-tageline h1{
+    font-size: 36px;
+    text-align: center;
+    
+}
+
+.home-banner-tageline h4 {
+    font-size: 20px;
+    text-align: center;
+    max-width: 100%;
+    margin: auto;
+}
+
+.home-banner-tageline .btn-submit{
+    padding: 10px 20px;
+    display: block;
+    font-size: 20px;
+}
+
+.service-section{
+    padding: 40px 0px;
+}    
+
+.service-part-cw{
+    height: 180px;
+}
+
+.service-part-yoga{
+    border-left: 0px;
+    padding: 40px 0 0;
+}
+
+.service-part-cw p, 
+.service-part-yoga p {
+    font-family: 'Open Sans', sans-serif;
+    max-width: 90%;
+}
+
+.aboutus-section {
+    height: 2110px;
+    background-position: center center;
+}
+
+.aboutus-content h4{
+    font-size: 26px;
+}
+
+.aboutus-content p{
+    margin: auto;
+    max-width: 100%;
+    padding: 0;
+    font-size: 18px;
+}
+
+.aboutus-calender {
+    height: 60px;
+}
+
+.aboutus-direction {
+    height: 60px;
+}
+
+.aboutus-content h6 {
+    font-size: 18px;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.aboutus-box{
+    height: 230px;
+    margin-bottom: 10px;
+}
+
+.aboutus-box p{
+    font-size: 16px;
+    max-width: 85%;
+    margin: auto;
+}
+
+.aboutus-box h6 {
+    font-size: 16px;
+    padding: 10px 0 5px;
+    max-width: 75%;
+    margin: auto;
+    line-height: 22px;
+}
+
+.aboutus-calender h6, 
+.aboutus-direction h6{
+    font-size: 16px;
+    padding: 15px 0 20px;
+}
+
+.aboutus-calender i, 
+.aboutus-direction i{
+    padding: 16px;
+    font-size: 34px;
+    width: 30%;
+}
+
+.aboutus-workshop{
+    margin: 70px 0;
+    height: 800px;
+}
+
+.aboutus-workshop h4 {
+    font-size: 22px;
+    padding: 30px 0 20px;
+    max-width: 75%;
+    margin: auto;
+}
+
+.aboutus-workshop h4 span {
+    font-size: 30px;
+}
+
+.aboutus-workshop-box{
+    height: 200px;
+}
+
+.aboutus-workshop-box h4{
+    font-size: 18px;
+    padding: 5px 0 0;
+}
+
+.aboutus-workshop-box-circle h4,
+.aboutus-workshop-box h4{
+    font-size: 22px;
+}
+
+.aboutus-workshop-box-circle{
+    border-left: none;
+    height: 280px;
+}
+
+.aboutus-workshop-box p, 
+.aboutus-workshop-box-circle p{
+    font-size: 18px;
+    max-width: 90%;
+    margin: auto;
+}
+.spot-section{
+    background-image: none;
+    background-color: rgba(205, 228, 249, 0.76);
+    height: 700px;
+    background-position: center;
+}
+
+.spot-section h1{
+    margin-top: 10px;
+    font-size: 26px;
+    margin: auto;
+    max-width: 100%;
+    padding: 60px 0 20px;
+}
+
+.spot-section h1 span{
+    font-size: 26px;
+    margin: auto;
+    max-width: 100%;
+    line-height: 35px;
+}
+.spot-form{
+    margin: 0;
+}
+
+.spot-form h1{
+    color: #000;
+    font-size: 20px;
+    padding: 16px 0 30px;
+}
+
+.spot-form-lable{
+    width: 100%;
+    color: #000;
+}
+
+.spot-form-datepicker ,
+.spot-form-input{
+    margin-left: 0px;
+    width: 100% !important;
+    margin: auto;
+}
+
+.spot-form .btn-submit {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.spot-form .btn-submit:hover {
+    color: #fff;
+}
+
+.trainer-section h4{
+    padding: 20px 0;
+    text-align: center;
+    font-size: 30px;
+}
+
+.trainer-section h4 span{
+    padding: 20px 0;
+    text-align: center;
+    font-size: 30px;
+}
+
+.trainer-box{
+    height: 350px;
+}
+
+.trainer-box h4{
+    padding: 0;
+    font-size: 24px;
+}
+
+.testimonial-box h4{
+    font-size: 20px !important;
+}
+
+.trainer-box .btn-submit{
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Research-section {
+    width: 100%;
+    height: 1950px;
+    background-position: center;
+}
+
+.Research-section h4 , 
+.Research-section h4 span  {
+    font-size: 28px;
+}
+
+.research-box h1{
+    font-size: 40px;
+}
+
+.research-box h4,
+.research-box h4 span{
+    font-size: 22px;
+}
+
+.Research-section h6 {
+    font-size: 16px;
+    max-width: 80%;
+    margin: 15px auto 30px;
+}
+
+.Research-section p{
+    font-size: 16px;
+    margin: auto;
+    max-width: 90%;
+    text-align: center;
+}
+
+.research-box img {
+    margin: auto;
+    width: 10%;
+}
+
+.happyprogram-section {
+    height: 1700px;
+}
+
+.ourvenue-section {
+    background-color: black;
+    opacity: 0.9;
+    background: linear-gradient( rgba(255, 255, 255, 0.60), rgba(247, 251, 253, 0.67) ),url(../images/our-vision-banner.jpg);
+    background-size: cover;
+}
+
+.ourvenue-content{
+    margin: 30px 0;
+}
+
+.ourvenue-content h1 {
+    font-size: 36px;
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 20px;
+    color: #000;
+    opacity: 0.8;
+}
+
+.ourvenue-content p {
+    margin: 0 auto;
+    max-width: 100%;
+    font-size: 18px;
+    text-align: center;
+    color: #000;
+}
+
+.social-link {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 25px;
+}
+
+.sociallink-section h4 {
+    font-size: 30px;
+    margin: 20px 0 20px;
+}
+
+.sociallink-section h4 span {
+    font-size: 30px;
+    color: #fff;
+
+}
+
+.social-link img {
+    display: inline-block;
+    width: 20%;
+    padding: 0 4px;
+}
+
+.happyprogram-content h1{
+    font-size: 28px;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.happyprogram-content p{
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+    font-size: 18px;
+    padding: 10px 0 30px;
+    line-height: 25px;
+}
+
+.video-container h4{    
+    font-size: 22px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.testimonial-section h4,
+.testimonial-section h4 span {
+    font-size: 28px;
+}
+
+/* .testimonial-box{
+    display: none;
+    
+  } */ 
+
+.testimonial-box{
+    height: 510px;
+}
+
+.testimonial-box p {
+    margin: 20px auto 30px;
+    max-width: 80%;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    font-size: 15px;
+}
+
+.testimonial-box h6 {
+    margin: 0px auto 20px;
+    max-width: 100%;
+    text-align: center;
+    color: #000;
+    font-size: 16px;
+}
+
+
+.mindsection-content h1{
+    font-size: 36px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    
+}
+
+.mindsection-content h6{
+    font-size: 20px;
+    max-width: 100%;
+    line-height: 25px;
+    text-align: center;
+    
+}
+
+.mindsection-content h6 span {
+    font-size: 22px;
+    line-height: 25px;
+}
+.mindsection-content .btn-submit {
+    padding: 10px 13px;
+    font-size: 20px;
+    display: block;
+}
+.copyright {
+    float: none;
+}
+
+.copyright p {
+    padding: 25px 0 10px;
+    font-size: 14px;
+}
+
+#scroll {
+    position: fixed;
+    right: 5px;
+    bottom: 6px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: #f39026;
+    text-indent: -9999px;
+    display: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+.privacypolicy {
+    margin-bottom: 5px;
+    float: left;
+    padding: 0;
+    text-align: center;
+    width: 85%;
+}
+
+.privacypolicy span {
+    list-style-type: none;
+    padding: 0 0 10px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    float: right;
+    margin: 5px;
+}
+
+
+
+}
+
+/* Smartphones | <480px */
+
+
+
+@media only screen and (min-width : 381px) and (max-width : 480px) {
+.mt {
+    margin-top: 60px;
+}
+
+.mt-1 {
+    margin-top: 120px;
+}
+
+.mt-2 {
+    margin-top: 40px;
+}
+
+.mt-3{
+    margin-top: 40px;
+}
+
+.logo img{
+    margin: auto;
+}
+
+.home-banner {
+    height: 680px;
+    background-position: center;
+}
+
+.home-banner-tageline h1 {
+    font-size: 40px;
+    margin: auto;
+    max-width: 100%;
+    font-weight: 900;
+    text-align: center;   
+}
+
+.home-banner-tageline h4 {
+    font-size: 26px;
+    max-width: 100%;
+    text-align: center;
+    line-height: 35px;
+    margin-bottom: 25px;
+}
+
+.home-banner-tageline .btn-submit {
+    display: block;
+    padding: 15px 30px;
+    font-size: 20px;
+}
+
+.service-section {
+    padding: 80px 0px 40px;
+}
+
+.service-part-cw{
+    height: 200px;
+}
+
+.service-part-yoga {
+    padding: 0 10px;
+    margin: 0 auto;
+    width: 80%;
+    height: 220px;
+    border-left: none;
+}
+
+.service-part-yoga p{
+    max-width: 100%;
+}
+
+.aboutus-section {
+    height: 2060px;
+}
+
+.aboutus-content h4 ,
+.aboutus-content h4 span {
+    font-size: 28px;
+}
+
+.aboutus-content p {
+    font-size: 18px;
+    margin: auto;
+    max-width: 100%;
+    padding: 10px 0 10px;
+}
+
+.aboutus-content h6 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.aboutus-box {
+    height: 243px;
+    margin-bottom: 10px;
+}
+
+.aboutus-workshop{
+    margin-top: 20px;
+    height: 840px;
+}
+
+.aboutus-workshop h4,
+.aboutus-workshop h4 span {
+    font-size: 28px;
+    padding: 30px 0;
+    max-width: 90%;
+    margin: auto;
+}
+  
+.aboutus-box h6 {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 0 5px;
+}
+
+.aboutus-box p {
+    max-width: 85%;
+    font-size: 16px;
+}
+
+.aboutus-workshop-box{
+    height: 220px;
+}
+
+
+.aboutus-workshop-box-circle h4 ,
+.aboutus-workshop-box h4{
+    font-size: 20px;
+    padding: 10px 0 0;
+}
+
+.aboutus-workshop-box-circle {
+    border-left: none;
+    height: 250px;
+}
+
+.aboutus-workshop-box p, 
+.aboutus-workshop-box-circle p {
+    margin: auto;
+    max-width: 90%;
+    font-size: 18px;
+}
+
+.aboutus-calender {
+    height: 60px;
+}
+
+.aboutus-direction {
+    height: 60px;
+}
+
+.aboutus-calender i, 
+.aboutus-direction i {
+    font-size: 30px;
+    padding: 16px 0;
+    width: 30%;
+}
+
+.aboutus-calender h6, 
+.aboutus-direction h6 {
+    font-size: 18px;
+}
+
+.spot-section {
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    background-color: aliceblue;
+    height: 700px;
+}
+
+.spot-section h1 , 
+.spot-section h1 span {
+    font-size: 30px;
+    max-width: 100%;
+
+}
+
+
+.spot-form {
+    margin: 50px 0;
+}
+
+.spot-form h1{
+    font-size: 30px;
+    max-width: 100%;
+    padding: 5px 0px 20px;
+    color: black;
+}
+
+.spot-form-lable {
+    margin: auto;
+    width: 80%;
+    color: black;
+}
+
+.spot-form-datepicker {
+    width: 60% !important;
+    margin: auto;
+    margin-left: 35px;
+    background-color: rgba(212, 234, 253, 0.59) !important;
+    border: 1px solid rgba(212, 234, 253, 0.59) !important;
+}
+
+.spot-form-input {
+    width: 80% !important;
+    margin: auto;
+    background-color: rgba(212, 234, 253, 0.59) !important;
+    border: 1px solid rgba(212, 234, 253, 0.59) !important;
+}
+.spot-form .btn-submit {
+    padding: 15px 0px;
+    font-size: 18px;
+    width: 80%;
+}
+
+.spot-form .btn-submit:hover {
+    color: #ffffff;
+    background-color:  #f39026;
+}
+
+.trainer-section h4,
+.trainer-section h4 span {
+    font-size: 30px;
+    padding: 20px 0 20px;
+    text-align: center;
+}
+
+.trainer-box{
+    height: 350px;
+}
+
+.trainer-box h4, 
+.trainer-box h4 span {
+    font-size: 24px;
+    padding: 10px 0 0px;
+    text-align: center;
+} 
+
+.trainer-box .btn-submit:hover{
+    background-color: #f39026;
+    color: #ffffff;
+}
+
+.testimonial-box h4{
+    font-size: 20px !important; 
+}
+
+.testimonial-box p {
+    margin: 20px auto 30px;
+    max-width: 80%;
+    font-size: 16px;
+}
+
+.ourvenue-section {
+    background-color: black;
+    opacity: 0.9;
+    background: linear-gradient( rgba(255, 255, 255, 0.60), rgba(247, 251, 253, 0.67) ),url(../images/our-vision-banner.jpg);
+    background-size: cover;
+}
+
+.ourvenue-content {
+    margin: 10px 0;
+}
+
+.ourvenue-content h1 {
+    font-size: 40px;
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    color: black;
+    opacity: 0.8;
+}
+
+.ourvenue-content p {
+    font-size: 20px;
+    max-width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: #000;
+}
+
+.sociallink-section h4 ,
+.sociallink-section h4 span{
+    font-size: 32px;
+    margin: 30px 0 15px;
+}
+
+.social-link {
+    margin: 30px 0 30px;
+}
+
+.social-link img {
+    padding: 0px 5px 0px;
+    display: inline-block;
+    width: 18%;
+}
+
+.Research-section{
+    width: 100%;
+    height: 2000px;
+    background-position: center;
+}
+
+.happyprogram-section{
+    width: 100%;
+    height: 1770px;
+}
+
+.happyprogram-content h1,
+.happyprogram-content h1 span {
+    font-size: 36px;
+}
+
+.happyprogram-content p {
+    max-width: 90%;
+    font-size: 18px;
+    padding: 10px 0 40px;
+}
+.testimonial-section h4,
+.testimonial-section h4 span{
+    font-size: 30px;
+}
+
+.video-container h4,
+.Research-section h4,
+.Research-section h4 span{
+    font-size: 32px;
+}
+
+.Research-section h6 {
+    font-size: 18px;
+    margin: 12px 0 30px;
+}
+
+.Research-section p {
+    font-size: 16px;
+    max-width: 90%;
+}
+
+.research-box h4,
+.research-box h4 span {
+    font-size: 20px;
+}
+
+.research-box img {
+    margin: auto;
+    width: 10%;
+}
+
+.research-box h1 {
+    font-size: 42px;
+}
+
+/* .testimonial-box{
+    display: none;   
+} */
+
+.mindsection-content{
+    text-align: center;
+}
+
+.mindsection-content h1 {
+    font-size: 40px;
+    padding: 0 0 20px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.Research-section h6,
+.Research-section h6 span  {
+    font-size: 18px;
+    margin: 12px 0 30px;
+    max-width: 100%;
+    line-height: 25px;
+    text-align: center;
+    
+}
+
+.mindsection-content .btn-submit {
+    padding: 15px 20px;
+    font-size: 20px;
+    display: block;
+}
+
+.mindsection-content .btn-submit:hover{
+    background-color: #f39026
+}
+.copyright {
+    float: none;
+}
+.copyright p {
+    padding: 20px 0 0;
+    font-size: 14px;
+}
+.privacypolicy {
+    float: right;
+    padding: 15px 0 15px;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+}
+
+/* Big Screens Navi Fix | >720px */
+
+@media only screen and (min-width : 481px) and (max-width : 640px) {
+    
+.mt {
+    margin-top: 20px;
+}
+
+.mt-1 {
+    margin-top: 50px;
+}
+
+.mt-2 {
+    margin-top: 30px;
+}
+
+.mt-3 {
+    margin-top: 30px;
+}
+
+.logo img{
+    margin: 0 auto;
+}
+
+.home-banner {
+    height: 420px;
+}
+
+.home-banner-tageline{
+    text-align: center !important;
+    
+}
+
+.home-banner-tageline h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000;
+    max-width: 100%;
+    margin: auto;
+}
+
+.home-banner-tageline h4 {
+    font-size: 26px;
+    max-width: 100%;
+    font-style: italic;
+    padding: 0px 0 50px;
+    color: #000;
+    margin: auto;
+}
+
+.home-banner-tageline .btn-submit {
+    padding: 15px 20px;
+    font-size: 20px;
+
+}
+.service-section {
+    padding: 40px 0px;
+}
+
+.service-part-cw {
+    height: 170px;
+}
+
+.service-part-yoga{
+    border-left: none;
+    width: 88%;
+    margin: auto;
+}
+
+.aboutus-content h4 {
+    font-size: 32px;
+}
+
+.aboutus-content p {
+    font-size: 18px;
+    max-width: 95%;
+    padding: 10px 0 15px;
+}
+
+.aboutus-section {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+.aboutus-box{
+    margin-bottom: 15px;
+}
+.aboutus-content h6,
+.aboutus-box h6{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.aboutus-box {
+    height: 200px;
+}
+.aboutus-box p{
+    margin: auto;
+    max-width: 75%;
+}
+
+.aboutus-workshop {
+    height: 820px;
+}
+.aboutus-workshop h4,
+.aboutus-workshop h4 span {
+    font-size: 30px;
+    padding: 30px 0 20px;
+}
+.aboutus-workshop-box-circle{
+    border-left: none;
+    height: 280px;
+}
+.aboutus-workshop-box{
+    height: 225px;
+}
+.aboutus-workshop-box h4 ,
+.aboutus-workshop-box-circle h4{
+    font-size: 26px;
+    padding: 10px 0 0px;
+}
+.aboutus-workshop-box p, 
+.aboutus-workshop-box-circle p {
+    margin: auto;
+    max-width: 65%;
+    font-size: 20px;
+}
+
+.aboutus-calender {
+    height: 75px;
+}
+
+.aboutus-direction {
+    height: 75px;
+}
+
+.aboutus-calender i, 
+.aboutus-direction i{
+    font-size: 40px;
+    padding: 20px;
+    width: 28%;
+}
+
+.aboutus-calender h6, 
+.aboutus-direction h6{
+    padding: 15px;
+    font-size: 24px;
+}
+
+.spot-section {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-color: #e4f2ff;
+    background-image: none;
+}
+.spot-form{
+    margin: 20px ;
+}
+
+.spot-form-lable ,
+.spot-form-input {
+   width: 60% !important;
+   color: #000;
+}
+
+.spot-form-datepicker {
+    width: 40% !important;
+    margin-left: 97px;
+    background-color: rgba(240, 248, 255, 0.59) !important;
+    border: 1px solid rgba(174, 217, 255, 0.84) !important;
+}
+
+.spot-form-input {
+    background-color: rgba(240, 248, 255, 0.59) !important;
+    border: 1px solid rgba(174, 217, 255, 0.84) !important;
+}
+
+.spot-section h1{
+    font-size: 32px;
+    margin: 20px;
+    text-align: center;
+    max-width: 100%;
+    color: #000;
+    padding: 10px 0;
+}
+
+.spot-section h1 span{
+    font-size: 32px;
+    text-align: center;
+    max-width: 100%;
+    color: #000;
+    padding: 10px 0;
+    margin: 0 10px 0; 
+}
+
+.trainer-box{
+    height: 360px;
+}
+
+.trainer-box h4{
+    font-size: 24px !important;
+    padding: 5px 0 0;
+}
+
+.trainer-section{
+    padding: 20px 0;
+}
+
+.trainer-section h4,
+.trainer-section h4 span{
+    text-align: center;
+    font-size: 32px;
+    padding: 10px 0 20px;
+}
+
+.ourvenue-section {
+    background-color: black;
+    opacity: 0.9;
+    background: linear-gradient( rgba(255, 255, 255, 0.60), rgba(247, 251, 253, 0.67) ),url(../images/our-vision-banner.jpg);
+    background-size: cover;
+}
+
+.ourvenue-content {
+    margin: 0 auto;
+}
+
+.ourvenue-content h1 {
+    font-size: 46px;
+    max-width: 100%;
+    text-align: center;
+    padding: 20px 0 0;
+    color: #000;
+    opacity: 0.8;
+
+}
+
+.ourvenue-content p {
+    font-size: 18px;
+    margin: auto;
+    max-width: 90%;
+    text-align: center;
+    color: #000;
+}
+
+.sociallink-section h4, 
+.sociallink-section h4 span {
+    font-size: 36px;
+    margin: 20px 0 20px;
+}
+
+.social-link {
+    margin: 10px 0 20px;
+}
+
+.social-link img {
+    padding: 0px 6px 2px;
+    width: 12%;
+}
+
+.happyprogram-content h1 {
+    font-size: 36px;
+}
+
+.happyprogram-content p {
+    max-width: 90%;
+    text-align: center;
+    margin: auto;
+    font-size: 18px;
+    padding: 10px 0 20px;
+}
+
+.video-container h4 {
+    font-size: 32px;
+    padding: 20px 0 20px;
+    width: 85%;
+    margin: auto;
+}
+
+.Research-section {
+    width: 100%;
+    height: 1830px;
+    background-position: right;
+}
+.happyprogram-section {
+    width: 100%;
+    height: 1560px;
+}
+
+.testimonial-section h4 {
+    font-size: 36px;
+    padding: 10px 0px;
+}
+
+.Research-section h4, 
+.Research-section h4 span { 
+    font-size: 36px;
+    margin: 20px 0 0;
+}
+
+.Research-section h6 {
+    font-size: 20px;
+    margin: 10px 0 20px;
+}
+
+.Research-section p {
+    font-size: 18px;
+    margin: 10px auto;
+    max-width: 85%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+}
+
+.research-box h4 ,
+.research-box h4 span {
+    font-size: 22px;
+    text-align: center;
+    max-width: 100%;
+}
+.research-box p {
+    font-size: 18px;
+}
+
+.research-box h1 {
+    font-size: 42px;
+    max-width: 100%;
+    padding: 6px 0;
+}
+
+.research-box img {
+    margin: auto;
+    width: 8%;
+}
+
+.mindsection-content{
+    text-align: center;
+}
+
+.mindsection-content h1 {
+    font-size: 48px;
+    max-width: 100%;
+    padding: 20px 0;
+}
+
+.mindsection-content h6,
+.mindsection-content h6 span {
+    font-size: 22px;
+    font-style: italic;
+    text-transform: uppercase;
+    max-width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 30px;
+}
+
+.mindsection-content .btn-submit {
+    padding: 15px 20px;
+    font-size: 18px;
+}
+
+.testimonial-box{
+    height: 450px;
+}
+
+.testimonial-box img{
+    width: 50%;
+}
+
+.testimonial-box p {
+    margin: 10px auto 20px;
+    max-width: 80%;
+    font-size: 14px;
+}
+
+.testimonial-section h4,
+.testimonial-section h4 span{
+    font-size: 24px;
+}
+
+.testimonial-box h4{
+    font-size: 16px;
+}
+
+.testimonial-box h6 {
+    margin: auto;
+    max-width: 80%;
+    font-size: 16px;
+    line-height: 15px;
+}
+
+.copyright{
+    float: none;
+    
+}
+
+.copyright p {
+    padding: 20px 0 20px;
+    font-size: 14px;
+}
+
+.privacypolicy {
+    float: none;
+    width: 100%;
+    text-align: center;
+    padding: 0 0 15px;
+}
+
+#scroll {
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    width: 40px;
+    height: 40px;
+    z-index: 9999;
+}
+
+
+}
+
+
+/* Tablets (portrait) | <800px */
+
+
+
+@media only screen and (min-width : 641px) and (max-width : 768px) {
+
+#scroll {
+    width:40px;
+    height:40px;
+}
+
+.mt {
+    margin-top: 40px;
+}
+.mt-1 {
+    margin-top: 120px;
+}
+
+.mt-3 {
+    margin-top: 40px;
+}
+
+.logo img{
+    margin: auto;
+}
+.home-banner {
+    height: 580px;
+    background-position: center;
+}
+
+.home-banner-tageline {
+    text-align: center;
+}
+
+.home-banner-tageline h1 {
+    font-size: 48px;
+}
+
+.home-banner-tageline h4 {
+    font-size: 40px;
+    max-width: 86%;
+    margin: auto;
+}
+
+.home-banner-tageline .btn-submit {
+    padding: 15px 40px;
+    font-size: 22px;
+}
+
+.service-section {
+    padding: 55px 0px 0;
+}
+
+.service-part-cw{
+    height: 140px;
+}
+
+.service-part-yoga{
+    border-left: none;
+}
+
+.service-part-cw p, 
+.service-part-yoga p{
+    font-size: 18px;
+}
+
+.aboutus-section {
+    height: 1087px;
+}
+.aboutus-box{
+    margin-bottom: 15px;
+}
+.aboutus-box h6 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.aboutus-box p {
+    max-width: 70%;
+    font-size: 18px;
+}
+
+.aboutus-workshop-box-circle{
+    border-left: none;
+    height: 250px;
+}
+
+.aboutus-section {
+    height: 100%;
+    width: 100%;
+}
+
+.aboutus-workshop {
+    height: 813px;
+}
+
+.aboutus-workshop h4,
+.aboutus-workshop h4 span {
+    font-size: 30px;
+}
+
+.aboutus-workshop-box{
+    height: 200px;
+}
+
+.aboutus-content p{
+    max-width: 85%;
+    margin: auto;
+}
+
+
+.aboutus-workshop-box h4 ,
+.aboutus-workshop-box-circle h4{
+    font-size: 26px;
+    padding: 10px 0 0;
+}
+
+.aboutus-workshop-box p, 
+.aboutus-workshop-box-circle p{
+    max-width: 60%;
+    font-size: 18px;
+}
+
+.aboutus-calender h6, 
+.aboutus-direction h6 {
+    font-size: 22px;
+    padding: 14px 0;
+}
+
+.aboutus-calender {
+    height: 70px;
+}
+
+.aboutus-direction {
+    height: 70px;
+}
+
+.aboutus-calender i, 
+.aboutus-direction i {
+    font-size: 36px;
+    padding: 20px;
+}
+
+.spot-section {
+    background-position: center;
+}
+
+.spot-section h1,
+.spot-section h1 span{
+    font-size: 36px;
+    margin: 15px auto;
+    padding: 15px 0 10px;
+    margin-top: 60px;
+}
+
+.spot-form {
+    margin: 130px;
+}
+
+.spot-form h1 {
+    font-size: 26px;
+    padding: 40px;
+}
+
+.spot-form-datepicker {
+    width: 60% !important;
+    margin-left: 55px;
+}
+
+.spot-form-input,
+.spot-form-lable {
+    width: 75% !important;
+    margin: auto;
+}
+
+.spot-form .btn-submit {
+    width: 76%;
+    padding: 15px 16px;
+    font-size: 18px;
+    display: block;
+}
+
+.spot-form .btn-submit:hover{
+    color: #fff;
+}
+
+.trainer-box {
+    height: 365px;
+}
+.trainer-box h4{
+    font-size: 24px;
+    padding: 0;
+}
+
+.trainer-box h6 {
+    padding-bottom: 30px;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+.ourvenue-content {
+    margin: 30px 0;
+}
+
+.ourvenue-section {
+    background-color: black;
+    opacity: 0.9;
+    background: linear-gradient( rgba(255, 255, 255, 0.60), rgba(247, 251, 253, 0.67) ),url(../images/our-vision-banner.jpg);
+    background-size: cover;
+}
+
+.ourvenue-content h1 {
+    font-size: 42px;
+    color: #000;
+    max-width: 100%;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.ourvenue-content p {
+    font-size: 18px;
+    max-width: 85%;
+    text-align: center;
+    color: #000;
+}
+
+.sociallink-section h4 ,
+.sociallink-section h4 span {
+    font-size: 40px;
+    margin: 30px 0 10px;
+} 
+
+.social-link {
+    margin: 25px 0 40px;
+}
+
+.social-link img {
+    padding: 0px 7px 0;
+    display: inline-block;
+    width: 10%;
+}
+
+.happyprogram-section {
+    height: 100%;
+    width: 100%;
+}
+
+.Research-section {
+    height: 2100px;
+    width: 100%;
+    background-position: center;
+}
+
+.research-box img {
+    margin: auto;
+    width: 7%;
+}
+
+.happyprogram-content h1 {
+    font-size: 38px;
+}
+
+.happyprogram-content p ,
+.Research-section p {
+    max-width: 80%;
+    font-size: 18px;
+}
+
+.video-container h4 ,
+.testimonial-section h4,
+.testimonial-section h4 span {
+    font-size: 32px;
+    max-width: 85%;
+    margin: auto;
+}
+
+.Research-section h4,
+.Research-section h4 span{
+    font-size: 36px;
+    margin: 40px 0 0;
+}
+
+.Research-section h6 {
+    font-size: 20px;
+}
+.research-box h4 ,.research-box h4 span  {
+    font-size: 22px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.research-box h1{
+    font-size: 48px;
+}
+
+.mindsection-content{
+    text-align: center;
+}
+
+.mindsection-content h1 {
+    font-size: 44px;
+    max-width: 100%;
+    margin: auto;
+}
+
+.mindsection-content h6,
+.mindsection-content h6 span{
+    font-size: 30px;
+    max-width: 75%;
+    margin: auto;
+    text-align: center;
+}
+
+.mindsection-content .btn-submit {
+    padding: 15px 30px;
+    font-size: 24px;
+}
+
+.testimonial-box h4{
+    font-size: 16px;
+} 
+
+.testimonial-box h6{
+    font-size: 14px;
+    max-width: 100%;
+}
+.testimonial-box{
+    height: 500px;
+}
+.testimonial-box p{
+    max-width: 80%;
+    font-size: 16px;
+}
+
+.trainer-section h4,
+.trainer-section h4 span{
+    text-align: center;
+    font-size: 38px;
+}
+  
+.trainer-box h4{
+    font-size: 20px;
+}
+
+.copyright {
+    float: none;
+}
+
+.copyright p {
+    padding: 15px 0px 15px;
+    font-size: 14px;
+}
+.privacypolicy {
+    float: right;
+    width: 100%;
+    margin: 0 0 20px;
+    text-align: center;
+    padding: 0px;
+}
+
+}
+
+
+@media only screen and (min-width : 768px) and (max-width : 768px) {
+.Research-section {
+    height: 1300px;
+    background-position: left;
+}
+
+}
+
+
+/* Tablets (landscape) | <960px */
+
+
+
+@media only screen and (min-width : 769px) and (max-width : 1024px) {
+#scroll {
+    width:40px;
+    height:40px;
+}
+
+.mt-1{
+    margin-top: 180px;
+}
+
+.mt {
+    margin-top: 50px;
+}
+
+.mt-3{
+    margin-top: 40px;
+}
+
+.logo img{
+    margin: auto;
+}
+
+.home-banner {
+    height: 690px;
+}
+
+.home-banner-tageline{
+    text-align: center;
+}
+
+.home-banner-tageline h1 {
+    font-size: 56px;
+    color: #000;
+}
+
+.home-banner-tageline h4,
+.home-banner-tageline h4 span {
+    font-size: 46px;
+    max-width: 72%;
+    margin: auto;
+}
+
+.home-banner-tageline .btn-submit {
+    padding: 15px 40px;
+    font-size: 26px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.service-section{
+    padding: 50px 0 30px;
+}
+
+.service-part-cw {
+    padding: 0;
+}
+
+.service-part-yoga {
+    border-left: none;
+    padding: 0;
+}
+
+.service-part-cw p,
+.service-part-yoga p {
+    margin: auto;
+    max-width: 88%;
+}
+
+
+.aboutus-section {
+    background-image: url(../images/aboutus-banner.jpg);
+    background-size: cover;
+    height: 1240px;
+    background-position: center;
+}
+
+.aboutus-box {
+    height: 300px;
+}
+
+.aboutus-workshop-box p, 
+.aboutus-workshop-box-circle p {
+    font-size: 18px;
+    max-width: 50%;
+}
+
+
+.aboutus-workshop-box-circle {
+    border-left: none;
+    height: 235px;
+}
+
+.aboutus-box h6 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.aboutus-box p {
+    max-width: 80%;
+    font-size: 18px;
+}
+
+.aboutus-workshop {
+    height: 465px;
+}
+
+.aboutus-workshop p {
+    margin: auto;
+    max-width: 80%;
+}
+
+.aboutus-workshop-box-circle,
+.aboutus-workshop-box {
+    border-left: none;
+    height: 275px;
+}
+
+.spot-section {
+    background-position: center;
+    height: 1000px;
+}
+
+.spot-form {
+    margin: 190px;
+}
+
+.spot-form-datepicker {
+    width: 60% !important;
+    margin-left: 85px;
+}
+
+.spot-form-lable {
+    margin: auto;
+    width: 70%;
+}
+
+.spot-form-input {
+    width: 70% !important;
+    margin: auto;
+}
+
+.spot-form .btn-submit {
+    margin: auto;
+    width: 70%;
+}
+
+.trainer-section h4{
+    text-align: center;
+}
+
+.trainer-box {
+    height: 350px;
+}
+
+.ourvenue-section {
+    background-color: black;
+    opacity: 0.9;
+    background: linear-gradient( rgba(255, 255, 255, 0.60), rgba(247, 251, 253, 0.67) ),url(../images/our-vision-banner.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.ourvenue-content h1 {
+    font-size: 50px;
+    color: #000;
+    max-width: 100%;
+    text-align: center;
+}
+
+.ourvenue-content p {
+    color: #000;
+    font-size: 18px;
+    margin: auto;
+    max-width: 100%;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.sociallink-section h4,
+.sociallink-section h4 span{
+    font-size: 48px;
+    margin: 30px 0;
+}
+
+.social-link {
+    margin: 20px 0 40px;
+}
+
+.testimonial-box {
+    height: 560px;
+}
+
+.testimonial-box p {
+    height: 220px;
+}
+
+.social-link img {
+    padding: 0px 8px 0px;
+    display: inline-block;
+    width: 10%;
+}
+
+.Research-section {
+    height: 1150px;
+    background-position: center;
+}
+
+.happyprogram-section {
+    height: 1685px;
+    background-position: center;
+}
+
+.research-box h1 {
+    font-size: 46px;
+}
+
+.research-box h4{
+    font-size: 22px;
+}
+
+.research-box p{
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+
+.mindsection-content{
+    text-align: center;
+}
+
+.mindsection-content h1 {
+    font-size: 54px;
+    max-width: 100%;
+}
+
+.mindsection-content h6 {
+    font-size: 36px;
+    text-align: center;
+    max-width: 65%;
+    margin: 0 auto;
+}
+
+.mindsection-content .btn-submit {
+    padding: 15px 40px;
+    font-size: 22px;
+}
+
+
+} 
+
+
+@media only screen and (min-width : 1025px) and (max-width : 1325px) {
+
+.spot-section {
+    background-image: url(../images/spot-banner-1.jpg);
+    background-size: cover;
+    height: 875px;
+    background-position: center;
+}
+
+.spot-form {
+    margin: 160px;
+}
+
+.spot-form-datepicker {
+    width: 30% !important;
+    margin: auto;
+    margin-left: 246px;
+}
+
+
+.trainer-section h4,
+.trainer-section h4 span {
+    text-align: center;
+    font-size: 52px;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.trainer-box h4{
+    font-size: 30px;
+    padding: 0;
+}
+
+.Research-section {
+    background-position: right;
+}
+
+.copyright p {
+    padding: 20px 0 20px;
+    font-size: 16px;
+}
+
+
+
+}
+
+@media only screen and (min-width : 1600px) and (max-width : 1980px) {
+
+.home-banner {
+    background-image: url(../images/home-banner.jpg);
+    background-size: cover;
+    height: 1180px;
+}
+
+.aboutus-section {
+    background-image: url(../images/aboutus-banner.jpg);
+    background-size: cover;
+    height: 1200px;
+    background-position: bottom;
+}
+ 
+.spot-section {
+    background-image: url(../images/spot-banner.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 1080px;
+}
+ 
+.spot-form {
+    margin: 295px;
+}
+
+.spot-form-datepicker {
+    width: 50% !important;
+    margin: auto;
+    margin-left: 70px;
+    background-color: rgba(240, 248, 255, 0.59) !important;
+    border: 1px solid #f7f7f7 !important;
+    height: 50px !important;
+    color: #000 !important;
+}
+
+.spot-form h1 {
+    font-size: 32px;
+    max-width: 100%;
+    margin: auto;
+    font-weight: 600;
+    color: #fff;
+    padding: 0 0 40px;
+}
+
+.spot-form-lable {
+    margin: auto;
+    width: 75%;
+    display: block;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.spot-form-input {
+    width: 75% !important;
+    margin: auto;
+    height: 50px !important;
+    font-size: 18px !important;
+    -webkit-appearance: none;
+}
+
+.spot-form .btn-submit {
+    text-decoration: none !important;
+    background-color: #ff7e00 ;
+    color: #fff;
+    display: block;
+    width: 75%;
+}
+
+.Research-section {
+    height: 1285px;
+    background-position: bottom;
+}
+
+.mindsection-content .btn-submit {
+    background-color: #ff7e00;
+    padding: 15px 50px;
+    font-size: 30px;
+}
+
+
+}
+
