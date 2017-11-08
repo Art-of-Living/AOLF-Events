@@ -10,6 +10,7 @@ var contactSchema = new mongoose.Schema({
   name: {type : String, required : true},
   email: {type : String, required : true},
   message: {type : String},
+  tel: {type : String},
   event_id: {type : Schema.Types.ObjectId, ref: 'event', autopopulate: true}
   
 }, schemaOptions);

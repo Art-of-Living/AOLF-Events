@@ -18,7 +18,7 @@ exports.getRows = function(req, res, next) {
 			async.filter(results, function(data, callback) {
 				var date = new Date();
 				var eventDate = data.event_end_date;
-				if(eventDate > date && eventDate !== undefined){
+				if(eventDate => date && eventDate !== undefined){
 					callback(true);
 				}else{
 					callback(false);
@@ -69,5 +69,36 @@ exports.addRow = function(req, res, next) {
 	}
 	
 	res.status(200).send(results);
+  })
+};
+
+
+exports.addRows = function(req, res, next) {
+  var data = req.body;
+  var Model = mongoose.model(req.params.collection);
+  
+  var createdData = [];
+  async.forEach(data, function(single, callback) {
+	switch(req.params.collection){
+		case  'event':
+			if(single.event_start_time){
+				single.event_start_time = Math.round(new Date(single.event_start_time).getTime()/1000)
+				single.event_end_time = Math.round(new Date(single.event_start_time).getTime()/1000)
+			}
+		break;
+	}
+	Model.create(single, function(err, results){
+		if(err){
+		  next(err)
+		}
+		
+		createdData.push(results);
+		callback();
+	})
+  },function(err){
+	if(err){
+		next(err);
+	}
+	res.status(200).send(createdData);
   })
 };

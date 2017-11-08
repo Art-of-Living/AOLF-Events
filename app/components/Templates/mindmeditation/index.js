@@ -3,6 +3,7 @@ import Header from './header';
 import { connect } from 'react-redux'
 import Footer from './footer';
 import Contact from '../../Contact';
+import { Helmet } from 'react-helmet'
 
 class Index extends React.Component {
 	constructor(props) {
@@ -18,6 +19,9 @@ class Index extends React.Component {
 	var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
     return (
       <div>
+		<Helmet>
+		  <title>{event.event_name}</title>
+		</Helmet>
 		<Header/>
 		<div className="container hero">
 			<div className="row">

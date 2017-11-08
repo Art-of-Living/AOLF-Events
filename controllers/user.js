@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var request = require('request');
 var qs = require('querystring');
-var User = require('../models/user.model');
+var mongoose = require("mongoose");
 
 function generateToken(user) {
   var payload = {
@@ -43,7 +43,9 @@ exports.ensureAuthenticated = function(req, res, next) {
       return res.status(400).send(errors);
     }
 
-    User.findOne({ email: req.body.email }, function(err, user) {
+    var Model = mongoose.model('user');
+  
+	Model.findOne({ email: req.body.email }, function(err, user) {
       if (!user) {
         return res.status(401).send({ msg: 'The email address ' + req.body.email + ' is not associated with any account. ' +
         'Double-check your email address and try again.'
@@ -74,7 +76,9 @@ exports.signupPost = function(req, res, next) {
     return res.status(400).send(errors);
   }
 
-  User.findOne({ email: req.body.email }, function(err, user) {
+  var Model = mongoose.model('user');
+  
+  Model.findOne({ email: req.body.email }, function(err, user) {
     if (user) {
     return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
     }
