@@ -11517,6 +11517,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11528,17 +11530,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ThankYou = function (_get__$Component) {
 	_inherits(ThankYou, _get__$Component);
 
-	function ThankYou() {
+	function ThankYou(props) {
 		_classCallCheck(this, ThankYou);
 
-		return _possibleConstructorReturn(this, (ThankYou.__proto__ || Object.getPrototypeOf(ThankYou)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (ThankYou.__proto__ || Object.getPrototypeOf(ThankYou)).call(this, props));
 	}
 
 	_createClass(ThankYou, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			$('body').addClass('web thank-you-page');
-			$('body').css('background-image', 'url(/templates/ArtOfLiving/images/thank-you-bg.png)');
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+				$('body').addClass('ios thank-you-page');
+			} else {
+				$('body').addClass('web thank-you-page');
+			};
+			$('body').css('background', 'url(/templates/ArtOfLiving/images/thank-you-bg.png)');
 		}
 	}, {
 		key: 'render',
@@ -11756,7 +11762,15 @@ var ThankYou = function (_get__$Component) {
 
 ;
 
-exports.default = _get__('ThankYou');
+var mapStateToProps = function mapStateToProps(state) {
+	return {
+		messages: state.messages
+	};
+};
+
+var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('ThankYou'));
+
+exports.default = _DefaultExportValue;
 var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
@@ -11786,6 +11800,12 @@ function _get_original__(variableName) {
 	switch (variableName) {
 		case 'React':
 			return _react2.default;
+
+		case 'connect':
+			return _reactRedux.connect;
+
+		case 'mapStateToProps':
+			return mapStateToProps;
 
 		case 'ThankYou':
 			return ThankYou;
@@ -11859,17 +11879,17 @@ function _with__(object) {
 	};
 }
 
-var _typeOfOriginalExport = typeof ThankYou === 'undefined' ? 'undefined' : _typeof(ThankYou);
+var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
 
 function addNonEnumerableProperty(name, value) {
-	Object.defineProperty(ThankYou, name, {
+	Object.defineProperty(_DefaultExportValue, name, {
 		value: value,
 		enumerable: false,
 		configurable: true
 	});
 }
 
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(ThankYou)) {
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
 	addNonEnumerableProperty('__get__', _get__);
 	addNonEnumerableProperty('__GetDependency__', _get__);
 	addNonEnumerableProperty('__Rewire__', _set__);
@@ -11887,7 +11907,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":310}],41:[function(require,module,exports){
+},{"react":310,"react-redux":130}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

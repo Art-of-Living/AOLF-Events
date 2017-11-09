@@ -1,10 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 class ThankYou extends React.Component {
 	
-  componentWillMount(){
-	  $('body').addClass('web thank-you-page');
-	  $('body').css('background-image','url(/templates/ArtOfLiving/images/thank-you-bg.png)')
+	constructor(props) {
+		super(props)
+	}
+	
+  componentDidMount(){
+	  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+			$('body').addClass('ios thank-you-page');
+	  } else{
+			$('body').addClass('web thank-you-page');
+	  };
+	  $('body').css('background','url(/templates/ArtOfLiving/images/thank-you-bg.png)')
   }
 
   render() {
@@ -115,4 +124,11 @@ class ThankYou extends React.Component {
   }
 };
 
-export default ThankYou;
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state.messages
+  };
+};
+
+export default connect(mapStateToProps)(ThankYou);
