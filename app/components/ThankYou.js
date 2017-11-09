@@ -3,12 +3,8 @@ import React from 'react';
 class ThankYou extends React.Component {
 	
   componentWillMount(){
-	  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-			$('body').addClass('ios thank-you-page');
-	  } else{
-			$('body').addClass('web thank-you-page');
-	  };
-	  $('body').css('background','url(/templates/ArtOfLiving/images/thank-you-bg.png)')
+	  $('body').addClass('web thank-you-page');
+	  $('body').css('background-image','url(/templates/ArtOfLiving/images/thank-you-bg.png)')
   }
 
   render() {

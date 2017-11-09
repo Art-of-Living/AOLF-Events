@@ -484,6 +484,15 @@ class Index extends React.Component {
 						</div>
 					</div>
 				</div>
+				<div className="row">
+					<div className="col-md-12">
+						<div className="text-center research__bottom_text">
+							<p>
+								* The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. The Happiness Program is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.
+							</p>
+						</div>
+					</div>
+				</div>
 			</section>
 			<Contact addClassName="hide-for-mobile" event={event} />
 			<section className="highlight show-for-mobile" style={style.highlight}>

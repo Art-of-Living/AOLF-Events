@@ -8590,6 +8590,23 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/arrow_down.png", alt: 'img' })
 							)
 						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'text-center research__bottom_text' },
+								_react2.default.createElement(
+									'p',
+									null,
+									'* The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. The Happiness Program is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.'
+								)
+							)
+						)
 					)
 				),
 				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', event: event }),
@@ -11520,12 +11537,8 @@ var ThankYou = function (_get__$Component) {
 	_createClass(ThankYou, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
-			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-				$('body').addClass('ios thank-you-page');
-			} else {
-				$('body').addClass('web thank-you-page');
-			};
-			$('body').css('background', 'url(/templates/ArtOfLiving/images/thank-you-bg.png)');
+			$('body').addClass('web thank-you-page');
+			$('body').css('background-image', 'url(/templates/ArtOfLiving/images/thank-you-bg.png)');
 		}
 	}, {
 		key: 'render',
