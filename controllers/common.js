@@ -16,9 +16,11 @@ exports.getRows = function(req, res, next) {
 	switch(req.params.collection){
 		case 'event':
 			async.filter(results, function(data, callback) {
-				var date = new Date();
-				var eventDate = data.event_end_date;
-				if(eventDate => date && eventDate !== undefined){
+				var date = new Date().setHours(0, 0, 0, 0);
+				var eventDate = new Date(data.event_end_date).setHours(0, 0, 0, 0);
+				
+				if(eventDate >= date && eventDate !== undefined){
+					console.log(data);
 					callback(true);
 				}else{
 					callback(false);

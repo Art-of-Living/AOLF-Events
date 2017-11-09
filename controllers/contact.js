@@ -68,6 +68,7 @@ exports.contactPost = function(req, res, next) {
 		request.get({ url : checkIfEmailVerified }, function(err, httpResponse, body) {
 			if (err) {
 				next(err);
+				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 			}
 
 			var json = JSON.parse(body);
@@ -82,6 +83,7 @@ exports.contactPost = function(req, res, next) {
 		request.get({ url : timeZoneAPI }, function(err, httpResponse, body) {
 			if(err){
 				next(err);
+				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 			}
 			
 			userDetail = JSON.parse(body);
@@ -95,6 +97,7 @@ exports.contactPost = function(req, res, next) {
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
 			if (err) {
 				next(err);
+				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 			}
 			
 			cb();
@@ -105,6 +108,7 @@ exports.contactPost = function(req, res, next) {
 		Model.create(dataToInsert, function(err, results){
 			if(err){
 			  next(err);
+			  res.status(400).send({ msg: 'There is some error please contact administrate.' });
 			}
 			
 			cb();

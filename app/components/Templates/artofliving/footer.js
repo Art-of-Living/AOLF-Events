@@ -14,7 +14,7 @@ class Footer extends React.Component {
 					<ul className="footer__links">
 						<li>
 							<span>
-								© 2017 Art of Living
+								&copy; 2017 Art of Living
 							</span>
 						</li>
 						<li>

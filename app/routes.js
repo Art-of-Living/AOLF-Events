@@ -6,6 +6,7 @@ import ComingSoon from './components/ComingSoon';
 import Contact from './components/Contact';
 import EventDetail from './components/EventDetail';
 import NotFound from './components/NotFound';
+import ThankYou from './components/ThankYou';
 import Login from './components/Account/Login';
 import Signup from './components/Account/Signup';
 import Profile from './components/Account/Profile';
@@ -35,6 +36,7 @@ export default function getRoutes(store) {
       <Route path="/events" component={Home} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
+      <Route path="/thankyou" component={ThankYou} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/account" component={Profile} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>

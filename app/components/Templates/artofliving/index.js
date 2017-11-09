@@ -22,10 +22,11 @@ class Index extends React.Component {
 	componentDidMount(){
 		this.renderMap();
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-			$('body').addClass('ios');
+			$('body').addClass('ios theme-artofliving');
 		} else{
-			$('body').addClass('web');
+			$('body').addClass('web theme-artofliving');
 		};
+		
 		$('body').removeClass('loaded');
 		
 		$('input, textarea').each(function(){
@@ -100,7 +101,7 @@ class Index extends React.Component {
   render() {	
 	var style = {
 		home_banner : {
-			"background" : "url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg)"
+			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 		},
 		banner_desk : {
 			"background" : "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
@@ -135,7 +136,7 @@ class Index extends React.Component {
 						</h2>
 						<div className="home_banner--text">
 							<p>
-								FREE mini worksop and introduction to the world-renowned Happiness Program.
+								FREE mini workshop and introduction to more advanced paid programs including the world-renowned Happiness Program
 							</p>
 						</div>
 						<a href="#chose_day" className="btn btn-lg">
@@ -243,8 +244,7 @@ class Index extends React.Component {
 					</h2>
 					<p>
 						2354 Walsh Ave<br />
-						Santa Clara<br />
-						California<br />
+						Santa Clara, CA<br />
 						United States<br />
 						95051
 					</p>
@@ -268,7 +268,7 @@ class Index extends React.Component {
 							About <span>The Happiness Program</span>
 						</h2>
 						<p>
-							The Happiness Program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on <span>The Happiness Program</span> is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
+							The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. <span>The Happiness Program</span> is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.
 						</p>
 					</div>
 				</div>
@@ -414,7 +414,7 @@ class Index extends React.Component {
 				<div className="row">
 					<div className="col-md-12">
 						<h2 className="research__title">
-							Scientific Research on the Art of Living Breathing Techniques
+							Scientific Research on the <br /> Art of Living Breathing Techniques<span>*</span>
 						</h2>
 					</div>
 				</div>
@@ -439,7 +439,7 @@ class Index extends React.Component {
 						<h4 className="research__block--title">
 							Well-Being
 						</h4>
-						<span className="research__block--subtitle"><span>Hormones</span> Increases</span>
+						<span className="research__block--subtitle"><span>Hormones</span> Increase</span>
 						<span className="percent">50%</span>
 						<span className="percent_subtitle">
 							Increase

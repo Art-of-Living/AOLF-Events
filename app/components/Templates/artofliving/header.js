@@ -5,19 +5,17 @@ import { connect } from 'react-redux'
 class Header extends React.Component {
   render() {    
     return (
-		<div>
-			<header className="header">
-				<div className="row">
-					<div className="col-md-12">
-						<div className="header__logo text-center">
-							<a href="#">
-								<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png"} alt="logo" />
-							</a>
-						</div>
+		<header className="header">
+			<div className="row">
+				<div className="col-md-12">
+					<div className="header__logo text-center">
+						<a href="#">
+							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png"} alt="logo" />
+						</a>
 					</div>
 				</div>
-			</header>
-        </div>
+			</div>
+		</header>
     );
   }
 }
