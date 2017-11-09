@@ -235,7 +235,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-			<Contact event_id={event._id} />
+			<Contact event={event} />
 			<section className="map_section clearfix">
 				<div className="map_section__content">
 					<h2 className="map_section--title">
@@ -485,7 +485,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-			<Contact addClassName="hide-for-mobile" event_id={event._id} />
+			<Contact addClassName="hide-for-mobile" event={event} />
 			<section className="highlight show-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="col-md-12">

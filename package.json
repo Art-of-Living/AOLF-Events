@@ -14,6 +14,7 @@
     "watch:js": "watchify app/main.js -t [ babelify --presets [es2015 react] ] -v -o public/js/bundle.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "async": "^1.5.2",
     "babel-core": "^6.7.2",
     "babel-polyfill": "^6.7.2",
@@ -53,6 +54,7 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.0.1",
     "request": "^2.83.0",
+    "sendgrid": "^5.2.3",
     "watchify": "^3.7.0",
     "whatwg-fetch": "^0.11.0"
   },

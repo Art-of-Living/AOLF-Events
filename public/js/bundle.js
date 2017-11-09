@@ -2049,7 +2049,7 @@ var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function submitContactForm(name, email, tel, event_id) {
+function submitContactForm(name, email, tel, event) {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -2061,7 +2061,7 @@ function submitContactForm(name, email, tel, event_id) {
         name: name,
         email: email,
         tel: tel,
-        event_id: event_id
+        event: event
       })
     }).then(function (response) {
       if (response.ok) {
@@ -6999,7 +6999,7 @@ var Contact = function (_get__$Component) {
 
 		var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
-		_this.state = { name: '', email: '', tel: '', event_id: '', addClassName: '' };
+		_this.state = { name: '', email: '', tel: '', event: {}, addClassName: '' };
 		return _this;
 	}
 
@@ -7012,8 +7012,8 @@ var Contact = function (_get__$Component) {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
-			this.state.event_id = this.props.event_id;
-			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event_id));
+			this.state.event = this.props.event;
+			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event));
 		}
 	}, {
 		key: 'render',
@@ -8095,7 +8095,7 @@ var Index = function (_get__$Component) {
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component, { event_id: event._id }),
+				_react2.default.createElement(_Contact_Component, { event: event }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'map_section clearfix' },
@@ -8571,7 +8571,7 @@ var Index = function (_get__$Component) {
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', event_id: event._id }),
+				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', event: event }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'highlight show-for-mobile', style: style.highlight },

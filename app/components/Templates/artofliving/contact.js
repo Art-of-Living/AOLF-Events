@@ -6,7 +6,7 @@ import Messages from '../../Messages';
 class Contact extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', tel : '', event_id : '',addClassName : ''};
+    this.state = { name: '', email: '', tel : '', event : {}, addClassName : ''};
   }
 
   handleChange(event) {
@@ -15,8 +15,8 @@ class Contact extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-	this.state.event_id = this.props.event_id
-    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event_id));
+	this.state.event = this.props.event
+    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event));
   }
 
   render() {
