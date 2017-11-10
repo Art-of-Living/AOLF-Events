@@ -2068,7 +2068,7 @@ function submitContactForm(name, email, tel, event, onSuccess) {
     }).then(function (response) {
       if (response.ok) {
         return response.json().then(function (json) {
-          _get__('browserHistory').push('/thankyou');
+          onSuccess();
         });
       } else {
         return response.json().then(function (json) {
@@ -2110,9 +2110,6 @@ function _get_original__(variableName) {
   switch (variableName) {
     case 'fetch':
       return _isomorphicFetch2.default;
-
-    case 'browserHistory':
-      return _reactRouter.browserHistory;
   }
 
   return undefined;
@@ -7004,6 +7001,7 @@ var Contact = function (_get__$Component) {
 
 		var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
+		_this.onSuccess = _this.onSuccess.bind(_this);
 		_this.state = { name: '', email: '', tel: '', event: {}, addClassName: '' };
 		return _this;
 	}
@@ -7018,7 +7016,18 @@ var Contact = function (_get__$Component) {
 		value: function handleSubmit(event) {
 			event.preventDefault();
 			this.state.event = this.props.event;
-			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event));
+			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
+		}
+	}, {
+		key: 'onSuccess',
+		value: function onSuccess() {
+			this.props.router.push({
+				pathname: '/thankyou',
+				state: {
+					event: this.state.event,
+					userEmail: this.state.email
+				}
+			});
 		}
 	}, {
 		key: 'render',
@@ -7142,9 +7151,9 @@ var mapStateToProps = function mapStateToProps(state) {
 	};
 };
 
-var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('Contact'));
-
-exports.default = _DefaultExportValue;
+var connectedContainer = _get__('connect')(_get__('mapStateToProps'))(_get__('Contact'));
+var RoutedContainer = _get__('withRouter')(_get__('connectedContainer'));
+exports.default = _get__('RoutedContainer');
 var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
@@ -7189,6 +7198,15 @@ function _get_original__(variableName) {
 
 		case 'Contact':
 			return Contact;
+
+		case 'withRouter':
+			return _reactRouter.withRouter;
+
+		case 'connectedContainer':
+			return connectedContainer;
+
+		case 'RoutedContainer':
+			return RoutedContainer;
 	}
 
 	return undefined;
@@ -7259,17 +7277,17 @@ function _with__(object) {
 	};
 }
 
-var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
+var _typeOfOriginalExport = typeof RoutedContainer === 'undefined' ? 'undefined' : _typeof(RoutedContainer);
 
 function addNonEnumerableProperty(name, value) {
-	Object.defineProperty(_DefaultExportValue, name, {
+	Object.defineProperty(RoutedContainer, name, {
 		value: value,
 		enumerable: false,
 		configurable: true
 	});
 }
 
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(RoutedContainer)) {
 	addNonEnumerableProperty('__get__', _get__);
 	addNonEnumerableProperty('__GetDependency__', _get__);
 	addNonEnumerableProperty('__Rewire__', _set__);
@@ -7762,6 +7780,8 @@ var _contact = require('./contact');
 var _contact2 = _interopRequireDefault(_contact);
 
 var _reactHelmet = require('react-helmet');
+
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8673,9 +8693,9 @@ var mapStateToProps = function mapStateToProps(state) {
 	};
 };
 
-var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('Index'));
-
-exports.default = _DefaultExportValue;
+var connectedContainer = _get__('connect')(_get__('mapStateToProps'))(_get__('Index'));
+var RoutedContainer = _get__('withRouter')(_get__('connectedContainer'));
+exports.default = _get__('RoutedContainer');
 var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
@@ -8726,6 +8746,15 @@ function _get_original__(variableName) {
 
 		case 'Index':
 			return Index;
+
+		case 'withRouter':
+			return _reactRouter.withRouter;
+
+		case 'connectedContainer':
+			return connectedContainer;
+
+		case 'RoutedContainer':
+			return RoutedContainer;
 	}
 
 	return undefined;
@@ -8796,17 +8825,17 @@ function _with__(object) {
 	};
 }
 
-var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
+var _typeOfOriginalExport = typeof RoutedContainer === 'undefined' ? 'undefined' : _typeof(RoutedContainer);
 
 function addNonEnumerableProperty(name, value) {
-	Object.defineProperty(_DefaultExportValue, name, {
+	Object.defineProperty(RoutedContainer, name, {
 		value: value,
 		enumerable: false,
 		configurable: true
 	});
 }
 
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(RoutedContainer)) {
 	addNonEnumerableProperty('__get__', _get__);
 	addNonEnumerableProperty('__GetDependency__', _get__);
 	addNonEnumerableProperty('__Rewire__', _set__);
@@ -8825,7 +8854,7 @@ exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
-},{"./contact":26,"./footer":27,"./header":28,"_process":1,"react":310,"react-helmet":125,"react-redux":130}],30:[function(require,module,exports){
+},{"./contact":26,"./footer":27,"./header":28,"_process":1,"react":310,"react-helmet":125,"react-redux":130,"react-router":163}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11528,6 +11557,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11542,7 +11573,19 @@ var ThankYou = function (_get__$Component) {
 	function ThankYou(props) {
 		_classCallCheck(this, ThankYou);
 
-		return _possibleConstructorReturn(this, (ThankYou.__proto__ || Object.getPrototypeOf(ThankYou)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (ThankYou.__proto__ || Object.getPrototypeOf(ThankYou)).call(this, props));
+
+		_this.state = {
+			event: {},
+			userEmail: ''
+		};
+
+		if (_this.props.location.state === null) {
+			_this.props.router.push({
+				pathname: '/events'
+			});
+		}
+		return _this;
 	}
 
 	_createClass(ThankYou, [{
@@ -11553,6 +11596,7 @@ var ThankYou = function (_get__$Component) {
 			} else {
 				$('body').addClass('web thank-you-page');
 			};
+			addeventatc.refresh();
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -11562,6 +11606,10 @@ var ThankYou = function (_get__$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			if (this.props.location.state !== null) {
+				this.state.event = this.props.location.state.event;
+				this.state.userEmail = this.props.location.state.userEmail;
+			}
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -11579,7 +11627,8 @@ var ThankYou = function (_get__$Component) {
 						_react2.default.createElement(
 							'p',
 							null,
-							'A confirmation email has been sent to xxx@ddd.com'
+							'A confirmation email has been sent to ',
+							this.state.userEmail
 						),
 						_react2.default.createElement(
 							'h1',
@@ -11596,38 +11645,42 @@ var ThankYou = function (_get__$Component) {
 							'div',
 							{ className: 'thank_you_buttons' },
 							_react2.default.createElement(
-								'div',
-								{ title: 'Add to Calendar', className: 'addeventatc' },
-								'Add to Calendar',
+								'a',
+								{ href: '#' },
 								_react2.default.createElement(
-									'span',
-									{ className: 'start' },
-									'11/24/2017 08:00 AM'
-								),
-								_react2.default.createElement(
-									'span',
-									{ className: 'end' },
-									'11/24/2017 10:00 AM'
-								),
-								_react2.default.createElement(
-									'span',
-									{ className: 'timezone' },
-									'America/Los_Angeles'
-								),
-								_react2.default.createElement(
-									'span',
-									{ className: 'title' },
-									'Summary of the event'
-								),
-								_react2.default.createElement(
-									'span',
-									{ className: 'description' },
-									'Description of the event'
-								),
-								_react2.default.createElement(
-									'span',
-									{ className: 'location' },
-									'Location of the event'
+									'div',
+									{ title: 'Add to Calendar', className: 'addeventatc' },
+									'Add to Calendar',
+									_react2.default.createElement(
+										'span',
+										{ className: 'start' },
+										this.state.event.event_start_date
+									),
+									_react2.default.createElement(
+										'span',
+										{ className: 'end' },
+										this.state.event.event_end_date
+									),
+									_react2.default.createElement(
+										'span',
+										{ className: 'timezone' },
+										'America/Los_Angeles'
+									),
+									_react2.default.createElement(
+										'span',
+										{ className: 'title' },
+										this.state.event.event_name
+									),
+									_react2.default.createElement(
+										'span',
+										{ className: 'description' },
+										'Description of the event'
+									),
+									_react2.default.createElement(
+										'span',
+										{ className: 'location' },
+										'Location of the event'
+									)
 								)
 							),
 							_react2.default.createElement(
@@ -11810,9 +11863,9 @@ var mapStateToProps = function mapStateToProps(state) {
 	};
 };
 
-var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('ThankYou'));
-
-exports.default = _DefaultExportValue;
+var connectedContainer = _get__('connect')(_get__('mapStateToProps'))(_get__('ThankYou'));
+var RoutedContainer = _get__('withRouter')(_get__('connectedContainer'));
+exports.default = _get__('RoutedContainer');
 var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
@@ -11851,6 +11904,15 @@ function _get_original__(variableName) {
 
 		case 'ThankYou':
 			return ThankYou;
+
+		case 'withRouter':
+			return _reactRouter.withRouter;
+
+		case 'connectedContainer':
+			return connectedContainer;
+
+		case 'RoutedContainer':
+			return RoutedContainer;
 	}
 
 	return undefined;
@@ -11921,17 +11983,17 @@ function _with__(object) {
 	};
 }
 
-var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
+var _typeOfOriginalExport = typeof RoutedContainer === 'undefined' ? 'undefined' : _typeof(RoutedContainer);
 
 function addNonEnumerableProperty(name, value) {
-	Object.defineProperty(_DefaultExportValue, name, {
+	Object.defineProperty(RoutedContainer, name, {
 		value: value,
 		enumerable: false,
 		configurable: true
 	});
 }
 
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(RoutedContainer)) {
 	addNonEnumerableProperty('__get__', _get__);
 	addNonEnumerableProperty('__GetDependency__', _get__);
 	addNonEnumerableProperty('__Rewire__', _set__);
@@ -11949,7 +12011,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":310,"react-redux":130}],41:[function(require,module,exports){
+},{"react":310,"react-redux":130,"react-router":163}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

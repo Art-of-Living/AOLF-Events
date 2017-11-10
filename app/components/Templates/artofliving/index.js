@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Footer from './footer';
 import Contact from './contact';
 import { Helmet } from 'react-helmet'
+import { withRouter } from 'react-router' 
 
 class Index extends React.Component {	
 	constructor(props) {
@@ -531,4 +532,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Index);
+const connectedContainer = connect(mapStateToProps)(Index);
+const RoutedContainer = withRouter(connectedContainer);
+export default RoutedContainer;

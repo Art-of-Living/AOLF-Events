@@ -18,7 +18,7 @@ export function submitContactForm(name, email, tel, event, onSuccess) {
     }).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
-          browserHistory.push('/thankyou');
+          onSuccess();
         });
       } else {
         return response.json().then((json) => {

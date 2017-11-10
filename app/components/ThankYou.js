@@ -1,18 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 
 class ThankYou extends React.Component {
 	
-	constructor(props) {
+  constructor(props) {
 		super(props)
-	}
-	
+		
+		this.state = {
+			event : {},
+			userEmail : ''
+		}
+		
+		if(this.props.location.state === null){
+			this.props.router.push({
+				pathname: '/events'
+			})
+		}
+  }
+  
   componentDidMount(){
 	  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 			$('body').addClass('ios thank-you-page');
 	  } else{
 			$('body').addClass('web thank-you-page');
 	  };
+	  addeventatc.refresh();
   }
   
   componentWillUnmount() {
@@ -20,26 +33,32 @@ class ThankYou extends React.Component {
   }
 
   render() {
+	if(this.props.location.state !== null){  
+		this.state.event = this.props.location.state.event;
+		this.state.userEmail = this.props.location.state.userEmail;
+	}
 	return (
 		<div>
 		  <section className="thank_you_container">
 			<div className="inner_container">
 				<h6>Thank you, your seat has been reserved</h6>
-				<p>A confirmation email has been sent to xxx@ddd.com</p>
+				<p>A confirmation email has been sent to {this.state.userEmail}</p>
 				<h1>
 					You&#8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
 				</h1>
 
 				<div className="thank_you_buttons">
-					<div title="Add to Calendar" className="addeventatc">
-						Add to Calendar
-						<span className="start">11/24/2017 08:00 AM</span>
-						<span className="end">11/24/2017 10:00 AM</span>
-						<span className="timezone">America/Los_Angeles</span>
-						<span className="title">Summary of the event</span>
-						<span className="description">Description of the event</span>
-						<span className="location">Location of the event</span>
-					</div>
+					<a href="#">
+						<div title="Add to Calendar" className="addeventatc">
+							Add to Calendar
+							<span className="start">{this.state.event.event_start_date}</span>
+							<span className="end">{this.state.event.event_end_date}</span>
+							<span className="timezone">America/Los_Angeles</span>
+							<span className="title">{this.state.event.event_name}</span>
+							<span className="description">Description of the event</span>
+							<span className="location">Location of the event</span>
+						</div>
+					</a>
 					<a href="#">
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
 						Get directions
@@ -139,4 +158,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ThankYou);
+
+const connectedContainer = connect(mapStateToProps)(ThankYou);
+const RoutedContainer = withRouter(connectedContainer);
+export default RoutedContainer;

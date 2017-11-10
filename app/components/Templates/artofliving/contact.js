@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { submitContactForm } from '../../../actions/contact';
 import Messages from '../../Messages';
 import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router'
 
 class Contact extends React.Component {
   constructor(props) {
     super(props);
+	this.onSuccess = this.onSuccess.bind(this);
     this.state = { name: '', email: '', tel : '', event : {}, addClassName : ''};
   }
 
@@ -17,8 +19,18 @@ class Contact extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 	this.state.event = this.props.event
-    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event));
+    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
   }
+  
+  onSuccess (){
+	  this.props.router.push({
+	    pathname: '/thankyou',
+		state: {
+			event: this.state.event,
+			userEmail: this.state.email
+		}
+	  })
+	}
 
   render() {
 	var style = {
@@ -78,4 +90,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Contact);
+const connectedContainer = connect(mapStateToProps)(Contact);
+const RoutedContainer = withRouter(connectedContainer);
+export default RoutedContainer;
