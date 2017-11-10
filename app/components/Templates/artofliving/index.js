@@ -19,6 +19,10 @@ class Index extends React.Component {
 		$('.video_block--img').hide(200);
 	}
 	
+	componentWillUnmount() {
+		$('body').removeClass('theme-artofliving');
+	}
+	 
 	componentDidMount(){
 		this.renderMap();
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {

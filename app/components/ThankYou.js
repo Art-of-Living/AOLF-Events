@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class ThankYou extends React.Component {
 	
@@ -13,7 +13,10 @@ class ThankYou extends React.Component {
 	  } else{
 			$('body').addClass('web thank-you-page');
 	  };
-	  $('body').css('background','url(/templates/ArtOfLiving/images/thank-you-bg.png)')
+  }
+  
+  componentWillUnmount() {
+	$('body').removeClass('thank-you-page');
   }
 
   render() {
@@ -28,10 +31,15 @@ class ThankYou extends React.Component {
 				</h1>
 
 				<div className="thank_you_buttons">
-					<a href="#">
-						<i className="fa fa-calendar" aria-hidden="true"></i>
-						Add to calendar
-					</a>
+					<div title="Add to Calendar" className="addeventatc">
+						Add to Calendar
+						<span className="start">11/24/2017 08:00 AM</span>
+						<span className="end">11/24/2017 10:00 AM</span>
+						<span className="timezone">America/Los_Angeles</span>
+						<span className="title">Summary of the event</span>
+						<span className="description">Description of the event</span>
+						<span className="location">Location of the event</span>
+					</div>
 					<a href="#">
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
 						Get directions

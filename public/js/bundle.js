@@ -2047,9 +2047,11 @@ var _isomorphicFetch = require('isomorphic-fetch');
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function submitContactForm(name, email, tel, event) {
+function submitContactForm(name, email, tel, event, onSuccess) {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -2066,10 +2068,7 @@ function submitContactForm(name, email, tel, event) {
     }).then(function (response) {
       if (response.ok) {
         return response.json().then(function (json) {
-          dispatch({
-            type: 'CONTACT_FORM_SUCCESS',
-            messages: [json]
-          });
+          _get__('browserHistory').push('/thankyou');
         });
       } else {
         return response.json().then(function (json) {
@@ -2111,6 +2110,9 @@ function _get_original__(variableName) {
   switch (variableName) {
     case 'fetch':
       return _isomorphicFetch2.default;
+
+    case 'browserHistory':
+      return _reactRouter.browserHistory;
   }
 
   return undefined;
@@ -2189,7 +2191,7 @@ exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 exports.default = _RewireAPI__;
 
-},{"isomorphic-fetch":99}],10:[function(require,module,exports){
+},{"isomorphic-fetch":99,"react-router":163}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6982,6 +6984,8 @@ var _Messages = require('../../Messages');
 
 var _Messages2 = _interopRequireDefault(_Messages);
 
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7284,7 +7288,7 @@ exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
-},{"../../../actions/contact":9,"../../Messages":23,"_process":1,"react":310,"react-redux":130}],27:[function(require,module,exports){
+},{"../../../actions/contact":9,"../../Messages":23,"_process":1,"react":310,"react-redux":130,"react-router":163}],27:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -7786,6 +7790,11 @@ var Index = function (_get__$Component) {
 		value: function onClickPlayButton(event) {
 			event.preventDefault();
 			$('.video_block--img').hide(200);
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			$('body').removeClass('theme-artofliving');
 		}
 	}, {
 		key: 'componentDidMount',
@@ -11544,7 +11553,11 @@ var ThankYou = function (_get__$Component) {
 			} else {
 				$('body').addClass('web thank-you-page');
 			};
-			$('body').css('background', 'url(/templates/ArtOfLiving/images/thank-you-bg.png)');
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			$('body').removeClass('thank-you-page');
 		}
 	}, {
 		key: 'render',
@@ -11583,10 +11596,39 @@ var ThankYou = function (_get__$Component) {
 							'div',
 							{ className: 'thank_you_buttons' },
 							_react2.default.createElement(
-								'a',
-								{ href: '#' },
-								_react2.default.createElement('i', { className: 'fa fa-calendar', 'aria-hidden': 'true' }),
-								'Add to calendar'
+								'div',
+								{ title: 'Add to Calendar', className: 'addeventatc' },
+								'Add to Calendar',
+								_react2.default.createElement(
+									'span',
+									{ className: 'start' },
+									'11/24/2017 08:00 AM'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'end' },
+									'11/24/2017 10:00 AM'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'timezone' },
+									'America/Los_Angeles'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'title' },
+									'Summary of the event'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'description' },
+									'Description of the event'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'location' },
+									'Location of the event'
+								)
 							),
 							_react2.default.createElement(
 								'a',

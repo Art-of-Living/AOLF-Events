@@ -67,12 +67,12 @@ exports.contactPost = function(req, res, next) {
 		// Checck briteverify API for the email verification
 		request.get({ url : checkIfEmailVerified }, function(err, httpResponse, body) {
 			if (err) {
-				next(err);
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
+				next(err);
 			}
 
 			var json = JSON.parse(body);
-			if(json.status === 'valid'){
+			if(json.status === 'valid' || json.status === 'unknown'){
 				cb(null, 'test');
 			}else{
 				res.status(400).send({ msg: 'Email is not valid.' });
@@ -82,8 +82,8 @@ exports.contactPost = function(req, res, next) {
 	function(cb){
 		request.get({ url : timeZoneAPI }, function(err, httpResponse, body) {
 			if(err){
-				next(err);
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
+				next(err);
 			}
 			
 			userDetail = JSON.parse(body);
@@ -96,8 +96,8 @@ exports.contactPost = function(req, res, next) {
 		
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
 			if (err) {
-				next(err);
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
+				next(err);
 			}
 			
 			cb();
@@ -107,8 +107,8 @@ exports.contactPost = function(req, res, next) {
 		// Create data in the database
 		Model.create(dataToInsert, function(err, results){
 			if(err){
-			  next(err);
 			  res.status(400).send({ msg: 'There is some error please contact administrate.' });
+			  next(err);
 			}
 			
 			cb();

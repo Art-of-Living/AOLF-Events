@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { submitContactForm } from '../../../actions/contact';
 import Messages from '../../Messages';
+import { browserHistory } from 'react-router';
 
 class Contact extends React.Component {
   constructor(props) {

@@ -20,7 +20,6 @@ exports.getRows = function(req, res, next) {
 				var eventDate = new Date(data.event_end_date).setHours(0, 0, 0, 0);
 				
 				if(eventDate >= date && eventDate !== undefined){
-					console.log(data);
 					callback(true);
 				}else{
 					callback(false);
