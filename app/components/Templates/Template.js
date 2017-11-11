@@ -16,12 +16,13 @@ const templates = {
 class Template extends React.Component {
   render() {
     var eventData = this.props.data;
+    var eventid = this.props.eventid;
 	process.env.REACT_TEMPLATE = this.props.name
 	var Template = (typeof(templates[this.props.name]) !== 'undefined') ?  templates[this.props.name] : DefaultTemplate;
 	
 	return (
       <div>
-		 <Template data={eventData} />
+		 <Template eventid={eventid} data={eventData} />
       </div>
     );
   }

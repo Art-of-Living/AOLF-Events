@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
+import { Link } from 'react-router';
 
 class ThankYou extends React.Component {
 	
@@ -101,13 +102,13 @@ class ThankYou extends React.Component {
 						<img src="/templates/ArtOfLiving/images/thank-you-article1.png" alt="title" />
 					</a>
 					<h3 className="recent_article--title">
-						<a href="#">Benefits of Meditation </a>
+						<a href="https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation">Benefits of Meditation </a>
 					</h3>
 					<p>
 						The Health Benefits of Meditation From the medical community to the yoga community, the verdict is out: you need to meditate! Recent studies from Harvard
 					</p>
 					<div>
-						<a href="#" className="read_more">
+						<a href="https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation" className="read_more">
 							Read more
 						</a>
 					</div>
@@ -117,13 +118,13 @@ class ThankYou extends React.Component {
 						<img src="/templates/ArtOfLiving/images/thank-you-article2.png" alt="title" />
 					</a>
 					<h3 className="recent_article--title">
-						<a href="#">7 Attitudes of Truly  Happy People </a>
+						<a href="https://www.artofliving.org/us-en/7-attitudes-truly-happy-people">7 Attitudes of Truly  Happy People </a>
 					</h3>
 					<p>
 						1. Is being stressed a sign of prosperity,  growth, or dignity?
 					</p>
 					<div>
-						<a href="#" className="read_more">
+						<a href="https://www.artofliving.org/us-en/7-attitudes-truly-happy-people" className="read_more">
 							Read more
 						</a>
 					</div>
@@ -133,13 +134,13 @@ class ThankYou extends React.Component {
 						<img src="/templates/ArtOfLiving/images/thank-you-article3.png" alt="title" />
 					</a>
 					<h3 className="recent_article--title">
-						<a href="#">Sun Salutation Yoga  Sequence (Surya Namaskar) </a>
+						<a href="https://www.artofliving.org/us-en/yoga/sun-salutations">Sun Salutation Yoga  Sequence (Surya Namaskar) </a>
 					</h3>
 					<p>
 						Change is hard and most of us resist any change. Even though change may be
 					</p>
 					<div>
-						<a href="#" className="read_more">
+						<a href="https://www.artofliving.org/us-en/yoga/sun-salutations" className="read_more">
 							Read more
 						</a>
 					</div>

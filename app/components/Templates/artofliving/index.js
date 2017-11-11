@@ -41,8 +41,7 @@ class Index extends React.Component {
 				$(this).attr('placeholder', placeholder);
 			});
 		});
-		
-		$('select').styler();
+	
 		$(".fancybox").fancybox();
 
 		$(".descktop_video_btn").fancybox({
@@ -119,7 +118,9 @@ class Index extends React.Component {
 		}
 	};
 	
-	var event = this.props.data;
+	var events = this.props.data;
+	var event = this.props.data[0];
+	var eventid = this.props.eventid;
 	var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
     return (
       <div>
@@ -241,7 +242,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-			<Contact event={event} />
+			<Contact events={events} eventid={eventid} />
 			<section className="map_section clearfix">
 				<div className="map_section__content">
 					<h2 className="map_section--title">
@@ -499,7 +500,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-			<Contact addClassName="hide-for-mobile" event={event} />
+			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid}/>
 			<section className="highlight show-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="col-md-12">

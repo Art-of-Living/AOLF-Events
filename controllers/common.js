@@ -42,7 +42,15 @@ exports.getRow = function(req, res, next) {
 	res.status(400).send('Id is missing in the url');
   }
   
-  Model.findOne({_id : id}, function(err, results){
+  var fetchData = {_id : id}
+  
+  switch(req.params.collection){
+		case 'event':
+			fetchData = {event_series_name : id}
+		break
+  }
+  
+  Model.find(fetchData, function(err, results){
 	if(err){
 	  res.status(400).send(err);
 	}

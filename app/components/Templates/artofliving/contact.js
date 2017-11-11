@@ -9,7 +9,7 @@ class Contact extends React.Component {
   constructor(props) {
     super(props);
 	this.onSuccess = this.onSuccess.bind(this);
-    this.state = { name: '', email: '', tel : '', event : {}, addClassName : ''};
+    this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : ''};
   }
 
   handleChange(event) {
@@ -18,8 +18,39 @@ class Contact extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-	this.state.event = this.props.event
     this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
+  }
+  
+  filterEvent(eventid){
+	  var event = {};
+	  this.props.events.map(function(item, i) {
+		  if(item.event_id == eventid) event = item;
+	  })
+	  return event;
+  }
+  
+  componentDidMount(){
+	  var that = this 
+	  var state = this.state 
+	  
+	  console.log(this.SelectBox);
+	  
+	  // Get value from select and load the event;
+	  $(this.SelectBox).styler({
+		  onSelectClosed: function(select) {
+			  var eventId = $(that.SelectBox).val() ? $(that.SelectBox).val() : '';
+			  
+			  if(!state.event || !Object.keys(state.event).length){
+				  that.state.event = that.filterEvent(eventId);
+			  }
+			  
+			  var event = state.event ? state.event : that.props.events[0];
+			  var eventState = event.state ? that.slugifyUrl(event.state) : 'ca';
+			  var eventCity = event.city ? that.slugifyUrl(event.city) : 'los-angeles';
+			  
+			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_series_name + '/' + eventId);
+		  },
+	  });
   }
   
   onSuccess (){
@@ -30,31 +61,86 @@ class Contact extends React.Component {
 			userEmail: this.state.email
 		}
 	  })
-	}
+  }
+  
+  formatDateTime(event){
+	  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+	  var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	  
+	  var date = new Date(event.event_start_date);
+	  
+	  var start_time = new Date(event.event_start_time * 1000);
+	  var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
+	  var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
+	  var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+	  
+	  var end_time = new Date(event.event_end_time * 1000);
+	  var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
+	  var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
+	  var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";	  
+	  
+	  return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;  
+  }
+  
+  slugifyUrl (string){
+		return string
+			.toString()
+			.trim()
+			.toLowerCase()
+			.replace(/\s+/g, "-")
+			.replace(/[^\w\-]+/g, "")
+			.replace(/\-\-+/g, "-")
+			.replace(/^-+/, "")
+			.replace(/-+$/, "");
+  }
 
   render() {
+	var that = this;
+	var events = this.props.events;
+	var eventid = this.props.eventid;
+	
+	if(eventid){
+		var checkIfEvent = (<button>Save My Spot</button>);
+		
+		var selectBox = events.map(function(item, i) {
+			if(eventid == item.event_id){
+				that.state.event = item;
+				return <option value={item.event_id} selected>{that.formatDateTime(item)}</option>
+			}else{
+				return <option value={item.event_id}>{that.formatDateTime(item)}</option>
+			}
+		})
+		
+	} else {
+		var checkIfEvent = (<button className="disabled" disabled>Save My Spot</button>);
+		var selectBox = events.map(function(item, i) {
+			return <option value={item.event_id}>{that.formatDateTime(item)}</option>
+		})
+	}
+	
 	var style = {
 		highlight : {
 			"background" : "url(/templates/" + process.env.REACT_TEMPLATE + "/images/highlight_bg.png) no-repeat scroll 50% 50% /cover"
 		}
 	};
+	
     return (
 	  <div>
 		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id="chose_day">
 				<h2 className="highlight__overlay_title">
-					Mind &   Meditation
+				{events[0].event_name}
 				</h2>
 				<div className="row">
 					<div className="col-md-12">
 						<div className="highlight--left_block">
-							<h2>Mind &   Meditation</h2>
+							<h2>{events[0].event_name}</h2>
 							<h5>Register Now for FREE</h5>
 						</div>
 						<div className="highlight--right_block">
 							<h3>Choose a date & time</h3>
-							<select>
-								<option selected>Tue Oct 31: 12:30 PM - 2:00 PM</option>
-								<option>Wed Nov 1: 12:30 PM - 2:00 PM</option>
+							<select ref={(select) => {this.SelectBox = select }}>
+								<option value="">Select Date</option>
+								{selectBox}
 							</select>
 						</div>
 						<div className="col-md-12">
@@ -70,7 +156,7 @@ class Contact extends React.Component {
 							</div>
 							<div>
 								<input type="text" name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
-								<button>Save My Spot</button>
+								{checkIfEvent}
 							</div>
 							<p>
 								By registering I agree to the <a href="https://www.artofliving.org/us-en/privacy-policy" target="_blank">privacy policy</a>, confirm that I am at least 18 years of age, and agree to receive promotional phone calls, text messages, and e-mails from The Art of Living. We respect your privacy and you can unsubscribe at any time.

@@ -5403,27 +5403,28 @@ var EventDetail = function (_get__$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {
 			var that = this;
-			fetch("/api/content/event/" + this.props.params.id).then(function (response) {
+
+			fetch("/api/content/event/" + this.props.params.eventsid).then(function (response) {
 				return response.json();
 			}).then(function (data) {
 				return data;
 			}).then(function (data) {
-				that.setState({ event: data, template: data.template_id.name });
+				that.setState({ events: data, template: data[0].template_id.name });
 			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var renderedItem = this.state.event;
+			var eventid = this.props.params.eventid ? this.props.params.eventid : '';
+			var renderedItem = this.state.events;
 			var template = this.state.template;
-			console.log(renderedItem);
 
 			var _Template_Component = _get__('Template');
 
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_Template_Component, { name: template, data: renderedItem })
+				_react2.default.createElement(_Template_Component, { name: template, eventid: eventid, data: renderedItem })
 			);
 		}
 	}]);
@@ -6138,10 +6139,19 @@ var Home = function (_get__2) {
 			});
 		}
 	}, {
+		key: 'slugifyUrl',
+		value: function slugifyUrl(string) {
+			return string.toString().trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-").replace(/^-+/, "").replace(/-+$/, "");
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var that = this;
 			var renderItems = this.state.events.map(function (item, i) {
+				var eventName = that.slugifyUrl(item.event_name);
+				var eventState = item.state ? that.slugifyUrl(item.state) : 'ca';
+				var eventCity = item.city ? this.slugifyUrl(item.city) : 'los-angles';
+
 				var _Link_Component = _get__('Link');
 
 				return _react2.default.createElement(
@@ -6165,7 +6175,7 @@ var Home = function (_get__2) {
 							),
 							_react2.default.createElement(
 								_Link_Component,
-								{ className: 'btn btn-default', to: '/event/' + item._id },
+								{ className: 'btn btn-default', to: eventState + '/' + eventCity + '/' + eventName + '/' + item.event_series_name + '/' + item.event_id },
 								'View Details'
 							)
 						)
@@ -6792,13 +6802,14 @@ var Template = function (_get__$Component) {
     key: 'render',
     value: function render() {
       var eventData = this.props.data;
+      var eventid = this.props.eventid;
       process.env.REACT_TEMPLATE = this.props.name;
       var Template = typeof _get__('templates')[this.props.name] !== 'undefined' ? _get__('templates')[this.props.name] : _get__('DefaultTemplate');
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(Template, { data: eventData })
+        _react2.default.createElement(Template, { eventid: eventid, data: eventData })
       );
     }
   }]);
@@ -7002,7 +7013,7 @@ var Contact = function (_get__$Component) {
 		var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
 		_this.onSuccess = _this.onSuccess.bind(_this);
-		_this.state = { name: '', email: '', tel: '', event: {}, addClassName: '' };
+		_this.state = { name: '', email: '', tel: '', event: {}, events: {}, addClassName: '' };
 		return _this;
 	}
 
@@ -7015,8 +7026,41 @@ var Contact = function (_get__$Component) {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
-			this.state.event = this.props.event;
 			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
+		}
+	}, {
+		key: 'filterEvent',
+		value: function filterEvent(eventid) {
+			var event = {};
+			this.props.events.map(function (item, i) {
+				if (item.event_id == eventid) event = item;
+			});
+			return event;
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var that = this;
+			var state = this.state;
+
+			console.log(this.SelectBox);
+
+			// Get value from select and load the event;
+			$(this.SelectBox).styler({
+				onSelectClosed: function onSelectClosed(select) {
+					var eventId = $(that.SelectBox).val() ? $(that.SelectBox).val() : '';
+
+					if (!state.event || !Object.keys(state.event).length) {
+						that.state.event = that.filterEvent(eventId);
+					}
+
+					var event = state.event ? state.event : that.props.events[0];
+					var eventState = event.state ? that.slugifyUrl(event.state) : 'ca';
+					var eventCity = event.city ? that.slugifyUrl(event.city) : 'los-angeles';
+
+					_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) + '/' + event.event_series_name + '/' + eventId);
+				}
+			});
 		}
 	}, {
 		key: 'onSuccess',
@@ -7030,8 +7074,77 @@ var Contact = function (_get__$Component) {
 			});
 		}
 	}, {
+		key: 'formatDateTime',
+		value: function formatDateTime(event) {
+			var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+			var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+			var date = new Date(event.event_start_date);
+
+			var start_time = new Date(event.event_start_time * 1000);
+			var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
+			var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
+			var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+
+			var end_time = new Date(event.event_end_time * 1000);
+			var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
+			var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
+			var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+
+			return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;
+		}
+	}, {
+		key: 'slugifyUrl',
+		value: function slugifyUrl(string) {
+			return string.toString().trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-").replace(/^-+/, "").replace(/-+$/, "");
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
+			var that = this;
+			var events = this.props.events;
+			var eventid = this.props.eventid;
+
+			if (eventid) {
+				var checkIfEvent = _react2.default.createElement(
+					'button',
+					null,
+					'Save My Spot'
+				);
+
+				var selectBox = events.map(function (item, i) {
+					if (eventid == item.event_id) {
+						that.state.event = item;
+						return _react2.default.createElement(
+							'option',
+							{ value: item.event_id, selected: true },
+							that.formatDateTime(item)
+						);
+					} else {
+						return _react2.default.createElement(
+							'option',
+							{ value: item.event_id },
+							that.formatDateTime(item)
+						);
+					}
+				});
+			} else {
+				var checkIfEvent = _react2.default.createElement(
+					'button',
+					{ className: 'disabled', disabled: true },
+					'Save My Spot'
+				);
+				var selectBox = events.map(function (item, i) {
+					return _react2.default.createElement(
+						'option',
+						{ value: item.event_id },
+						that.formatDateTime(item)
+					);
+				});
+			}
+
 			var style = {
 				highlight: {
 					"background": "url(/templates/" + process.env.REACT_TEMPLATE + "/images/highlight_bg.png) no-repeat scroll 50% 50% /cover"
@@ -7049,7 +7162,7 @@ var Contact = function (_get__$Component) {
 					_react2.default.createElement(
 						'h2',
 						{ className: 'highlight__overlay_title' },
-						'Mind &   Meditation'
+						events[0].event_name
 					),
 					_react2.default.createElement(
 						'div',
@@ -7063,7 +7176,7 @@ var Contact = function (_get__$Component) {
 								_react2.default.createElement(
 									'h2',
 									null,
-									'Mind &   Meditation'
+									events[0].event_name
 								),
 								_react2.default.createElement(
 									'h5',
@@ -7081,17 +7194,15 @@ var Contact = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'select',
-									null,
+									{ ref: function ref(select) {
+											_this2.SelectBox = select;
+										} },
 									_react2.default.createElement(
 										'option',
-										{ selected: true },
-										'Tue Oct 31: 12:30 PM - 2:00 PM'
+										{ value: '' },
+										'Select Date'
 									),
-									_react2.default.createElement(
-										'option',
-										null,
-										'Wed Nov 1: 12:30 PM - 2:00 PM'
-									)
+									selectBox
 								)
 							),
 							_react2.default.createElement(
@@ -7117,11 +7228,7 @@ var Contact = function (_get__$Component) {
 									'div',
 									null,
 									_react2.default.createElement('input', { type: 'text', name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
-									_react2.default.createElement(
-										'button',
-										null,
-										'Save My Spot'
-									)
+									checkIfEvent
 								),
 								_react2.default.createElement(
 									'p',
@@ -7183,6 +7290,9 @@ function _get_original__(variableName) {
 	switch (variableName) {
 		case 'submitContactForm':
 			return _contact.submitContactForm;
+
+		case 'browserHistory':
+			return _reactRouter.browserHistory;
 
 		case 'Messages':
 			return _Messages2.default;
@@ -7838,7 +7948,6 @@ var Index = function (_get__$Component) {
 				});
 			});
 
-			$('select').styler();
 			$(".fancybox").fancybox();
 
 			$(".descktop_video_btn").fancybox({
@@ -7917,7 +8026,9 @@ var Index = function (_get__$Component) {
 				}
 			};
 
-			var event = this.props.data;
+			var events = this.props.data;
+			var event = this.props.data[0];
+			var eventid = this.props.eventid;
 			var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
 
 			var _Helmet_Component = _get__('Helmet');
@@ -8140,7 +8251,7 @@ var Index = function (_get__$Component) {
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component, { event: event }),
+				_react2.default.createElement(_Contact_Component, { events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'map_section clearfix' },
@@ -8638,7 +8749,7 @@ var Index = function (_get__$Component) {
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', event: event }),
+				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'highlight show-for-mobile', style: style.highlight },
@@ -11763,7 +11874,7 @@ var ThankYou = function (_get__$Component) {
 								{ className: 'recent_article--title' },
 								_react2.default.createElement(
 									'a',
-									{ href: '#' },
+									{ href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation' },
 									'Benefits of Meditation '
 								)
 							),
@@ -11777,7 +11888,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: '#', className: 'read_more' },
+									{ href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -11795,7 +11906,7 @@ var ThankYou = function (_get__$Component) {
 								{ className: 'recent_article--title' },
 								_react2.default.createElement(
 									'a',
-									{ href: '#' },
+									{ href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people' },
 									'7 Attitudes of Truly  Happy People '
 								)
 							),
@@ -11809,7 +11920,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: '#', className: 'read_more' },
+									{ href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -11827,7 +11938,7 @@ var ThankYou = function (_get__$Component) {
 								{ className: 'recent_article--title' },
 								_react2.default.createElement(
 									'a',
-									{ href: '#' },
+									{ href: 'https://www.artofliving.org/us-en/yoga/sun-salutations' },
 									'Sun Salutation Yoga  Sequence (Surya Namaskar) '
 								)
 							),
@@ -11841,7 +11952,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: '#', className: 'read_more' },
+									{ href: 'https://www.artofliving.org/us-en/yoga/sun-salutations', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -12661,20 +12772,23 @@ function getRoutes(store) {
 
   var _Route_Component11 = _get__('Route');
 
+  var _Route_Component12 = _get__('Route');
+
   return _react2.default.createElement(
     _Route_Component,
     { path: '/', component: _get__('App') },
     _react2.default.createElement(_IndexRoute_Component, { component: _get__('ComingSoon'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component2, { path: '/event/:id', component: _get__('EventDetail'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component3, { path: '/events', component: _get__('Home'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component4, { path: '/contact', component: _get__('Contact'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component5, { path: '/login', component: _get__('Login'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component6, { path: '/thankyou', component: _get__('ThankYou'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component7, { path: '/signup', component: _get__('Signup'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component8, { path: '/account', component: _get__('Profile'), onEnter: ensureAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component9, { path: '/forgot', component: _get__('Forgot'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component10, { path: '/reset/:token', component: _get__('Reset'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component11, { path: '*', component: _get__('NotFound'), onLeave: clearMessages })
+    _react2.default.createElement(_Route_Component2, { path: '/:state/:city/:eventname/:eventsid/:eventid', component: _get__('EventDetail'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component3, { path: '/:state/:city/:eventname/:eventsid', component: _get__('EventDetail'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component4, { path: '/events', component: _get__('Home'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component5, { path: '/contact', component: _get__('Contact'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component6, { path: '/login', component: _get__('Login'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component7, { path: '/thankyou', component: _get__('ThankYou'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component8, { path: '/signup', component: _get__('Signup'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component9, { path: '/account', component: _get__('Profile'), onEnter: ensureAuthenticated, onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component10, { path: '/forgot', component: _get__('Forgot'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component11, { path: '/reset/:token', component: _get__('Reset'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component12, { path: '*', component: _get__('NotFound'), onLeave: clearMessages })
   );
 }
 var _RewiredData__ = {};

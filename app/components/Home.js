@@ -27,12 +27,27 @@ class Home extends Component {
 			that.setState({ events: data });
 		});
 	}
+	
+	slugifyUrl (string){
+		return string
+			.toString()
+			.trim()
+			.toLowerCase()
+			.replace(/\s+/g, "-")
+			.replace(/[^\w\-]+/g, "")
+			.replace(/\-\-+/g, "-")
+			.replace(/^-+/, "")
+			.replace(/-+$/, "");
+	}
   
     render() {
 	 var that = this;
 	 const renderItems = this.state.events.map(function(item, i) {
+		  var eventName = that.slugifyUrl(item.event_name);
+		  var eventState = item.state ? that.slugifyUrl(item.state) : 'ca';
+		  var eventCity = item.city ? this.slugifyUrl(item.city) : 'los-angles';
 		  return <div className="col-sm-4"><div className="panel"><div className="panel-body"><h3>{item.event_name}</h3>
-		  <p>{item.event_description}</p><Link className="btn btn-default" to={`/event/${item._id}`}>View Details</Link></div></div></div>
+		  <p>{item.event_description}</p><Link className="btn btn-default" to={`${eventState}/${eventCity}/${eventName}/${item.event_series_name}/${item.event_id}`}>View Details</Link></div></div></div>
 	 });
 	 
      return (
