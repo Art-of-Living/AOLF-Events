@@ -135,7 +135,20 @@ exports.contactPost = function(req, res, next) {
 		emailText += '<p>&#10004; <strong>Mind mastery</strong> - Get insights on how to stay SKILLFULLY PEACEFUL and positive, even through challenging times</p><br>';
 		emailText += '<p>&#10004; <strong>Effortless guided meditation</strong> - See how to fully relax and let go, even if meditation has never "worked for you" before.</p><br>';
 		emailText += '<p>We&#39;ll see you there on ' + eventDate.getDate() + "/" + (eventDate.getMonth()+1)  + "/" + eventDate.getFullYear() + '!</p>';
-		emailText += '<div style="display:inline;" className="map_section--direction-icon"><a style="margin: 5px 0 0 20px;padding: 5px;" target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(req.body.event.street_address +" "+ req.body.event.city +" "+ req.body.event.state +" "+ req.body.event.zipcode +"&dirflg=w")}><img style="width:10%;" src={process.env.BASEURL+"templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a><a style="margin: 5px 0 0 20px;padding: 5px;" target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(req.body.event.street_address +" "+ req.body.event.city +" "+ req.body.event.state +" "+ req.body.event.zipcode +"&dirflg=d")}><img style="width:10%;" src={process.env.BASEURL+"templates/ArtOfLiving/images/sports-car.png"}/></a><a style="margin: 5px 0 0 20px;padding: 5px;" target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(req.body.event.street_address +" "+ req.body.event.city +" "+ req.body.event.state +" "+ req.body.event.zipcode +"&dirflg=r")}><img style="width:10%;" src={process.env.BASEURL+"templates/ArtOfLiving/images/underground.png"}/></a><a style="margin: 5px 0 0 20px;padding: 5px;" target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(req.body.event.street_address +" "+ req.body.event.city +" "+ req.body.event.state +" "+ req.body.event.zipcode +"&dirflg=b")}><img style="width:10%;" src={process.env.BASEURL+"templates/ArtOfLiving/images/youth-bicycle.png"}/></a></div>';
+		
+		emailText += '<div style="display:inline;" className="map_section--direction-icon">';
+		
+		emailText += '<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + '  ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=w') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/man-walking-directions-button.png"></a>';
+		
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city +' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=d') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/sports-car.png"></a>'
+		
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + ' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=r') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/underground.png"></a>'
+		
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + ' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=b') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/youth-bicycle.png"></a>';
+		
+		emailText += '</div>';
+		
+		console.log(emailText);
 		
 		// Send email about the cofirmation of the event to the user
 		const sgMail = require('@sendgrid/mail');
