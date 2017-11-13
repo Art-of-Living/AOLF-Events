@@ -249,14 +249,20 @@ class Index extends React.Component {
 						Event Location
 					</h2>
 					<p>
-						2354 Walsh Ave<br />
-						Santa Clara, CA<br />
-						United States<br />
-						95051
+						{event.street_address}<br/>
+						{event.city}, {event.state}<br/>
+						United States<br/>
+						{event.zipcode}<br/>
 					</p>
 					<a href="https://www.google.com.ua/maps?q=2354+Walsh+Ave+Santa+Clara+California+United+States+95051&um=1&ie=UTF-8&sa=X&ved=0ahUKEwjo5YbXlKrXAhXsL8AKHYyGAa0Q_AUICigB" className="show-on-map show-for-mobile" target="_blank">
 						Show on map
 					</a>
+					<div className="map_section--direction-icon">
+						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
+						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
+						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
+						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
+					</div>
 				</div>
 				<div className="map">
 					<div className="ba-map" id="map"></div>
@@ -313,11 +319,6 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-
-
-
-
-
 			<section className="reviews">
 				<h2 className="reviews__overlay_title">
 					Reviews

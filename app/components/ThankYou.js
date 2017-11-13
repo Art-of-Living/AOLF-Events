@@ -27,17 +27,33 @@ class ThankYou extends React.Component {
 			$('body').addClass('web thank-you-page');
 	  };
 	  addeventatc.refresh();
+	  addthis._render();
   }
   
   componentWillUnmount() {
 	$('body').removeClass('thank-you-page');
   }
+  
+  slugifyUrl (string){
+		return string
+			.toString()
+			.trim()
+			.toLowerCase()
+			.replace(/\s+/g, "-")
+			.replace(/[^\w\-]+/g, "")
+			.replace(/\-\-+/g, "-")
+			.replace(/^-+/, "")
+			.replace(/-+$/, "");
+  }
 
-  render() {
-	if(this.props.location.state !== null){  
-		this.state.event = this.props.location.state.event;
-		this.state.userEmail = this.props.location.state.userEmail;
-	}
+  render() { 
+	this.state.event = this.props.location.state.event;
+	this.state.userEmail = this.props.location.state.userEmail;
+	
+	var event = this.state.event;
+	var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
+	var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+	
 	return (
 		<div>
 		  <section className="thank_you_container">
@@ -64,30 +80,19 @@ class ThankYou extends React.Component {
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
 						Get directions
 					</a>
+					<div className="map_section--direction-icon">
+						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
+						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
+						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
+						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
+					</div>
 				</div>
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<ul className="share_list">
-					<li>
-						<a href="#" className="fb">
-							<i className="fa fa-facebook" aria-hidden="true"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" className="tw">
-							<i className="fa fa-twitter" aria-hidden="true"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<i className="fa fa-envelope" aria-hidden="true"></i>
-						</a>
-					</li>
-				</ul>
-
+				<div className="addthis_inline_share_toolbox" data-url={'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_series_name + '/' + event.event_id} data-title="Check out this URL"></div>
 				<p>
-					<a href="#">Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_series_name + '/' + event.event_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>

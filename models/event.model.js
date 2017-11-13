@@ -23,8 +23,13 @@ var eventSchema = new mongoose.Schema({
   event_end_time : {type : Number, required : true},
   street_address : {type : String},
   zipcode : {type : String},
+  country : {type : String},
+  city : {type : String},
   state : {type : String},
-  event_id : {type : String}
+  event_id : {type : String},
+  timezone : {type : String},
+  longitude : {type : String},
+  latitude : {type : String}
 }, schemaOptions);
 
 eventSchema.plugin(autopopulate);

@@ -33,8 +33,6 @@ class Contact extends React.Component {
 	  var that = this 
 	  var state = this.state 
 	  
-	  console.log(this.SelectBox);
-	  
 	  // Get value from select and load the event;
 	  $(this.SelectBox).styler({
 		  onSelectClosed: function(select) {
@@ -52,15 +50,26 @@ class Contact extends React.Component {
 		  },
 	  });
   }
-  
-  onSuccess (){
+   
+  onSuccess (){	
+	  var state = this.state   
+	  var eventId = $(this.SelectBox).val() ? $(this.SelectBox).val() : '';
+	  
+	  if(!state.event || !Object.keys(state.event).length){
+		  this.state.event = this.filterEvent(eventId);
+	  }
+	  
+	  var event = state.event ? state.event : this.props.events[0];
+	  var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
+	  var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+
 	  this.props.router.push({
-	    pathname: '/thankyou',
+	    pathname: '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(state.event.event_name) +  '/' + event.event_series_name + '/' + eventId +'/thankyou',
 		state: {
 			event: this.state.event,
 			userEmail: this.state.email
 		}
-	  })
+	  });
   }
   
   formatDateTime(event){

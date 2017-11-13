@@ -7043,8 +7043,6 @@ var Contact = function (_get__$Component) {
 			var that = this;
 			var state = this.state;
 
-			console.log(this.SelectBox);
-
 			// Get value from select and load the event;
 			$(this.SelectBox).styler({
 				onSelectClosed: function onSelectClosed(select) {
@@ -7065,8 +7063,19 @@ var Contact = function (_get__$Component) {
 	}, {
 		key: 'onSuccess',
 		value: function onSuccess() {
+			var state = this.state;
+			var eventId = $(this.SelectBox).val() ? $(this.SelectBox).val() : '';
+
+			if (!state.event || !Object.keys(state.event).length) {
+				this.state.event = this.filterEvent(eventId);
+			}
+
+			var event = state.event ? state.event : this.props.events[0];
+			var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
+			var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+
 			this.props.router.push({
-				pathname: '/thankyou',
+				pathname: '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(state.event.event_name) + '/' + event.event_series_name + '/' + eventId + '/thankyou',
 				state: {
 					event: this.state.event,
 					userEmail: this.state.email
@@ -8266,18 +8275,45 @@ var Index = function (_get__$Component) {
 						_react2.default.createElement(
 							'p',
 							null,
-							'2354 Walsh Ave',
+							event.street_address,
 							_react2.default.createElement('br', null),
-							'Santa Clara, CA',
+							event.city,
+							', ',
+							event.state,
 							_react2.default.createElement('br', null),
 							'United States',
 							_react2.default.createElement('br', null),
-							'95051'
+							event.zipcode,
+							_react2.default.createElement('br', null)
 						),
 						_react2.default.createElement(
 							'a',
 							{ href: 'https://www.google.com.ua/maps?q=2354+Walsh+Ave+Santa+Clara+California+United+States+95051&um=1&ie=UTF-8&sa=X&ved=0ahUKEwjo5YbXlKrXAhXsL8AKHYyGAa0Q_AUICigB', className: 'show-on-map show-for-mobile', target: '_blank' },
 							'Show on map'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'map_section--direction-icon' },
+							_react2.default.createElement(
+								'a',
+								{ href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode + "&dirflg=w") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode + "&dirflg=d") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode + "&dirflg=r") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode + "&dirflg=b") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png" })
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -11708,6 +11744,7 @@ var ThankYou = function (_get__$Component) {
 				$('body').addClass('web thank-you-page');
 			};
 			addeventatc.refresh();
+			addthis._render();
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -11715,12 +11752,20 @@ var ThankYou = function (_get__$Component) {
 			$('body').removeClass('thank-you-page');
 		}
 	}, {
+		key: 'slugifyUrl',
+		value: function slugifyUrl(string) {
+			return string.toString().trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-").replace(/^-+/, "").replace(/-+$/, "");
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			if (this.props.location.state !== null) {
-				this.state.event = this.props.location.state.event;
-				this.state.userEmail = this.props.location.state.userEmail;
-			}
+			this.state.event = this.props.location.state.event;
+			this.state.userEmail = this.props.location.state.userEmail;
+
+			var event = this.state.event;
+			var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
+			var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -11799,6 +11844,30 @@ var ThankYou = function (_get__$Component) {
 								{ href: '#' },
 								_react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
 								'Get directions'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'map_section--direction-icon' },
+								_react2.default.createElement(
+									'a',
+									{ className: 'map_section--direction-link', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address + " " + this.state.event.city + " " + this.state.event.state + " " + this.state.event.zipcode + "&dirflg=w") },
+									_react2.default.createElement('img', { src: "/templates/ArtOfLiving/images/man-walking-directions-button.png" })
+								),
+								_react2.default.createElement(
+									'a',
+									{ className: 'map_section--direction-link', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address + " " + this.state.event.city + " " + this.state.event.state + " " + this.state.event.zipcode + "&dirflg=d") },
+									_react2.default.createElement('img', { src: "/templates/ArtOfLiving/images/sports-car.png" })
+								),
+								_react2.default.createElement(
+									'a',
+									{ className: 'map_section--direction-link', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address + " " + this.state.event.city + " " + this.state.event.state + " " + this.state.event.zipcode + "&dirflg=r") },
+									_react2.default.createElement('img', { src: "/templates/ArtOfLiving/images/underground.png" })
+								),
+								_react2.default.createElement(
+									'a',
+									{ className: 'map_section--direction-link', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address + " " + this.state.event.city + " " + this.state.event.state + " " + this.state.event.zipcode + "&dirflg=b") },
+									_react2.default.createElement('img', { src: "/templates/ArtOfLiving/images/youth-bicycle.png" })
+								)
 							)
 						),
 						_react2.default.createElement(
@@ -11806,43 +11875,13 @@ var ThankYou = function (_get__$Component) {
 							null,
 							'This event is best enjoyed with friends. Click below to share:'
 						),
-						_react2.default.createElement(
-							'ul',
-							{ className: 'share_list' },
-							_react2.default.createElement(
-								'li',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ href: '#', className: 'fb' },
-									_react2.default.createElement('i', { className: 'fa fa-facebook', 'aria-hidden': 'true' })
-								)
-							),
-							_react2.default.createElement(
-								'li',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ href: '#', className: 'tw' },
-									_react2.default.createElement('i', { className: 'fa fa-twitter', 'aria-hidden': 'true' })
-								)
-							),
-							_react2.default.createElement(
-								'li',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ href: '#' },
-									_react2.default.createElement('i', { className: 'fa fa-envelope', 'aria-hidden': 'true' })
-								)
-							)
-						),
+						_react2.default.createElement('div', { className: 'addthis_inline_share_toolbox', 'data-url': 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_series_name + '/' + event.event_id, 'data-title': 'Check out this URL' }),
 						_react2.default.createElement(
 							'p',
 							null,
 							_react2.default.createElement(
 								'a',
-								{ href: '#' },
+								{ href: "mailto:" + event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_series_name + '/' + event.event_id },
 								'Contact us'
 							),
 							' if you have any questions about the event.'
@@ -12783,7 +12822,7 @@ function getRoutes(store) {
     _react2.default.createElement(_Route_Component4, { path: '/events', component: _get__('Home'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component5, { path: '/contact', component: _get__('Contact'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component6, { path: '/login', component: _get__('Login'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component7, { path: '/thankyou', component: _get__('ThankYou'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component7, { path: '/:state/:city/:eventname/:eventsid/:eventid/thankyou', component: _get__('ThankYou'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component8, { path: '/signup', component: _get__('Signup'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component9, { path: '/account', component: _get__('Profile'), onEnter: ensureAuthenticated, onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component10, { path: '/forgot', component: _get__('Forgot'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
