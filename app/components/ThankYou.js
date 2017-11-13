@@ -47,12 +47,14 @@ class ThankYou extends React.Component {
   }
 
   render() { 
-	this.state.event = this.props.location.state.event;
-	this.state.userEmail = this.props.location.state.userEmail;
-	
-	var event = this.state.event;
-	var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
-	var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+	if(this.props.location.state !== null){
+		this.state.event = this.props.location.state.event;
+		this.state.userEmail = this.props.location.state.userEmail;
+		
+		var event = this.state.event;
+		var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
+		var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+	}
 	
 	return (
 		<div>
@@ -81,10 +83,10 @@ class ThankYou extends React.Component {
 						Get directions
 					</a>
 					<div className="map_section--direction-icon">
-						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
-						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
-						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
-						<a className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
 					</div>
 				</div>
 				<p>

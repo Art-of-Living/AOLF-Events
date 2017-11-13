@@ -254,22 +254,20 @@ class Index extends React.Component {
 						United States<br/>
 						{event.zipcode}<br/>
 					</p>
-					<a href="https://www.google.com.ua/maps?q=2354+Walsh+Ave+Santa+Clara+California+United+States+95051&um=1&ie=UTF-8&sa=X&ved=0ahUKEwjo5YbXlKrXAhXsL8AKHYyGAa0Q_AUICigB" className="show-on-map show-for-mobile" target="_blank">
+					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode} className="show-on-map show-for-mobile" target="_blank">
 						Show on map
 					</a>
 					<div className="map_section--direction-icon">
-						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
-						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
-						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
-						<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" "+ event.state +" "+ event.zipcode +"&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city +" " + event.state + " " + event.zipcode + "&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" " + event.state + " " + event.zipcode + "&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" " + event.state + " " + event.zipcode + "&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
 					</div>
 				</div>
 				<div className="map">
 					<div className="ba-map" id="map"></div>
 				</div>
 			</section>
-
-
 			<section className="happiness">
 				<h2 className="happiness__overlay_title">
 					The Happiness Program
