@@ -254,7 +254,7 @@ class Index extends React.Component {
 						United States<br/>
 						{event.zipcode}<br/>
 					</p>
-					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode} className="show-on-map show-for-mobile" target="_blank">
+					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode)} className="show-on-map show-for-mobile" target="_blank">
 						Show on map
 					</a>
 					<div className="map_section--direction-icon">
