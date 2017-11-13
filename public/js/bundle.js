@@ -11687,6 +11687,7 @@ exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
 },{"../../Contact":18,"./footer":37,"./header":38,"react":310,"react-helmet":125,"react-redux":130}],40:[function(require,module,exports){
+(function (process){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11743,6 +11744,7 @@ var ThankYou = function (_get__$Component) {
 			} else {
 				$('body').addClass('web thank-you-page');
 			};
+
 			addeventatc.refresh();
 			addthis._render();
 		}
@@ -11754,6 +11756,8 @@ var ThankYou = function (_get__$Component) {
 	}, {
 		key: 'slugifyUrl',
 		value: function slugifyUrl(string) {
+			if (!string) return '';
+
 			return string.toString().trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-").replace(/^-+/, "").replace(/-+$/, "");
 		}
 	}, {
@@ -11877,13 +11881,13 @@ var ThankYou = function (_get__$Component) {
 							null,
 							'This event is best enjoyed with friends. Click below to share:'
 						),
-						_react2.default.createElement('div', { className: 'addthis_inline_share_toolbox', 'data-url': 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_series_name + '/' + event.event_id, 'data-title': 'Check out this URL' }),
+						_react2.default.createElement('div', { className: 'addthis_inline_share_toolbox', 'data-url': 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_series_name + '/' + this.state.event.event_id, 'data-title': 'Check out this URL' }),
 						_react2.default.createElement(
 							'p',
 							null,
 							_react2.default.createElement(
 								'a',
-								{ href: "mailto:" + event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_series_name + '/' + event.event_id },
+								{ href: "mailto:" + this.state.event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_series_name + '/' + this.state.event.event_id },
 								'Contact us'
 							),
 							' if you have any questions about the event.'
@@ -12163,7 +12167,8 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":310,"react-redux":130,"react-router":163}],41:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":1,"react":310,"react-redux":130,"react-router":163}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

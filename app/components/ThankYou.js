@@ -26,6 +26,7 @@ class ThankYou extends React.Component {
 	  } else{
 			$('body').addClass('web thank-you-page');
 	  };
+
 	  addeventatc.refresh();
 	  addthis._render();
   }
@@ -35,6 +36,8 @@ class ThankYou extends React.Component {
   }
   
   slugifyUrl (string){
+	  if(!string) return '';
+	  
 		return string
 			.toString()
 			.trim()
@@ -92,9 +95,9 @@ class ThankYou extends React.Component {
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<div className="addthis_inline_share_toolbox" data-url={'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_series_name + '/' + event.event_id} data-title="Check out this URL"></div>
+				<div className="addthis_inline_share_toolbox" data-url={'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_series_name + '/' + this.state.event.event_id} data-title="Check out this URL"></div>
 				<p>
-					<a href={"mailto:" + event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + window.location.hostname + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_series_name + '/' + event.event_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + this.state.event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_series_name + '/' + this.state.event.event_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>
