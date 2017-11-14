@@ -89,7 +89,8 @@ class Index extends React.Component {
 	}
 	
 	renderMap() {
-		var uluru = {lat: 37.3690401, lng: -121.96999};
+		var event = this.props.data[0];
+		var uluru = {lat: event.location.latitude, lng: event.location.longitude};
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 16,
 			center: uluru
@@ -122,6 +123,11 @@ class Index extends React.Component {
 	var event = this.props.data[0];
 	var eventid = this.props.eventid;
 	var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
+	var street_address_2 = "";
+	if(event.address.street_address_2 != "" && event.address.street_address_2 != null){
+		var street_address_2 = ', ' + event.address.street_address_2; 
+	}
+	
     return (
       <div>
 	    <Helmet>
@@ -249,19 +255,19 @@ class Index extends React.Component {
 						Event Location
 					</h2>
 					<p>
-						{event.street_address}<br/>
-						{event.city}, {event.state}<br/>
-						United States<br/>
-						{event.zipcode}<br/>
+						{event.address.street_address_1}{street_address_2}<br/>
+						{event.address.city}, {event.address.state}<br/>
+						{event.address.country}<br/>
+						{event.address.zipcode}<br/>
 					</p>
-					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode)} className="show-on-map show-for-mobile" target="_blank">
+					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode)} className="show-on-map show-for-mobile" target="_blank">
 						Show on map
 					</a>
 					<div className="map_section--direction-icon">
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city + " " + event.state + " " + event.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address + " " + event.city +" " + event.state + " " + event.zipcode + "&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" " + event.state + " " + event.zipcode + "&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.street_address +" "+ event.city +" " + event.state + " " + event.zipcode + "&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
+						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
 					</div>
 				</div>
 				<div className="map">

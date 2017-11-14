@@ -15,13 +15,13 @@ class EventDetail extends React.Component {
 	
 	componentWillMount() {
 		var that = this;
-		
 		fetch("/api/content/event/" + this.props.params.eventsid)
 		  .then(function(response) { return response.json(); })
 		  .then(function(data) {
 			return data;
 		  })
 		  .then(function(data) {
+			console.log(data);
 			that.setState({events: data, template : data[0].template_id.name });
 		});
 	}

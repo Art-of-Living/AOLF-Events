@@ -17,7 +17,7 @@ exports.getRows = function(req, res, next) {
 		case 'event':
 			async.filter(results, function(data, callback) {
 				var date = new Date().setHours(0, 0, 0, 0);
-				var eventDate = new Date(data.event_end_date).setHours(0, 0, 0, 0);
+				var eventDate = new Date(data.event_end.local).setHours(0, 0, 0, 0);
 				
 				if(eventDate >= date && eventDate !== undefined){
 					callback(true);
@@ -46,7 +46,7 @@ exports.getRow = function(req, res, next) {
   
   switch(req.params.collection){
 		case 'event':
-			fetchData = {event_series_name : id}
+			fetchData = {event_web_series_name : id}
 		break
   }
   
@@ -61,16 +61,6 @@ exports.getRow = function(req, res, next) {
 exports.addRow = function(req, res, next) {
   var data = req.body;
   var Model = mongoose.model(req.params.collection);
-  
-  switch(req.params.collection){
-	
-	case  'event':
-		if(data.event_start_time){
-			data.event_start_time = Math.round(new Date(data.event_start_time).getTime()/1000)
-			data.event_end_time = Math.round(new Date(data.event_start_time).getTime()/1000)
-		}
-	break;
-  }
   
   Model.create(data, function(err, results){
 	if(err){
@@ -88,14 +78,6 @@ exports.addRows = function(req, res, next) {
   
   var createdData = [];
   async.forEach(data, function(single, callback) {
-	switch(req.params.collection){
-		case  'event':
-			if(single.event_start_time){
-				single.event_start_time = Math.round(new Date(single.event_start_time).getTime()/1000)
-				single.event_end_time = Math.round(new Date(single.event_start_time).getTime()/1000)
-			}
-		break;
-	}
 	Model.create(single, function(err, results){
 		if(err){
 		  next(err)

@@ -55,8 +55,26 @@ class ThankYou extends React.Component {
 		this.state.userEmail = this.props.location.state.userEmail;
 		
 		var event = this.state.event;
-		var eventState = event.state ? this.slugifyUrl(event.state) : 'ca';
-		var eventCity = event.city ? this.slugifyUrl(event.city) : 'los-angeles';
+		var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
+		var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
+    
+		var street_address_2 = "";
+		if(this.state.event.address.street_address_2 != "" && this.state.event.address.street_address_2 != null){
+			var street_address_2 = ', ' + this.state.event.address.street_address_2; 
+		}
+		
+		var startDate = new Date(event.event_start.local);
+		var endDate = new Date(event.event_start.local);
+	  
+	    var start_time = new Date(event.event_start.local);
+		var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
+		var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
+		var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+
+		var end_time = new Date(event.event_end.local);
+		var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
+		var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
+		var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";			
 	}
 	
 	return (
@@ -73,12 +91,12 @@ class ThankYou extends React.Component {
 					<a href="#">
 						<div title="Add to Calendar" className="addeventatc">
 							Add to Calendar
-							<span className="start">{this.state.event.event_start_date}</span>
-							<span className="end">{this.state.event.event_end_date}</span>
-							<span className="timezone">America/Los_Angeles</span>
+							<span className="start">{startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm}</span>
+							<span className="end">{endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
+							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
-							<span className="description">Description of the event</span>
-							<span className="location">Location of the event</span>
+							<span className="description">{"For details, link here: http://" + process.env.BASE_URL + '/' + event.event_name + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
+							<span className="location">{this.state.event.address.street_address_1 + street_address_2 +", "+ this.state.event.address.city +", "+ this.state.event.address.state +", "+ this.state.event.address.country +", "+ this.state.event.address.zipcode}</span>
 						</div>
 					</a>
 					<a href="#">
@@ -86,18 +104,18 @@ class ThankYou extends React.Component {
 						Get directions
 					</a>
 					<div className="map_section--direction-icon">
-						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
-						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
-						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
-						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.street_address +" "+ this.state.event.city +" "+ this.state.event.state +" "+ this.state.event.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
 					</div>
 				</div>
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<div className="addthis_inline_share_toolbox" data-url={'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_series_name + '/' + this.state.event.event_id} data-title="Check out this URL"></div>
+				<div className="addthis_inline_share_toolbox" data-url={'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-title="Check out this URL"></div>
 				<p>
-					<a href={"mailto:" + this.state.event.contact_email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_series_name + '/' + this.state.event.event_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>

@@ -3,26 +3,33 @@ import React from 'react';
 class Footer extends React.Component {
   render() {
     return (
-        <footer class="footer-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-						<div class="copyright">
-							<p>Copyright &reg; 2017 Art of living. All Rights Reserved</p>
-						</div>
+        <footer className="footer">
+			<div className="row">
+				<div className="col-md-12">
+					<div className="footer__logo">
+						<a href="#">
+							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png"} alt='logo' />
+						</a>
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-						<div class="privacypolicy">
-							<a href="https://www.artofliving.org/us-en/privacy-policy"><span>Privacy Policy </span> </a>
-							<a href="https://www.artofliving.org/us-en/terms-use"><span>Terms of Use </span></a>
-						</div>
-					</div>
+					<ul className="footer__links">
+						<li>
+							<span>
+								&copy; 2017 Art of Living
+							</span>
+						</li>
+						<li>
+							<a href="https://www.artofliving.org/us-en/terms-use" target="_blank">
+								Terms of Use
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artofliving.org/us-en/privacy-policy" target="_blank">
+								Privacy Policy
+							</a>
+						</li>
+					</ul>
 				</div>
 			</div>
-			<script type="text/javascript " src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js "></script>
-			<script type="text/javascript" src="/js/lib/main.js"> </script>
-			<script type="text/javascript" src="/js/lib/bootstrap.js"> </script>
-			<script type="text/javascript" src="/js/lib/slick.js"> </script>
 		</footer>
     );
   }

@@ -91,8 +91,29 @@ exports.contactPost = function(req, res, next) {
 		})
 	},
 	function(cb){
+		  
+		var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+		var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+		var date = new Date(req.body.event.event_start.local);
+
+		var start_time = new Date(req.body.event.event_start.local);
+		var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
+		var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
+		var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+
+		var end_time = new Date(req.body.event.event_end.local);
+		var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
+		var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
+		var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";	  
+
+		var street_address_2 = "";
+		if(req.body.event.address.street_address_2 != "" && req.body.event.address.street_address_2 != null){
+			var street_address_2 = ', ' + req.body.event.address.street_address_2; 
+		}
+		
 		// Pardot API to save the data;
-		var body = '?email=' + req.body.email + '&terms_of_use=' + blank + '&cname=' + blank + '&country=' + userDetail.data.country + '&state=' + userDetail.data.state + '&district_city=' + userDetail.data.city + '&first_name=' + firstName + '&last_name=' + lastName + '&phone=' + req.body.tel + '&event_date=' + req.body.event.event_start_date + '&form_title=' + blank + '&page_url=' + '/event/' + req.body.event._id + '&event_name=' + req.body.event.event_name + '&zip_code=' + req.body.event.zipcode + '&event_id=' + req.body.event._id + '&event_url=' + blank + '&center_state=' + req.body.event.state + '&center_country=' + blank + '&event_type=' + blank + '&event_time=' + req.body.event.event_start_time + '&event_address=' + req.body.event.street_address + '&event_contact_name=' + blank + '&event_phone=' + req.body.event.contact_number + '&rsvp_date=' + req.body.event.event_start_time + '&timezone=' + userDetail.data.timezone.id;
+		var body = '?email=' + req.body.email + '&terms_of_use=' + blank + '&cname=' + blank + '&country=' + userDetail.data.country + '&state=' + userDetail.data.state + '&district_city=' + userDetail.data.city + '&first_name=' + firstName + '&last_name=' + lastName + '&phone=' + req.body.tel + '&event_date=' + req.body.event.event_start.local + '&form_title=' + blank + '&page_url=' + '/event/' + req.body.event._id + '&event_name=' + req.body.event.event_name + '&zip_code=' + req.body.event.address.zipcode + '&event_id=' + req.body.event._id + '&event_url=' + blank + '&center_state=' + req.body.event.address.state + '&center_country=' + blank + '&event_type=' + blank + '&event_time=' + start_time_hours + ":" + start_time_minutes + start_am_pm  + '&event_address=' + req.body.event.address.street_address_1 + street_address_2 + '&event_contact_name=' + blank + '&event_phone=' + req.body.event.organizers[0].phone + '&rsvp_date=' + start_time_hours + ":" + start_time_minutes + start_am_pm + '&timezone=' + userDetail.data.timezone.id;
 		
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
 			if (err) {
@@ -115,19 +136,25 @@ exports.contactPost = function(req, res, next) {
 		});	
 	},
 	function(cb){
-		var date = new Date(req.body.event.event_start_time*1000);
+		var date = new Date(req.body.event.event_start.local);
 		var hours = date.getHours();
 		var minutes = "0" + date.getMinutes();
 		var seconds = "0" + date.getSeconds();
 		var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 		
-		var eventDate = new Date(req.body.event.event_start_date); 
+		var eventDate = new Date(req.body.event.event_start.local); 
+		
+		var street_address_2 = "";
+		if(req.body.event.address.street_address_2 != "" && req.body.event.address.street_address_2 != null){
+			var street_address_2 = ', ' + req.body.event.address.street_address_2; 
+		}
+		
 		var emailText = '<p>Congrats for signing up for an Introductory Session with The Art of Living.</p><br>'
 		emailText += '<p>Here are the details:</p><br>';
 		emailText += '<p><strong>' + req.body.event.event_name + '</strong>';
 		emailText += '<p>' + eventDate.getDate() + "/" + (eventDate.getMonth()+1)  + "/" + eventDate.getFullYear() + ', ' + formattedTime + '</p>';
-		emailText += '<p>' + req.body.event.street_address + ',</p><p>' + req.body.event.state + ',</p><p>' + req.body.event.zipcode + '</p>';
-		emailText += '<p>Questions? Contact ' + req.body.event.contact_number + '</p><br>';
+		emailText += '<p>' + req.body.event.address.street_address_1 + street_address_2 + ',</p><p>' + req.body.event.address.state + req.body.event.address.country + ',</p><p>' + req.body.event.address.zipcode + '</p>';
+		emailText += '<p>Questions? Contact ' + req.body.event.organizers[0].phone + '</p><br>';
 		emailText += '<p>If you&#39;d like to invite a friend to join you, <underline>send them this link to RSVP</underline></p><br>';
 		emailText += '<p>This free 1-hr class is an introduction to the world-renowned Art of Living Happiness Program, a transformative immersion in powerful breathing techniques and mind mastery.</p><br>';
 		emailText += '<p>You&#39;ll get a taste of:</p><br>';
@@ -138,13 +165,13 @@ exports.contactPost = function(req, res, next) {
 		
 		emailText += '<div style="display:inline;" className="map_section--direction-icon">';
 		
-		emailText += '<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + '  ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=w') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/man-walking-directions-button.png"></a>';
+		emailText += '<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.address.street_address_1 + street_address_2 + ' ' + req.body.event.address.city + '  ' + req.body.event.address.state + ' ' + req.body.event.address.zipcode + '&dirflg=w') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/man-walking-directions-button.png"></a>';
 		
-		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city +' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=d') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/sports-car.png"></a>'
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.address.street_address_1 + street_address_2 + ' ' + req.body.event.address.city +' ' + req.body.event.address.state + ' ' + req.body.event.address.zipcode + '&dirflg=d') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/sports-car.png"></a>'
 		
-		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + ' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=r') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/underground.png"></a>'
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.address.street_address_1 + street_address_2 + ' ' + req.body.event.address.city + ' ' + req.body.event.address.state + ' ' + req.body.event.address.zipcode + '&dirflg=r') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/underground.png"></a>'
 		
-		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.street_address + ' ' + req.body.event.city + ' ' + req.body.event.state + ' ' + req.body.event.zipcode + '&dirflg=b') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/youth-bicycle.png"></a>';
+		emailText +='<a style="margin: 5px 20px 0 0px;padding: 5px;" target="_blank" href="https://maps.google.com/?saddr=Current+Location&daddr=' + encodeURI(req.body.event.address.street_address_1 + street_address_2 + ' ' + req.body.event.address.city + ' ' + req.body.event.address.state + ' ' + req.body.event.address.zipcode + '&dirflg=b') +'")><img style="width:3%;" src="' + process.env.BASE_URL + 'templates/ArtOfLiving/images/youth-bicycle.png"></a>';
 		
 		emailText += '</div>';
 		

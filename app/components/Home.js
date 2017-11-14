@@ -44,10 +44,10 @@ class Home extends Component {
 	 var that = this;
 	 const renderItems = this.state.events.map(function(item, i) {
 		  var eventName = that.slugifyUrl(item.event_name);
-		  var eventState = item.state ? that.slugifyUrl(item.state) : 'ca';
-		  var eventCity = item.city ? this.slugifyUrl(item.city) : 'los-angles';
+		  var eventState = item.address.state ? that.slugifyUrl(item.address.state) : 'ca';
+		  var eventCity = item.address.city ? that.slugifyUrl(item.address.city) : 'los-angles';
 		  return <div className="col-sm-4"><div className="panel"><div className="panel-body"><h3>{item.event_name}</h3>
-		  <p>{item.event_description}</p><Link className="btn btn-default" to={`${eventState}/${eventCity}/${eventName}/${item.event_series_name}/${item.event_id}`}>View Details</Link></div></div></div>
+		  <p>{item.event_description}</p><Link className="btn btn-default" to={`${eventState}/${eventCity}/${eventName}/${item.event_web_series_name}/${item.event_web_id}`}>View Details</Link></div></div></div>
 	 });
 	 
      return (
