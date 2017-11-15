@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var async = require("async");
+var request = require("request");
 
 /**
  * POST /contact
@@ -71,6 +72,18 @@ exports.addRow = function(req, res, next) {
   })
 };
 
+function slugifyUrl (string){
+	return string
+		.toString()
+		.trim()
+		.toLowerCase()
+		.replace(/\s+/g, "-")
+		.replace(/[^\w\-]+/g, "")
+		.replace(/\-\-+/g, "-")
+		.replace(/^-+/, "")
+		.replace(/-+$/, "");
+}
+
 
 exports.addRows = function(req, res, next) {
   var data = req.body;
@@ -83,8 +96,36 @@ exports.addRows = function(req, res, next) {
 		  next(err)
 		}
 		
-		createdData.push(results);
-		callback();
+		switch(req.params.collection){
+			case 'event':
+			
+				var longUrl = process.env.BASE_URL + slugifyUrl(results.address.state) + "/" + slugifyUrl(results.address.city) + "/" + slugifyUrl(results.event_name) + "/" + results.event_web_series_name;
+				
+				request({
+					uri: "https://api.rebrandly.com/v1/links",
+					method: "POST",
+					body: JSON.stringify({
+						  destination: longUrl
+						, domain: { fullName: "aolf.us" }
+					  //, slashtag: "A_NEW_SLASHTAG"
+					  //, title: "Rebrandly YouTube channel"
+					}),
+					headers: {
+					  "Content-Type": "application/json",
+					  "apikey": "1e97469880394afa9057045845eb7f57"
+					}
+					}, function(err, response, body) {
+						var link = JSON.parse(body);
+						createdData.push({
+							longUrl : longUrl + "/" + results.event_web_id,
+							shortUrl : link.shortUrl
+						});
+						callback();
+					});
+			break
+			default : 
+			break
+		}
 	})
   },function(err){
 	if(err){
