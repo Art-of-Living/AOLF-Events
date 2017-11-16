@@ -118,7 +118,9 @@ exports.addRows = function(req, res, next) {
 						var link = JSON.parse(body);
 						createdData.push({
 							longUrl : longUrl + "/" + results.event_web_id,
-							shortUrl : link.shortUrl
+							shortUrl : link.shortUrl,
+							id : results._id,
+							event_id : results.event_id
 						});
 						callback();
 					});

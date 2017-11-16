@@ -16,6 +16,7 @@ module.exports = function (app) {
 	app.get('/auth/facebook/callback', userController.authFacebookCallback);
 	app.post('/auth/google', userController.authGoogle);
 	app.get('/auth/google/callback', userController.authGoogleCallback);
+	app.post('/api/content/contact/email/verification', contactController.contactEmailVerification);
 
 	// Common API
 	app.get('/api/content/:collection', commonController.getRows);

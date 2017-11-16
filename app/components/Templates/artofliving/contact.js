@@ -4,20 +4,81 @@ import { submitContactForm } from '../../../actions/contact';
 import Messages from '../../Messages';
 import { browserHistory } from 'react-router';
 import { withRouter } from 'react-router'
+import fetch from 'isomorphic-fetch'
 
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 	this.onSuccess = this.onSuccess.bind(this);
     this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : ''};
+	this.onSubmit = true;
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+	var _this = this;
+	var flag = true;
+	
+	if(event.target.name == 'name'){
+		$(_this.name).next().html('');
+		if(!event.target.value){
+			$(_this.name).next().html('Please fill this field');
+			flag = false;
+		}
+	}
+	
+	if(event.target.name == 'tel'){
+		$(_this.tel).next().html('');
+		if(!event.target.value){
+			$(_this.tel).next().html('Please fill this field');
+			flag = false;
+		}
+		
+		if(event.target.value.length > 10){
+			$(_this.tel).next().html('Please use 10 digit mobile number');
+			flag = false;
+		}
+	}
+	
+	if(event.target.name == 'email'){
+		$(_this.email).next().html('');
+		// Clear timeout before 1 sec;
+		clearTimeout(this.timer);
+		
+		//Wait for 1 sec before sending request;
+		var email = event.target.value;
+		var name = event.target.name;
+		this.timer = setTimeout(function() { 
+			fetch("/api/content/contact/email/verification", {
+			  method: 'post',
+			  headers: { 'Content-Type': 'application/json' },
+			  body: JSON.stringify({
+				email: email
+			  })
+			}).then((response) => {
+			  if (response.ok) {
+				return response.json().then((json) => {
+				  $(_this.email).after().html('');
+				});
+			  } else {
+				return response.json().then((json) => {
+				  flag = false;
+				  $(_this.email).next().html(json.msg);
+				});
+			  }
+			});
+		}, 1500);
+	}  
+	
+	if(flag) this.onSubmit = true
+	else this.onSubmit = false;
+
+    this.setState({ [event.target.name] : event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
+	if(this.onSubmit === false) return;
+	$(this.loader).removeClass('display-none');
     this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
   }
   
@@ -62,6 +123,7 @@ class Contact extends React.Component {
 	  var event = state.event ? state.event : this.props.events[0];
 	  var eventState = event.address.state ? this.slugifyUrl(event.address.state) : 'ca';
 	  var eventCity = event.address.city ? this.slugifyUrl(event.address.city) : 'los-angeles';
+	  $(this.loader).addClass('display-none');
 
 	  this.props.router.push({
 	    pathname: '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + '/' + eventId +'/thankyou',
@@ -86,7 +148,7 @@ class Contact extends React.Component {
 	  var end_time = new Date(event.event_end.local);
 	  var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
 	  var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-	  var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";	  
+	  var end_am_pm = end_time.getHours() >= 12 ? "PM" : "AM";	  
 	  
 	  return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;  
   }
@@ -109,10 +171,10 @@ class Contact extends React.Component {
 	var eventid = this.props.eventid;
 	
 	if(eventid){
-		var checkIfEvent = (<button>Save My Spot</button>);
+		var checkIfEvent = (<button>Save My Spot <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
 		
 		var selectBox = events.map(function(item, i) {
-			if(eventid == item.event_id){
+			if(eventid == item.event_web_id){
 				that.state.event = item;
 				return <option value={item.event_web_id} selected>{that.formatDateTime(item)}</option>
 			}else{
@@ -160,11 +222,14 @@ class Contact extends React.Component {
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)} >
 							<div>
-								<input type="text" name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
-								<input type="email" name="email" onChange={this.handleChange.bind(this)} placeholder="Email *" required />
+								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
+								<div className="error"></div>
+								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required />
+								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<div className="error"></div>
 								{checkIfEvent}
 							</div>
 							<p>
