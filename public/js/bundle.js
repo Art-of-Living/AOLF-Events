@@ -5408,9 +5408,24 @@ var EventDetail = function (_get__$Component) {
 			}).then(function (data) {
 				return data;
 			}).then(function (data) {
-				console.log(data);
 				that.setState({ events: data, template: data[0].template_id.name });
+				that.checkEventExpiry(data);
 			});
+		}
+	}, {
+		key: 'checkEventExpiry',
+		value: function checkEventExpiry(data) {
+			var eventid = this.props.params.eventid ? this.props.params.eventid : '';
+			var event = data.filter(function (data) {
+				return data.event_web_id === eventid;
+			});
+			if (event.length) {
+				var date = new Date();
+				date.toUTCString();
+				var currentUTC = Math.floor(date.getTime() / 1000);
+				var eventUTC = Math.floor(new Date(event[0].event_end.utc).getTime() / 1000);
+				if (eventUTC < currentUTC) _get__('browserHistory').push('/notfound');
+			}
 		}
 	}, {
 		key: 'render',
@@ -5468,6 +5483,9 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'browserHistory':
+			return _reactRouter.browserHistory;
+
 		case 'Template':
 			return _Template2.default;
 
@@ -7299,11 +7317,11 @@ var Contact = function (_get__$Component) {
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(name) {
 											return _this3.name = name;
-										}, name: 'name', onChange: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
+										}, name: 'name', onkeyup: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									_react2.default.createElement('input', { type: 'email', name: 'email', ref: function ref(email) {
 											return _this3.email = email;
-										}, onChange: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
+										}, onkeyup: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
 									_react2.default.createElement('div', { className: 'error' })
 								),
 								_react2.default.createElement(
@@ -7311,7 +7329,7 @@ var Contact = function (_get__$Component) {
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(tel) {
 											return _this3.tel = tel;
-										}, name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
+										}, name: 'tel', onkeyup: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									checkIfEvent
 								),
@@ -10564,7 +10582,6 @@ arguments[4][28][0].apply(exports,arguments)
 },{"_process":1,"dup":28,"react":311,"react-redux":131,"react-router":164}],40:[function(require,module,exports){
 arguments[4][29][0].apply(exports,arguments)
 },{"./contact":37,"./footer":38,"./header":39,"_process":1,"dup":29,"react":311,"react-helmet":126,"react-redux":131,"react-router":164}],41:[function(require,module,exports){
-(function (process){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -10731,7 +10748,7 @@ var ThankYou = function (_get__$Component) {
 									_react2.default.createElement(
 										'span',
 										{ className: 'description' },
-										"For details, link here: http://" + process.env.BASE_URL + '/' + event.event_name + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
+										'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
 									),
 									_react2.default.createElement(
 										'span',
@@ -10776,13 +10793,13 @@ var ThankYou = function (_get__$Component) {
 							null,
 							'This event is best enjoyed with friends. Click below to share:'
 						),
-						_react2.default.createElement('div', { className: 'addthis_inline_share_toolbox', 'data-url': 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id, 'data-title': 'Check out this URL' }),
+						_react2.default.createElement('div', { className: 'addthis_inline_share_toolbox', 'data-url': 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id, 'data-title': 'Check out this URL' }),
 						_react2.default.createElement(
 							'p',
 							null,
 							_react2.default.createElement(
 								'a',
-								{ href: "mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
+								{ href: "mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
 								'Contact us'
 							),
 							' if you have any questions about the event.'
@@ -11062,8 +11079,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-}).call(this,require('_process'))
-},{"_process":1,"react":311,"react-redux":131,"react-router":164}],42:[function(require,module,exports){
+},{"react":311,"react-redux":131,"react-router":164}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11715,6 +11731,8 @@ function getRoutes(store) {
 
   var _Route_Component12 = _get__('Route');
 
+  var _Route_Component13 = _get__('Route');
+
   return _react2.default.createElement(
     _Route_Component,
     { path: '/', component: _get__('App') },
@@ -11729,7 +11747,8 @@ function getRoutes(store) {
     _react2.default.createElement(_Route_Component9, { path: '/account', component: _get__('Profile'), onEnter: ensureAuthenticated, onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component10, { path: '/forgot', component: _get__('Forgot'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component11, { path: '/reset/:token', component: _get__('Reset'), onEnter: skipIfAuthenticated, onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component12, { path: '*', component: _get__('NotFound'), onLeave: clearMessages })
+    _react2.default.createElement(_Route_Component12, { path: '/notfound', component: _get__('NotFound'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component13, { path: '*', component: _get__('NotFound'), onLeave: clearMessages })
   );
 }
 var _RewiredData__ = {};

@@ -222,13 +222,13 @@ class Contact extends React.Component {
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)} >
 							<div>
-								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
+								<input type="text" ref={(name) => this.name = name} name="name" onkeyup={this.handleChange.bind(this)} placeholder="First Name *" required />
 								<div className="error"></div>
-								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required />
+								<input type="email" name="email" ref={(email) => this.email = email} onkeyup={this.handleChange.bind(this)} placeholder="Email *" required />
 								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onkeyup={this.handleChange.bind(this)} placeholder="Phone *" required />
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>

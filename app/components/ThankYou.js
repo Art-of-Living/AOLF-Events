@@ -95,7 +95,7 @@ class ThankYou extends React.Component {
 							<span className="end">{endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
 							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
-							<span className="description">{"For details, link here: http://" + process.env.BASE_URL + '/' + event.event_name + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
+							<span className="description">{'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
 							<span className="location">{this.state.event.address.street_address_1 + street_address_2 +", "+ this.state.event.address.city +", "+ this.state.event.address.state +", "+ this.state.event.address.country +", "+ this.state.event.address.zipcode}</span>
 						</div>
 					</a>
@@ -113,9 +113,9 @@ class ThankYou extends React.Component {
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<div className="addthis_inline_share_toolbox" data-url={'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-title="Check out this URL"></div>
+				<div className="addthis_inline_share_toolbox" data-url={'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-title="Check out this URL"></div>
 				<p>
-					<a href={"mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://' + process.env.BASE_URL + '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>
