@@ -13,7 +13,7 @@ var schemaOptions = {
 var eventSchema = new mongoose.Schema({
   event_id : {type : String},
   event_web_id : {type : String},
-  event_Status : {type : String},
+  event_status : {type : String, default : 'active'},
   event_name: {type : String, required : true},
   event_series_name: {type : String, required : true},
   event_web_series_name: {type : String, required : true},

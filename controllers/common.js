@@ -1,12 +1,66 @@
 var mongoose = require("mongoose");
 var async = require("async");
 var request = require("request");
+var _ = require('lodash');
 
 /**
  * POST /contact
  */
-exports.getRows = function(req, res, next) {
+exports.updateRow = function(req, res, next) {
   var where = {};
+  var Model = mongoose.model(req.params.collection);
+  var id = req.params.id;
+  
+    if (!id) {
+        id = req.body.id;
+    }
+	
+    if (req.body.id) {
+        delete req.body.id;
+    }
+	
+	var fetchData = {_id : id}
+  
+	switch(req.params.collection){
+		case 'event':
+			fetchData = {event_web_id : id}
+		break
+	}
+	
+	console.log(fetchData);
+
+    Model.findOne(fetchData, function (err, result) {
+        if (err) {
+            res.status(400).send(err)
+            return;
+        }
+		
+        if (!result) {
+            res.status(400).send(err)
+            return;
+        }
+		
+		console.log(req.body);
+		
+        var updated = _.assign(result, req.body);
+		console.log(updated);
+		if (!updated) {
+            res.status(400).send(err)
+            return;
+        }
+		
+        updated.save(function (err) {
+            if (err) {
+                res.status(400).send(err)
+            } else {
+				res.status(200).send({msg : 'updated'})
+			}
+		})
+	})
+}	
+	
+exports.getRows = function(req, res, next) {
+  var where = req.body.where;
   var Model = mongoose.model(req.params.collection);
   
   Model.find({$and: [{$or: [{is_deleted: false}, {is_deleted: null}]}, where]}, function(err, results){
@@ -14,24 +68,7 @@ exports.getRows = function(req, res, next) {
 	  res.status(400).send(err);
 	}
 	
-	switch(req.params.collection){
-		case 'event':
-			async.filter(results, function(data, callback) {
-				var date = new Date().setHours(0, 0, 0, 0);
-				var eventDate = new Date(data.event_end.local).setHours(0, 0, 0, 0);
-				
-				if(eventDate >= date && eventDate !== undefined){
-					callback(true);
-				}else{
-					callback(false);
-				}
-			}, function(results, err) {
-				res.status(200).send(results);
-			});
-		break;
-		default: 
-			res.status(200).send(results);
-	}
+	res.status(200).send(results);
   })
 };
 
@@ -47,7 +84,7 @@ exports.getRow = function(req, res, next) {
   
   switch(req.params.collection){
 		case 'event':
-			fetchData = {event_web_series_name : id}
+			fetchData = {event_web_series_name : id, event_status : 'active'}
 		break
   }
   
@@ -89,8 +126,17 @@ exports.addRows = function(req, res, next) {
   var data = req.body;
   var Model = mongoose.model(req.params.collection);
   
+  console.log(data);
+  
   var createdData = [];
   async.forEach(data, function(single, callback) {
+	switch(req.params.collection){
+			case 'event':
+				single.event_status = single.event_status ? single.event_status : 'active';
+			break;
+	}
+	  
+	  
 	Model.create(single, function(err, results){
 		if(err){
 		  next(err)

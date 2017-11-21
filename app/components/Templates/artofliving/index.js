@@ -90,7 +90,7 @@ class Index extends React.Component {
 	
 	renderMap() {
 		var event = this.props.data[0];
-		var uluru = {lat: event.location.latitude, lng: event.location.longitude};
+		var uluru = {lat: parseFloat(event.location.latitude), lng: parseFloat(event.location.longitude)};
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 16,
 			center: uluru
@@ -297,7 +297,7 @@ class Index extends React.Component {
 						<span className="icon">
 							<i className="fa fa-play-circle" aria-hidden="true"></i>
 						</span>
-						Watch trailer
+						Watch Trailer
 					</a>
 				</div>
 				<div className="videoWrapper">
@@ -318,7 +318,7 @@ class Index extends React.Component {
 							<span className="icon">
 								<i className="fa fa-play-circle" aria-hidden="true"></i>
 							</span>
-							Watch trailer
+							Watch Trailer
 						</a>
 					</div>
 				</div>

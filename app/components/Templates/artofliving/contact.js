@@ -10,6 +10,7 @@ class Contact extends React.Component {
   constructor(props) {
     super(props);
 	this.onSuccess = this.onSuccess.bind(this);
+	this.onError = this.onError.bind(this);
     this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : ''};
 	this.onSubmit = true;
   }
@@ -28,6 +29,12 @@ class Contact extends React.Component {
 	
 	if(event.target.name == 'tel'){
 		$(_this.tel).next().html('');
+	
+		if(!isNaN(_this.tel)){
+			$(_this.tel).next().html('Please use valid number');
+			flag = false;
+		}
+		
 		if(!event.target.value){
 			$(_this.tel).next().html('Please fill this field');
 			flag = false;
@@ -40,46 +47,61 @@ class Contact extends React.Component {
 	}
 	
 	if(event.target.name == 'email'){
-		$(_this.email).next().html('');
-		// Clear timeout before 1 sec;
-		clearTimeout(this.timer);
-		
-		//Wait for 1 sec before sending request;
 		var email = event.target.value;
-		var name = event.target.name;
-		this.timer = setTimeout(function() { 
-			fetch("/api/content/contact/email/verification", {
-			  method: 'post',
-			  headers: { 'Content-Type': 'application/json' },
-			  body: JSON.stringify({
-				email: email
-			  })
-			}).then((response) => {
-			  if (response.ok) {
-				return response.json().then((json) => {
-				  $(_this.email).after().html('');
-				});
-			  } else {
-				return response.json().then((json) => {
-				  flag = false;
-				  $(_this.email).next().html(json.msg);
-				});
-			  }
-			});
-		}, 1500);
+		$(_this.email).next().html('');
+		
+		// Clear timeout before 1 sec;
+		clearTimeout(this.timer);	
+		
+		if(!email){
+			$(_this.email).next().html('Please fill this field');
+			flag = false;
+		}
+	
+		//Wait for 1 sec before sending request;
+		if(email){
+			this.timer = setTimeout(function() { 
+				_this.checkEmailValidation(email);
+			}, 1500);
+		}
 	}  
 	
-	if(flag) this.onSubmit = true
+	if(flag) this.onSubmit = true;
 	else this.onSubmit = false;
-
-    this.setState({ [event.target.name] : event.target.value });
+    
+	this.setState({ [event.target.name] : event.target.value });
   }
+  
+  checkEmailValidation(email){
+	  var _this = this;
+	  
+	  fetch("/api/content/contact/email/verification", {
+		  method: 'post',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({
+			email: email
+		  })
+		}).then((response) => {
+		  if (response.ok) {
+			return response.json().then((json) => {
+			  _this.onSubmit = true;
+			  $(_this.email).after().html('');
+			});
+		  } else {
+			return response.json().then((json) => {
+			  _this.onSubmit = false;
+			  $(_this.email).next().html(json.msg);
+			});
+		  }
+	  });
+  }
+  
 
   handleSubmit(event) {
     event.preventDefault();
 	if(this.onSubmit === false) return;
 	$(this.loader).removeClass('display-none');
-    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
+    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess, this.onError));
   }
   
   filterEvent(eventid){
@@ -110,6 +132,14 @@ class Contact extends React.Component {
 			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + '/' + eventId);
 		  },
 	  });
+  }
+  
+  onError (json){
+	 $(this.loader).addClass('display-none');
+	 this.props.dispatch({
+		type: 'CONTACT_FORM_FAILURE',
+		messages: Array.isArray(json) ? json : [json]
+	 });
   }
    
   onSuccess (){	
@@ -171,7 +201,7 @@ class Contact extends React.Component {
 	var eventid = this.props.eventid;
 	
 	if(eventid){
-		var checkIfEvent = (<button>Save My Spot <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
+		var checkIfEvent = (<button className="savespot">Save My Spot <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
 		
 		var selectBox = events.map(function(item, i) {
 			if(eventid == item.event_web_id){
@@ -183,7 +213,7 @@ class Contact extends React.Component {
 		})
 		
 	} else {
-		var checkIfEvent = (<button className="disabled" disabled>Save My Spot</button>);
+		var checkIfEvent = (<button className="savespot" disabled>Save My Spot</button>);
 		var selectBox = events.map(function(item, i) {
 			return <option value={item.event_web_id}>{that.formatDateTime(item)}</option>
 		})
@@ -214,21 +244,18 @@ class Contact extends React.Component {
 								{selectBox}
 							</select>
 						</div>
-						<div className="col-md-12">
-							<div class="col-md-5"></div>
-							<div class="col-md-7">
-								<Messages messages={this.props.messages}/>
-							</div>
+						<div className="col-md-12 clearfix contact-error">
+							<Messages messages={this.props.messages}/>
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)} >
 							<div>
-								<input type="text" ref={(name) => this.name = name} name="name" onkeyup={this.handleChange.bind(this)} placeholder="First Name *" required />
+								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
 								<div className="error"></div>
-								<input type="email" name="email" ref={(email) => this.email = email} onkeyup={this.handleChange.bind(this)} placeholder="Email *" required />
+								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required />
 								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" ref={(tel) => this.tel = tel} name="tel" onkeyup={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>

@@ -217,7 +217,7 @@ exports.contactPost = function(req, res, next) {
 		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 		const msg = {
 		  to: req.body.email,
-		  from: 'Anna at The Art of Living <anna.chigo@artofliving.org>',
+		  from: req.body.event.organizers[0].name + ' at The Art of Living <' + req.body.event.organizers[0].email + '>',
 		  subject: 'Event Confirmation: ' + req.body.event.event_name,
 		  html: emailHTML,
 		};

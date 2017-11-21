@@ -2051,7 +2051,7 @@ var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function submitContactForm(name, email, tel, event, onSuccess) {
+function submitContactForm(name, email, tel, event, onSuccess, onError) {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -2072,10 +2072,8 @@ function submitContactForm(name, email, tel, event, onSuccess) {
         });
       } else {
         return response.json().then(function (json) {
-          dispatch({
-            type: 'CONTACT_FORM_FAILURE',
-            messages: Array.isArray(json) ? json : [json]
-          });
+          var json = Array.isArray(json) ? json : [json];
+          onError(json);
         });
       }
     });
@@ -5403,28 +5401,73 @@ var EventDetail = function (_get__$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {
 			var that = this;
-			fetch("/api/content/event/" + this.props.params.eventsid).then(function (response) {
+			fetch("/api/content/event/" + this.props.params.eventsid, {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					where: {
+						sort: { event_start: { local: -1 } }
+					}
+				})
+			}).then(function (response) {
 				return response.json();
 			}).then(function (data) {
 				return data;
 			}).then(function (data) {
-				that.setState({ events: data, template: data[0].template_id.name });
-				that.checkEventExpiry(data);
+				if (data.length) {
+					that.setState({ events: data, template: data[0].template_id.name });
+					that.checkEventExpiry(data);
+				} else {
+					_get__('browserHistory').push('/notfound');
+				}
 			});
+		}
+	}, {
+		key: 'slugifyUrl',
+		value: function slugifyUrl(string) {
+			return string.toString().trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-").replace(/^-+/, "").replace(/-+$/, "");
 		}
 	}, {
 		key: 'checkEventExpiry',
 		value: function checkEventExpiry(data) {
+			var that = this;
 			var eventid = this.props.params.eventid ? this.props.params.eventid : '';
 			var event = data.filter(function (data) {
 				return data.event_web_id === eventid;
 			});
 			if (event.length) {
-				var date = new Date();
-				date.toUTCString();
-				var currentUTC = Math.floor(date.getTime() / 1000);
-				var eventUTC = Math.floor(new Date(event[0].event_end.utc).getTime() / 1000);
-				if (eventUTC < currentUTC) _get__('browserHistory').push('/notfound');
+				var eventUTC = new Date(event[0].event_start.utc);
+				var currentUTC = new Date();
+				currentUTC.toUTCString();
+				if (eventUTC < currentUTC) {
+					// Set status to inactive in the database
+					fetch("/api/content/event/" + this.props.params.eventid, {
+						method: 'put',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							event_status: 'Inactive'
+						})
+					}).then(function (response) {
+						if (response.ok) {
+							return response.json().then(function (json) {
+								var eventName = that.slugifyUrl(event[0].event_name);
+								var eventState = event[0].address.state ? that.slugifyUrl(event[0].address.state) : 'ca';
+								var eventCity = event[0].address.city ? that.slugifyUrl(event[0].address.city) : 'los-angles';
+
+								// If there is no event then move it to artofliving else on the event series id
+								if (data.length == 1) {
+									window.location = 'http://google.com';
+								} else {
+									_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + eventName + '/' + event[0].event_web_series_name);
+								}
+							});
+						} else {
+							return response.json().then(function (json) {
+								var json = Array.isArray(json) ? json : [json];
+							});
+						}
+					});
+				}
 			}
 		}
 	}, {
@@ -7035,6 +7078,7 @@ var Contact = function (_get__$Component) {
 		var _this2 = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
 		_this2.onSuccess = _this2.onSuccess.bind(_this2);
+		_this2.onError = _this2.onError.bind(_this2);
 		_this2.state = { name: '', email: '', tel: '', event: {}, events: {}, addClassName: '' };
 		_this2.onSubmit = true;
 		return _this2;
@@ -7056,6 +7100,12 @@ var Contact = function (_get__$Component) {
 
 			if (event.target.name == 'tel') {
 				$(_this.tel).next().html('');
+
+				if (!isNaN(_this.tel)) {
+					$(_this.tel).next().html('Please use valid number');
+					flag = false;
+				}
+
 				if (!event.target.value) {
 					$(_this.tel).next().html('Please fill this field');
 					flag = false;
@@ -7068,33 +7118,23 @@ var Contact = function (_get__$Component) {
 			}
 
 			if (event.target.name == 'email') {
+				var email = event.target.value;
 				$(_this.email).next().html('');
+
 				// Clear timeout before 1 sec;
 				clearTimeout(this.timer);
 
+				if (!email) {
+					$(_this.email).next().html('Please fill this field');
+					flag = false;
+				}
+
 				//Wait for 1 sec before sending request;
-				var email = event.target.value;
-				var name = event.target.name;
-				this.timer = setTimeout(function () {
-					_get__('fetch')("/api/content/contact/email/verification", {
-						method: 'post',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({
-							email: email
-						})
-					}).then(function (response) {
-						if (response.ok) {
-							return response.json().then(function (json) {
-								$(_this.email).after().html('');
-							});
-						} else {
-							return response.json().then(function (json) {
-								flag = false;
-								$(_this.email).next().html(json.msg);
-							});
-						}
-					});
-				}, 1500);
+				if (email) {
+					this.timer = setTimeout(function () {
+						_this.checkEmailValidation(email);
+					}, 1500);
+				}
 			}
 
 			if (flag) this.onSubmit = true;else this.onSubmit = false;
@@ -7102,12 +7142,37 @@ var Contact = function (_get__$Component) {
 			this.setState(_defineProperty({}, event.target.name, event.target.value));
 		}
 	}, {
+		key: 'checkEmailValidation',
+		value: function checkEmailValidation(email) {
+			var _this = this;
+
+			_get__('fetch')("/api/content/contact/email/verification", {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					email: email
+				})
+			}).then(function (response) {
+				if (response.ok) {
+					return response.json().then(function (json) {
+						_this.onSubmit = true;
+						$(_this.email).after().html('');
+					});
+				} else {
+					return response.json().then(function (json) {
+						_this.onSubmit = false;
+						$(_this.email).next().html(json.msg);
+					});
+				}
+			});
+		}
+	}, {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
 			if (this.onSubmit === false) return;
 			$(this.loader).removeClass('display-none');
-			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess));
+			this.props.dispatch(_get__('submitContactForm')(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess, this.onError));
 		}
 	}, {
 		key: 'filterEvent',
@@ -7139,6 +7204,15 @@ var Contact = function (_get__$Component) {
 
 					_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) + '/' + event.event_web_series_name + '/' + eventId);
 				}
+			});
+		}
+	}, {
+		key: 'onError',
+		value: function onError(json) {
+			$(this.loader).addClass('display-none');
+			this.props.dispatch({
+				type: 'CONTACT_FORM_FAILURE',
+				messages: Array.isArray(json) ? json : [json]
 			});
 		}
 	}, {
@@ -7201,7 +7275,7 @@ var Contact = function (_get__$Component) {
 			if (eventid) {
 				var checkIfEvent = _react2.default.createElement(
 					'button',
-					null,
+					{ className: 'savespot' },
 					'Save My Spot ',
 					_react2.default.createElement('i', { ref: function ref(loader) {
 							return _this3.loader = loader;
@@ -7227,7 +7301,7 @@ var Contact = function (_get__$Component) {
 			} else {
 				var checkIfEvent = _react2.default.createElement(
 					'button',
-					{ className: 'disabled', disabled: true },
+					{ className: 'savespot', disabled: true },
 					'Save My Spot'
 				);
 				var selectBox = events.map(function (item, i) {
@@ -7301,13 +7375,8 @@ var Contact = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-md-12' },
-								_react2.default.createElement('div', { 'class': 'col-md-5' }),
-								_react2.default.createElement(
-									'div',
-									{ 'class': 'col-md-7' },
-									_react2.default.createElement(_Messages_Component, { messages: this.props.messages })
-								)
+								{ className: 'col-md-12 clearfix contact-error' },
+								_react2.default.createElement(_Messages_Component, { messages: this.props.messages })
 							),
 							_react2.default.createElement(
 								'form',
@@ -7317,11 +7386,11 @@ var Contact = function (_get__$Component) {
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(name) {
 											return _this3.name = name;
-										}, name: 'name', onkeyup: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
+										}, name: 'name', onChange: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									_react2.default.createElement('input', { type: 'email', name: 'email', ref: function ref(email) {
 											return _this3.email = email;
-										}, onkeyup: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
+										}, onChange: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
 									_react2.default.createElement('div', { className: 'error' })
 								),
 								_react2.default.createElement(
@@ -7329,7 +7398,7 @@ var Contact = function (_get__$Component) {
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(tel) {
 											return _this3.tel = tel;
-										}, name: 'tel', onkeyup: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
+										}, name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									checkIfEvent
 								),
@@ -8101,7 +8170,7 @@ var Index = function (_get__$Component) {
 		key: 'renderMap',
 		value: function renderMap() {
 			var event = this.props.data[0];
-			var uluru = { lat: event.location.latitude, lng: event.location.longitude };
+			var uluru = { lat: parseFloat(event.location.latitude), lng: parseFloat(event.location.longitude) };
 			var map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 16,
 				center: uluru
@@ -8477,7 +8546,7 @@ var Index = function (_get__$Component) {
 								{ className: 'icon' },
 								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
 							),
-							'Watch trailer'
+							'Watch Trailer'
 						)
 					),
 					_react2.default.createElement(
@@ -8516,7 +8585,7 @@ var Index = function (_get__$Component) {
 									{ className: 'icon' },
 									_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
 								),
-								'Watch trailer'
+								'Watch Trailer'
 							)
 						)
 					)
@@ -10580,8 +10649,1146 @@ arguments[4][27][0].apply(exports,arguments)
 },{"_process":1,"dup":27,"react":311}],39:[function(require,module,exports){
 arguments[4][28][0].apply(exports,arguments)
 },{"_process":1,"dup":28,"react":311,"react-redux":131,"react-router":164}],40:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"./contact":37,"./footer":38,"./header":39,"_process":1,"dup":29,"react":311,"react-helmet":126,"react-redux":131,"react-router":164}],41:[function(require,module,exports){
+(function (process){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _header = require('./header');
+
+var _header2 = _interopRequireDefault(_header);
+
+var _reactRedux = require('react-redux');
+
+var _footer = require('./footer');
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _contact = require('./contact');
+
+var _contact2 = _interopRequireDefault(_contact);
+
+var _reactHelmet = require('react-helmet');
+
+var _reactRouter = require('react-router');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Index = function (_get__$Component) {
+	_inherits(Index, _get__$Component);
+
+	function Index(props) {
+		_classCallCheck(this, Index);
+
+		return _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
+	}
+
+	_createClass(Index, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.props.dispatch({ type: 'title', title: this.props.data.event_name });
+		}
+	}, {
+		key: 'onClickPlayButton',
+		value: function onClickPlayButton(event) {
+			event.preventDefault();
+			$('.video_block--img').hide(200);
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			$('body').removeClass('theme-artofliving');
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.renderMap();
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+				$('body').addClass('ios theme-artofliving');
+			} else {
+				$('body').addClass('web theme-artofliving');
+			};
+
+			$('body').removeClass('loaded');
+
+			$('input, textarea').each(function () {
+				var placeholder = $(this).attr('placeholder');
+				$(this).focus(function () {
+					$(this).attr('placeholder', '');
+				});
+				$(this).focusout(function () {
+					$(this).attr('placeholder', placeholder);
+				});
+			});
+
+			$(".fancybox").fancybox();
+
+			$(".descktop_video_btn").fancybox({
+				'titlePosition': 'inside',
+				'transitionIn': 'none',
+				'transitionOut': 'none'
+			});
+
+			//Make elements equal height
+			$('.matchHeight').matchHeight();
+			$('.get_tast__block--img').matchHeight();
+			$('.get_tast__block').matchHeight();
+			$('.research__block--subtitle').matchHeight();
+
+			$(this.reviews__slider).slick({
+				// cssEase: 'ease',
+				// fade: true,
+				arrows: false,
+				dots: true,
+				infinite: true,
+				speed: 500,
+				autoplay: true,
+				autoplaySpeed: 5000,
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				slide: '.reviews--slide'
+			});
+
+			$('a[href*="#"]').click(function (event) {
+				event.preventDefault();
+				var id = $(this).attr('href'),
+				    top = $(id).offset().top;
+				$('body,html').animate({ scrollTop: top }, 1500);
+			});
+
+			$(window).scroll(function () {
+				if ($(this).scrollTop() > 300) {
+					$('.go_top').addClass('visible');
+				} else {
+					$('.go_top').removeClass('visible');
+				}
+			});
+		}
+	}, {
+		key: 'renderMap',
+		value: function renderMap() {
+			var event = this.props.data[0];
+			var uluru = { lat: event.location.latitude, lng: event.location.longitude };
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 16,
+				center: uluru
+			});
+			var image = "/templates/" + process.env.REACT_TEMPLATE + "/images/marker.png";
+			var marker = new google.maps.Marker({
+				position: uluru,
+				map: map,
+				icon: image
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var style = {
+				home_banner: {
+					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
+				},
+				banner_desk: {
+					"background": "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
+				},
+				highlight: {
+					"background": "url(/templates/" + process.env.REACT_TEMPLATE + "/images/highlight_bg.png)"
+				},
+				display_none: {
+					"display": "none"
+				}
+			};
+
+			var events = this.props.data;
+			var event = this.props.data[0];
+			var eventid = this.props.eventid;
+			var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
+			var street_address_2 = "";
+			if (event.address.street_address_2 != "" && event.address.street_address_2 != null) {
+				var street_address_2 = ', ' + event.address.street_address_2;
+			}
+
+			var _Helmet_Component = _get__('Helmet');
+
+			var _Header_Component = _get__('Header');
+
+			var _Contact_Component = _get__('Contact');
+
+			var _Contact_Component2 = _get__('Contact');
+
+			var _Footer_Component = _get__('Footer');
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_Helmet_Component,
+					null,
+					_react2.default.createElement(
+						'title',
+						null,
+						event.event_name
+					)
+				),
+				_react2.default.createElement(_Header_Component, null),
+				_react2.default.createElement(
+					'section',
+					{ className: 'home_banner', style: style.home_banner },
+					_react2.default.createElement(
+						'div',
+						{ className: 'home_banner--caption' },
+						_react2.default.createElement(
+							'h1',
+							{ className: 'home_banner--top_title' },
+							event.event_name
+						),
+						_react2.default.createElement(
+							'h6',
+							{ className: 'home_banner--top_subtitle' },
+							'Los Angeles'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'home_banner--desk', style: style.banner_desk },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'home_banner--center_title' },
+								'Discover the power of breath  and an easy, effective approach  to meditation.'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'home_banner--text' },
+								_react2.default.createElement(
+									'p',
+									null,
+									'FREE mini workshop and introduction to more advanced paid programs including the world-renowned Happiness Program'
+								)
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: '#chose_day', className: 'btn btn-lg' },
+								'Choose a date & Time'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'get_tast' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'get_tast--title' },
+								'get a taste of'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'get_tast__container' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'get_tast__block' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'inner' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'get_tast__block--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/get_tast__block1.png", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h3',
+											{ className: 'get_tast__block--title matchHeight' },
+											'Mind Mastery'
+										),
+										_react2.default.createElement(
+											'p',
+											null,
+											'How to quiet your mind and deal with negative thoughts and emotions'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'get_tast__block' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'inner' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'get_tast__block--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/get_tast__block2.png", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h3',
+											{ className: 'get_tast__block--title matchHeight' },
+											'Yogic Breathing techniques'
+										),
+										_react2.default.createElement(
+											'p',
+											null,
+											'The power of breathing techniques - The quickest, most effective way to dive deep into meditation and reduce stress'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'get_tast__block' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'inner' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'get_tast__block--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/get_tast__block3.png", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h3',
+											{ className: 'get_tast__block--title matchHeight' },
+											'Guided Meditation'
+										),
+										_react2.default.createElement(
+											'p',
+											null,
+											'An effortless guided meditation - get rested and centered'
+										)
+									)
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'logos_sect' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row logos_sect--container' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos1.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"Life ',
+									_react2.default.createElement('br', null),
+									' Changing"'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos4.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"May be the fastest growing spiritual practice on the planet"'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"Like Fresh air to millions"'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"Shows promise in providing relief for depression"'
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(_Contact_Component, { events: events, eventid: eventid }),
+				_react2.default.createElement(
+					'section',
+					{ className: 'map_section clearfix' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'map_section__content' },
+						_react2.default.createElement(
+							'h2',
+							{ className: 'map_section--title' },
+							'Event Location'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							event.address.street_address_1,
+							street_address_2,
+							_react2.default.createElement('br', null),
+							event.address.city,
+							', ',
+							event.address.state,
+							_react2.default.createElement('br', null),
+							event.address.country,
+							_react2.default.createElement('br', null),
+							event.address.zipcode,
+							_react2.default.createElement('br', null)
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 + " " + event.address.city + " " + event.address.state + " " + event.address.country + " " + event.address.zipcode), className: 'show-on-map show-for-mobile', target: '_blank' },
+							'Show on map'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'map_section--direction-icon' },
+							_react2.default.createElement(
+								'a',
+								{ target: '_blank', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 + " " + event.address.city + " " + event.address.state + " " + event.address.country + " " + event.address.zipcode + "&dirflg=w") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ target: '_blank', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 + " " + event.address.city + " " + event.address.state + " " + event.address.country + " " + event.address.zipcode + "&dirflg=d") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ target: '_blank', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 + " " + event.address.city + " " + event.address.state + " " + event.address.country + " " + event.address.zipcode + "&dirflg=r") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png" })
+							),
+							_react2.default.createElement(
+								'a',
+								{ target: '_blank', href: "https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 + " " + event.address.city + " " + event.address.state + " " + event.address.country + " " + event.address.zipcode + "&dirflg=b") },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png" })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'map' },
+						_react2.default.createElement('div', { className: 'ba-map', id: 'map' })
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'happiness' },
+					_react2.default.createElement(
+						'h2',
+						{ className: 'happiness__overlay_title' },
+						'The Happiness Program'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'happiness--title' },
+								'About ',
+								_react2.default.createElement(
+									'span',
+									null,
+									'The Happiness Program'
+								)
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. ',
+								_react2.default.createElement(
+									'span',
+									null,
+									'The Happiness Program'
+								),
+								' is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'video_block show-for-mobile' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'video_block--img', style: style.home_banner },
+						_react2.default.createElement(
+							'a',
+							{ href: '#', className: 'video_section--btn mobile_play_btn', onClick: this.onClickPlayButton },
+							_react2.default.createElement(
+								'span',
+								{ className: 'icon' },
+								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
+							),
+							'Watch trailer'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'videoWrapper' },
+						_react2.default.createElement('iframe', { src: 'https://player.vimeo.com/video/241456461?title=0&byline=0&portrait=0', width: '100%', frameborder: '0', webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true })
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'video_section hide-for-mobile', style: style.home_banner },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row video_section_row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'video_section--title' },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'How The Happiness Program is Changing Lives'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-6 video_section--right' },
+							_react2.default.createElement(
+								'a',
+								{ href: '#videopopup', className: 'video_section--btn descktop_video_btn' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'icon' },
+									_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
+								),
+								'Watch trailer'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'reviews' },
+					_react2.default.createElement(
+						'h2',
+						{ className: 'reviews__overlay_title' },
+						'Reviews'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'reviews__slider', ref: function ref(ele) {
+										return _this2.reviews__slider = ele;
+									} },
+								_react2.default.createElement(
+									'div',
+									{ className: 'reviews--slide' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_content' },
+										_react2.default.createElement(
+											'p',
+											null,
+											'It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of yout attention on it.'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Louis Gagnon'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'President, Ride.com'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'reviews--slide' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_content' },
+										_react2.default.createElement(
+											'p',
+											null,
+											'Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Glenn-Douglas Haig'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'CEO'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'reviews--slide' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_content' },
+										_react2.default.createElement(
+											'p',
+											null,
+											'I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Charlotte Plus'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Lawyer'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'reviews--slide' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_content' },
+										_react2.default.createElement(
+											'p',
+											null,
+											'I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I\'m back to the old me and I see the world differently.'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Maddy King'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Model'
+										)
+									)
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'research' },
+					_react2.default.createElement(
+						'h2',
+						{ className: 'research__overlay_title' },
+						'Research'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'research__title' },
+								'Scientific Research on the ',
+								_react2.default.createElement('br', null),
+								' Art of Living Breathing Techniques',
+								_react2.default.createElement(
+									'span',
+									null,
+									'*'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row research__container' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6 research__block' },
+							_react2.default.createElement(
+								'h4',
+								{ className: 'research__block--title' },
+								'Deep Sleep'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'research__block--subtitle' },
+								'Increases'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent' },
+								'218%'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent_subtitle' },
+								'Increase'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'In Deep Sleep'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'research__block--img' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/arrow_up.png", alt: 'img' })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6 research__block' },
+							_react2.default.createElement(
+								'h4',
+								{ className: 'research__block--title' },
+								'Well-Being'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'research__block--subtitle' },
+								_react2.default.createElement(
+									'span',
+									null,
+									'Hormones'
+								),
+								' Increase'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent' },
+								'50%'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent_subtitle' },
+								'Increase'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Serum Prolactin'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'research__block--img' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/arrow_up.png", alt: 'img' })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6 research__block' },
+							_react2.default.createElement(
+								'h4',
+								{ className: 'research__block--title' },
+								'Stress'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'research__block--subtitle down' },
+								_react2.default.createElement(
+									'span',
+									null,
+									'Hormones'
+								),
+								' Decrease'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent down' },
+								'56%'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent_subtitle down' },
+								'Reduction'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Serum CORTISOL'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'research__block--img' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/arrow_down.png", alt: 'img' })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6 research__block' },
+							_react2.default.createElement(
+								'h4',
+								{ className: 'research__block--title' },
+								'Depression'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'research__block--subtitle down' },
+								'Decreases'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent down' },
+								'70%'
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'percent_subtitle down' },
+								'Remission Rate'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'In Depression in 1 mo'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'research__block--img' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/arrow_down.png", alt: 'img' })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'text-center research__bottom_text' },
+								_react2.default.createElement(
+									'p',
+									null,
+									'* The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. The Happiness Program is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.'
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', events: events, eventid: eventid }),
+				_react2.default.createElement(
+					'section',
+					{ className: 'highlight show-for-mobile', style: style.highlight },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'highlight--left_block' },
+								_react2.default.createElement(
+									'h2',
+									null,
+									'Mind &   Meditation'
+								),
+								_react2.default.createElement(
+									'h5',
+									null,
+									'Register Now for FREE'
+								)
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: '#chose_day', className: 'btn btn-lg' },
+								'Save my Spot'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ id: 'videopopup', style: style.display_none },
+					_react2.default.createElement(
+						'div',
+						{ className: 'videoWrapper' },
+						_react2.default.createElement('iframe', { src: 'https://player.vimeo.com/video/241456461?title=0&byline=0&portrait=0', width: '640', height: '360', frameborder: '0', webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true })
+					)
+				),
+				_react2.default.createElement(_Footer_Component, null)
+			);
+		}
+	}]);
+
+	return Index;
+}(_get__('React').Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+	return {
+		messages: state.messages
+	};
+};
+
+var connectedContainer = _get__('connect')(_get__('mapStateToProps'))(_get__('Index'));
+var RoutedContainer = _get__('withRouter')(_get__('connectedContainer'));
+exports.default = _get__('RoutedContainer');
+var _RewiredData__ = {};
+var _RewireAPI__ = {};
+
+(function () {
+	function addPropertyToAPIObject(name, value) {
+		Object.defineProperty(_RewireAPI__, name, {
+			value: value,
+			enumerable: false,
+			configurable: true
+		});
+	}
+
+	addPropertyToAPIObject('__get__', _get__);
+	addPropertyToAPIObject('__GetDependency__', _get__);
+	addPropertyToAPIObject('__Rewire__', _set__);
+	addPropertyToAPIObject('__set__', _set__);
+	addPropertyToAPIObject('__reset__', _reset__);
+	addPropertyToAPIObject('__ResetDependency__', _reset__);
+	addPropertyToAPIObject('__with__', _with__);
+})();
+
+function _get__(variableName) {
+	return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
+}
+
+function _get_original__(variableName) {
+	switch (variableName) {
+		case 'Helmet':
+			return _reactHelmet.Helmet;
+
+		case 'Header':
+			return _header2.default;
+
+		case 'Contact':
+			return _contact2.default;
+
+		case 'Footer':
+			return _footer2.default;
+
+		case 'React':
+			return _react2.default;
+
+		case 'connect':
+			return _reactRedux.connect;
+
+		case 'mapStateToProps':
+			return mapStateToProps;
+
+		case 'Index':
+			return Index;
+
+		case 'withRouter':
+			return _reactRouter.withRouter;
+
+		case 'connectedContainer':
+			return connectedContainer;
+
+		case 'RoutedContainer':
+			return RoutedContainer;
+	}
+
+	return undefined;
+}
+
+function _assign__(variableName, value) {
+	if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
+		return _set_original__(variableName, value);
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _set_original__(variableName, _value) {
+	switch (variableName) {}
+
+	return undefined;
+}
+
+function _update_operation__(operation, variableName, prefix) {
+	var oldValue = _get__(variableName);
+
+	var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
+
+	_assign__(variableName, newValue);
+
+	return prefix ? newValue : oldValue;
+}
+
+function _set__(variableName, value) {
+	if ((typeof variableName === 'undefined' ? 'undefined' : _typeof(variableName)) === 'object') {
+		Object.keys(variableName).forEach(function (name) {
+			_RewiredData__[name] = variableName[name];
+		});
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _reset__(variableName) {
+	delete _RewiredData__[variableName];
+}
+
+function _with__(object) {
+	var rewiredVariableNames = Object.keys(object);
+	var previousValues = {};
+
+	function reset() {
+		rewiredVariableNames.forEach(function (variableName) {
+			_RewiredData__[variableName] = previousValues[variableName];
+		});
+	}
+
+	return function (callback) {
+		rewiredVariableNames.forEach(function (variableName) {
+			previousValues[variableName] = _RewiredData__[variableName];
+			_RewiredData__[variableName] = object[variableName];
+		});
+		var result = callback();
+
+		if (!!result && typeof result.then == 'function') {
+			result.then(reset).catch(reset);
+		} else {
+			reset();
+		}
+
+		return result;
+	};
+}
+
+var _typeOfOriginalExport = typeof RoutedContainer === 'undefined' ? 'undefined' : _typeof(RoutedContainer);
+
+function addNonEnumerableProperty(name, value) {
+	Object.defineProperty(RoutedContainer, name, {
+		value: value,
+		enumerable: false,
+		configurable: true
+	});
+}
+
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(RoutedContainer)) {
+	addNonEnumerableProperty('__get__', _get__);
+	addNonEnumerableProperty('__GetDependency__', _get__);
+	addNonEnumerableProperty('__Rewire__', _set__);
+	addNonEnumerableProperty('__set__', _set__);
+	addNonEnumerableProperty('__reset__', _reset__);
+	addNonEnumerableProperty('__ResetDependency__', _reset__);
+	addNonEnumerableProperty('__with__', _with__);
+	addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
+}
+
+exports.__get__ = _get__;
+exports.__GetDependency__ = _get__;
+exports.__Rewire__ = _set__;
+exports.__set__ = _set__;
+exports.__ResetDependency__ = _reset__;
+exports.__RewireAPI__ = _RewireAPI__;
+
+}).call(this,require('_process'))
+},{"./contact":37,"./footer":38,"./header":39,"_process":1,"react":311,"react-helmet":126,"react-redux":131,"react-router":164}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16910,7 +18117,7 @@ module.exports = isPlainObject;
 
 },{"./_baseGetTag":107,"./_getPrototype":109,"./isObjectLike":114}],116:[function(require,module,exports){
 //! moment.js
-//! version : 2.19.0
+//! version : 2.19.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -17725,7 +18932,7 @@ function get (mom, unit) {
 
 function set$1 (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
-        if (unit === 'FullYear' && isLeapYear(mom.year())) {
+        if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
             mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
         }
         else {
@@ -18747,28 +19954,15 @@ function chooseLocale(names) {
 
 function loadLocale(name) {
     var oldLocale = null;
-
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
-        oldLocale = globalLocale._abbr;
         try {
-            // workaround for React Native 0.49+
-            var pretendingNotToRequireV1 = require;
-            pretendingNotToRequireV1('moment/locale/' + name);
-        } catch (e) {
-            // In the test environment, the external module 'moment'
-            // can't be resolved because we're running inside it.
-            // Fallback to using the old relative import
-            try {
-                var pretendingNotToRequireV2 = require;
-                pretendingNotToRequireV2('./locale/' + name);
-            } catch (e) { }
-        }
-
-        // because defineLocale currently also sets the global locale, we
-        // want to undo that for lazy loaded locales
-        getSetGlobalLocale(oldLocale);
+            oldLocale = globalLocale._abbr;
+            var aliasedRequire = require;
+            aliasedRequire('./locale/' + name);
+            getSetGlobalLocale(oldLocale);
+        } catch (e) {}
     }
     return locales[name];
 }
@@ -18844,10 +20038,11 @@ function defineLocale (name, config) {
 
 function updateLocale(name, config) {
     if (config != null) {
-        var locale, parentConfig = baseConfig;
+        var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
-        if (locales[name] != null) {
-            parentConfig = locales[name]._config;
+        tmpLocale = loadLocale(name);
+        if (tmpLocale != null) {
+            parentConfig = tmpLocale._config;
         }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
@@ -21401,7 +22596,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.19.0';
+hooks.version = '2.19.2';
 
 setHookCallback(createLocal);
 
