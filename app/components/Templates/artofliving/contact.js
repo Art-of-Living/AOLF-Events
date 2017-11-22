@@ -16,54 +16,51 @@ class Contact extends React.Component {
   }
 
   handleChange(event) {
-	var _this = this;
 	var flag = true;
 	
 	if(event.target.name == 'name'){
-		$(_this.name).next().html('');
+		$(this.name).next().html('');
 		if(!event.target.value){
-			$(_this.name).next().html('Please fill this field');
+			$(this.name).next().html('Please fill this field');
 			flag = false;
 		}
 	}
 	
 	if(event.target.name == 'tel'){
-		$(_this.tel).next().html('');
-	
-		if(!isNaN(_this.tel)){
-			$(_this.tel).next().html('Please use valid number');
+		$(this.tel).next().html('');
+		
+		if(isNaN(parseFloat(event.target.value)) && !isFinite(event.target.value)){
+			$(this.tel).next().html('Please use valid number');
 			flag = false;
 		}
 		
 		if(!event.target.value){
-			$(_this.tel).next().html('Please fill this field');
+			$(this.tel).next().html('Please fill this field');
 			flag = false;
 		}
 		
 		if(event.target.value.length > 10){
-			$(_this.tel).next().html('Please use 10 digit mobile number');
+			$(this.tel).next().html('Please use 10 digit mobile number');
 			flag = false;
 		}
 	}
 	
 	if(event.target.name == 'email'){
 		var email = event.target.value;
-		$(_this.email).next().html('');
-		
-		// Clear timeout before 1 sec;
-		clearTimeout(this.timer);	
+		$(this.email).next().html('');
 		
 		if(!email){
-			$(_this.email).next().html('Please fill this field');
+			$(this.email).next().html('Please fill this field');
 			flag = false;
 		}
-	
-		//Wait for 1 sec before sending request;
-		if(email){
-			this.timer = setTimeout(function() { 
-				_this.checkEmailValidation(email);
-			}, 1500);
+		
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		
+		if(!re.test(email)){
+			$(this.email).next().html('Please use valid email');
+			flag = false;
 		}
+		
 	}  
 	
 	if(flag) this.onSubmit = true;
@@ -72,31 +69,6 @@ class Contact extends React.Component {
 	this.setState({ [event.target.name] : event.target.value });
   }
   
-  checkEmailValidation(email){
-	  var _this = this;
-	  
-	  fetch("/api/content/contact/email/verification", {
-		  method: 'post',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({
-			email: email
-		  })
-		}).then((response) => {
-		  if (response.ok) {
-			return response.json().then((json) => {
-			  _this.onSubmit = true;
-			  $(_this.email).after().html('');
-			});
-		  } else {
-			return response.json().then((json) => {
-			  _this.onSubmit = false;
-			  $(_this.email).next().html(json.msg);
-			});
-		  }
-	  });
-  }
-  
-
   handleSubmit(event) {
     event.preventDefault();
 	if(this.onSubmit === false) return;
@@ -113,9 +85,8 @@ class Contact extends React.Component {
   }
   
   componentDidMount(){
-	  var that = this 
-	  var state = this.state 
-	  
+	  var that = this; 
+	  var state = this.state;
 	  // Get value from select and load the event;
 	  $(this.SelectBox).styler({
 		  onSelectClosed: function(select) {
@@ -130,6 +101,8 @@ class Contact extends React.Component {
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
 			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + '/' + eventId);
+			  
+			  window.location.reload();
 		  },
 	  });
   }
@@ -184,15 +157,15 @@ class Contact extends React.Component {
   }
   
   slugifyUrl (string){
-		return string
-			.toString()
-			.trim()
-			.toLowerCase()
-			.replace(/\s+/g, "-")
-			.replace(/[^\w\-]+/g, "")
-			.replace(/\-\-+/g, "-")
-			.replace(/^-+/, "")
-			.replace(/-+$/, "");
+	return string
+		.toString()
+		.trim()
+		.toLowerCase()
+		.replace(/\s+/g, "-")
+		.replace(/[^\w\-]+/g, "")
+		.replace(/\-\-+/g, "-")
+		.replace(/^-+/, "")
+		.replace(/-+$/, "");
   }
 
   render() {
@@ -201,8 +174,8 @@ class Contact extends React.Component {
 	var eventid = this.props.eventid;
 	
 	if(eventid){
+		var selected = (<option value="">Select Date</option>);
 		var checkIfEvent = (<button className="savespot">Save My Spot <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
-		
 		var selectBox = events.map(function(item, i) {
 			if(eventid == item.event_web_id){
 				that.state.event = item;
@@ -211,9 +184,9 @@ class Contact extends React.Component {
 				return <option value={item.event_web_id}>{that.formatDateTime(item)}</option>
 			}
 		})
-		
 	} else {
-		var checkIfEvent = (<button className="savespot" disabled>Save My Spot</button>);
+		var selected = (<option value="" selected>Select Date</option>);
+		var checkIfEvent = (<button className="disabled savespot" disabled>Save My Spot</button>);
 		var selectBox = events.map(function(item, i) {
 			return <option value={item.event_web_id}>{that.formatDateTime(item)}</option>
 		})
@@ -239,8 +212,8 @@ class Contact extends React.Component {
 						</div>
 						<div className="highlight--right_block">
 							<h3>Choose a date & time</h3>
-							<select ref={(select) => {this.SelectBox = select }}>
-								<option value="">Select Date</option>
+							<select className={eventid ? '' : 'no-event'} ref={(select) => {this.SelectBox = select }}>
+								{selected}
 								{selectBox}
 							</select>
 						</div>

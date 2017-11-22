@@ -27,8 +27,6 @@ exports.updateRow = function(req, res, next) {
 		break
 	}
 	
-	console.log(fetchData);
-
     Model.findOne(fetchData, function (err, result) {
         if (err) {
             res.status(400).send(err)
@@ -40,10 +38,7 @@ exports.updateRow = function(req, res, next) {
             return;
         }
 		
-		console.log(req.body);
-		
         var updated = _.assign(result, req.body);
-		console.log(updated);
 		if (!updated) {
             res.status(400).send(err)
             return;
@@ -60,7 +55,7 @@ exports.updateRow = function(req, res, next) {
 }	
 	
 exports.getRows = function(req, res, next) {
-  var where = req.body.where;
+  var where = req.body.where ? req.body.where : {};
   var Model = mongoose.model(req.params.collection);
   
   Model.find({$and: [{$or: [{is_deleted: false}, {is_deleted: null}]}, where]}, function(err, results){
@@ -80,15 +75,17 @@ exports.getRow = function(req, res, next) {
 	res.status(400).send('Id is missing in the url');
   }
   
-  var fetchData = {_id : id}
+  var fetchData = {_id : id};
+  var sort = {};
   
   switch(req.params.collection){
 		case 'event':
 			fetchData = {event_web_series_name : id, event_status : 'active'}
+			sort = {sort: {local: -1}}
 		break
   }
   
-  Model.find(fetchData, function(err, results){
+  Model.find(fetchData, null, sort, function(err, results){
 	if(err){
 	  res.status(400).send(err);
 	}
@@ -132,7 +129,8 @@ exports.addRows = function(req, res, next) {
   async.forEach(data, function(single, callback) {
 	switch(req.params.collection){
 			case 'event':
-				single.event_status = single.event_status ? single.event_status : 'active';
+				var event_status = single.event_status ? single.event_status : 'active';
+				single.event_status = event_status.toLowerCase()
 			break;
 	}
 	  

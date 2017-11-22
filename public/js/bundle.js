@@ -5438,7 +5438,6 @@ var EventDetail = function (_get__$Component) {
 			if (event.length) {
 				var eventUTC = new Date(event[0].event_start.utc);
 				var currentUTC = new Date();
-				currentUTC.toUTCString();
 				if (eventUTC < currentUTC) {
 					// Set status to inactive in the database
 					fetch("/api/content/event/" + this.props.params.eventid, {
@@ -5456,9 +5455,10 @@ var EventDetail = function (_get__$Component) {
 
 								// If there is no event then move it to artofliving else on the event series id
 								if (data.length == 1) {
-									window.location = 'http://google.com';
+									window.location = 'https://www.artofliving.org/us-en/search/course#distance=2&sSearch=&st=&lat=&lng=&ctype=12371,12517,54553,12519&acol=0&c=&cc=&d1=&d2=';
 								} else {
 									_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + eventName + '/' + event[0].event_web_series_name);
+									window.location.reload();
 								}
 							});
 						} else {
@@ -7075,96 +7075,67 @@ var Contact = function (_get__$Component) {
 	function Contact(props) {
 		_classCallCheck(this, Contact);
 
-		var _this2 = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
 
-		_this2.onSuccess = _this2.onSuccess.bind(_this2);
-		_this2.onError = _this2.onError.bind(_this2);
-		_this2.state = { name: '', email: '', tel: '', event: {}, events: {}, addClassName: '' };
-		_this2.onSubmit = true;
-		return _this2;
+		_this.onSuccess = _this.onSuccess.bind(_this);
+		_this.onError = _this.onError.bind(_this);
+		_this.state = { name: '', email: '', tel: '', event: {}, events: {}, addClassName: '' };
+		_this.onSubmit = true;
+		return _this;
 	}
 
 	_createClass(Contact, [{
 		key: 'handleChange',
 		value: function handleChange(event) {
-			var _this = this;
 			var flag = true;
 
 			if (event.target.name == 'name') {
-				$(_this.name).next().html('');
+				$(this.name).next().html('');
 				if (!event.target.value) {
-					$(_this.name).next().html('Please fill this field');
+					$(this.name).next().html('Please fill this field');
 					flag = false;
 				}
 			}
 
 			if (event.target.name == 'tel') {
-				$(_this.tel).next().html('');
+				$(this.tel).next().html('');
 
-				if (!isNaN(_this.tel)) {
-					$(_this.tel).next().html('Please use valid number');
+				if (isNaN(parseFloat(event.target.value)) && !isFinite(event.target.value)) {
+					$(this.tel).next().html('Please use valid number');
 					flag = false;
 				}
 
 				if (!event.target.value) {
-					$(_this.tel).next().html('Please fill this field');
+					$(this.tel).next().html('Please fill this field');
 					flag = false;
 				}
 
 				if (event.target.value.length > 10) {
-					$(_this.tel).next().html('Please use 10 digit mobile number');
+					$(this.tel).next().html('Please use 10 digit mobile number');
 					flag = false;
 				}
 			}
 
 			if (event.target.name == 'email') {
 				var email = event.target.value;
-				$(_this.email).next().html('');
-
-				// Clear timeout before 1 sec;
-				clearTimeout(this.timer);
+				$(this.email).next().html('');
 
 				if (!email) {
-					$(_this.email).next().html('Please fill this field');
+					$(this.email).next().html('Please fill this field');
 					flag = false;
 				}
 
-				//Wait for 1 sec before sending request;
-				if (email) {
-					this.timer = setTimeout(function () {
-						_this.checkEmailValidation(email);
-					}, 1500);
+				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+				if (!re.test(email)) {
+					$(this.email).next().html('Please use valid email');
+					flag = false;
 				}
 			}
 
 			if (flag) this.onSubmit = true;else this.onSubmit = false;
 
 			this.setState(_defineProperty({}, event.target.name, event.target.value));
-		}
-	}, {
-		key: 'checkEmailValidation',
-		value: function checkEmailValidation(email) {
-			var _this = this;
-
-			_get__('fetch')("/api/content/contact/email/verification", {
-				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					email: email
-				})
-			}).then(function (response) {
-				if (response.ok) {
-					return response.json().then(function (json) {
-						_this.onSubmit = true;
-						$(_this.email).after().html('');
-					});
-				} else {
-					return response.json().then(function (json) {
-						_this.onSubmit = false;
-						$(_this.email).next().html(json.msg);
-					});
-				}
-			});
 		}
 	}, {
 		key: 'handleSubmit',
@@ -7188,7 +7159,6 @@ var Contact = function (_get__$Component) {
 		value: function componentDidMount() {
 			var that = this;
 			var state = this.state;
-
 			// Get value from select and load the event;
 			$(this.SelectBox).styler({
 				onSelectClosed: function onSelectClosed(select) {
@@ -7203,6 +7173,8 @@ var Contact = function (_get__$Component) {
 					var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 					_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) + '/' + event.event_web_series_name + '/' + eventId);
+
+					window.location.reload();
 				}
 			});
 		}
@@ -7266,22 +7238,26 @@ var Contact = function (_get__$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this3 = this;
+			var _this2 = this;
 
 			var that = this;
 			var events = this.props.events;
 			var eventid = this.props.eventid;
 
 			if (eventid) {
+				var selected = _react2.default.createElement(
+					'option',
+					{ value: '' },
+					'Select Date'
+				);
 				var checkIfEvent = _react2.default.createElement(
 					'button',
 					{ className: 'savespot' },
 					'Save My Spot ',
 					_react2.default.createElement('i', { ref: function ref(loader) {
-							return _this3.loader = loader;
+							return _this2.loader = loader;
 						}, className: 'fa fa-circle-o-notch fa-spin fa-fw display-none', 'aria-hidden': 'true' })
 				);
-
 				var selectBox = events.map(function (item, i) {
 					if (eventid == item.event_web_id) {
 						that.state.event = item;
@@ -7299,9 +7275,14 @@ var Contact = function (_get__$Component) {
 					}
 				});
 			} else {
+				var selected = _react2.default.createElement(
+					'option',
+					{ value: '', selected: true },
+					'Select Date'
+				);
 				var checkIfEvent = _react2.default.createElement(
 					'button',
-					{ className: 'savespot', disabled: true },
+					{ className: 'disabled savespot', disabled: true },
 					'Save My Spot'
 				);
 				var selectBox = events.map(function (item, i) {
@@ -7362,14 +7343,10 @@ var Contact = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'select',
-									{ ref: function ref(select) {
-											_this3.SelectBox = select;
+									{ className: eventid ? '' : 'no-event', ref: function ref(select) {
+											_this2.SelectBox = select;
 										} },
-									_react2.default.createElement(
-										'option',
-										{ value: '' },
-										'Select Date'
-									),
+									selected,
 									selectBox
 								)
 							),
@@ -7385,11 +7362,11 @@ var Contact = function (_get__$Component) {
 									'div',
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(name) {
-											return _this3.name = name;
+											return _this2.name = name;
 										}, name: 'name', onChange: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									_react2.default.createElement('input', { type: 'email', name: 'email', ref: function ref(email) {
-											return _this3.email = email;
+											return _this2.email = email;
 										}, onChange: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
 									_react2.default.createElement('div', { className: 'error' })
 								),
@@ -7397,7 +7374,7 @@ var Contact = function (_get__$Component) {
 									'div',
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(tel) {
-											return _this3.tel = tel;
+											return _this2.tel = tel;
 										}, name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
 									_react2.default.createElement('div', { className: 'error' }),
 									checkIfEvent
@@ -7460,9 +7437,6 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
-		case 'fetch':
-			return _isomorphicFetch2.default;
-
 		case 'submitContactForm':
 			return _contact.submitContactForm;
 
@@ -11935,12 +11909,12 @@ var ThankYou = function (_get__$Component) {
 									_react2.default.createElement(
 										'span',
 										{ className: 'start' },
-										startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm
+										startDate.getMonth() + 1 + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm
 									),
 									_react2.default.createElement(
 										'span',
 										{ className: 'end' },
-										endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm
+										endDate.getMonth() + 1 + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm
 									),
 									_react2.default.createElement(
 										'span',

@@ -57,7 +57,6 @@ class EventDetail extends React.Component {
 		if(event.length){
 			var eventUTC = new Date(event[0].event_start.utc);
 			var currentUTC = new Date();
-			currentUTC.toUTCString();
 			if(eventUTC < currentUTC){
 				// Set status to inactive in the database
 				fetch("/api/content/event/" + this.props.params.eventid, {
@@ -75,9 +74,10 @@ class EventDetail extends React.Component {
 						
 						// If there is no event then move it to artofliving else on the event series id
 						if(data.length == 1){
-							window.location = 'http://google.com';
+							window.location = 'https://www.artofliving.org/us-en/search/course#distance=2&sSearch=&st=&lat=&lng=&ctype=12371,12517,54553,12519&acol=0&c=&cc=&d1=&d2=';
 						}else{
-							browserHistory.push('/' + eventState + '/' + eventCity + '/' + eventName + '/' + event[0].event_web_series_name);	  	
+							browserHistory.push('/' + eventState + '/' + eventCity + '/' + eventName + '/' + event[0].event_web_series_name);
+							window.location.reload();							
 						}
 					});
 				  } else {

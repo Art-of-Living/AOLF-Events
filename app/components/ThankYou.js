@@ -91,8 +91,8 @@ class ThankYou extends React.Component {
 					<a href="#">
 						<div title="Add to Calendar" className="addeventatc">
 							Add to Calendar
-							<span className="start">{startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm}</span>
-							<span className="end">{endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
+							<span className="start">{(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm}</span>
+							<span className="end">{(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
 							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
 							<span className="description">{'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
