@@ -75,6 +75,10 @@ class ThankYou extends React.Component {
 		var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
 		var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
 		var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";			
+		
+		var organizer = this.state.event.organizers.map(function(item, i) {
+			return item.email
+		});
 	}
 	
 	return (
@@ -91,6 +95,7 @@ class ThankYou extends React.Component {
 					<a href="#">
 						<div title="Add to Calendar" className="addeventatc">
 							Add to Calendar
+							<span className="alarm_reminder">120</span>
 							<span className="start">{(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm}</span>
 							<span className="end">{(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
 							<span className="timezone">{this.state.event.event_start.timezone}</span>
@@ -99,14 +104,14 @@ class ThankYou extends React.Component {
 							<span className="location">{this.state.event.address.street_address_1 + street_address_2 +", "+ this.state.event.address.city +", "+ this.state.event.address.state +", "+ this.state.event.address.country +", "+ this.state.event.address.zipcode}</span>
 						</div>
 					</a>
-					<a href="#">
+					<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode)}>
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
 						Get directions
 					</a>
 					<div className="map_section--direction-icon">
-						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
 						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=d")}><img src={"/templates/ArtOfLiving/images/sports-car.png"}/></a>
 						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=r")}><img src={"/templates/ArtOfLiving/images/underground.png"}/></a>
+						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=w")}><img src={"/templates/ArtOfLiving/images/man-walking-directions-button.png"}/></a>
 						<a target="_blank" className="map_section--direction-link" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(this.state.event.address.street_address_1 + street_address_2 +" "+ this.state.event.address.city +" "+ this.state.event.address.state +" "+ this.state.event.address.zipcode +"&dirflg=b")}><img src={"/templates/ArtOfLiving/images/youth-bicycle.png"}/></a>
 					</div>
 				</div>
@@ -115,7 +120,7 @@ class ThankYou extends React.Component {
 				</p>
 				<div className="addthis_inline_share_toolbox" data-url={'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-title="Check out this URL"></div>
 				<p>
-					<a href={"mailto:" + this.state.event.organizers[0].email + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>

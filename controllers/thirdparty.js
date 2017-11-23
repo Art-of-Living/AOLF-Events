@@ -6,7 +6,7 @@ var async = require("async");
 var fs = require("fs");
 var path = require("path");
 var moment = require("moment");
-var page = require('webpage').create();  
+/* var page = require('webpage').create();   */
 
 
 exports.addEvent = function(req, res, next) {
