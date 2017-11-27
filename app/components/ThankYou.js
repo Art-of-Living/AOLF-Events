@@ -26,9 +26,14 @@ class ThankYou extends React.Component {
 	  } else{
 			$('body').addClass('web thank-you-page');
 	  };
+	  
+	  var event = this.state.event;
+	  var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
+	  var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
 
+	  addthis.layers.refresh();
+	  addthis.update('share', 'url', 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id)
 	  addeventatc.refresh();
-	  addthis._render();
   }
   
   componentWillUnmount() {
@@ -118,7 +123,7 @@ class ThankYou extends React.Component {
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<div className="addthis_inline_share_toolbox" data-url={'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-title="Check out this URL"></div>
+				<div className="addthis_inline_share_toolbox" data-addthis-url={'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-addthis-title="Check out this URL"></div>
 				<p>
 					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>

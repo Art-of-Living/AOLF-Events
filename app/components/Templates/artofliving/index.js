@@ -47,7 +47,7 @@ class Index extends React.Component {
 		$(".descktop_video_btn").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
-            'transitionOut'     : 'none'
+            'transitionOut'     : 'none',
         });
 
 		//Make elements equal height
@@ -124,6 +124,7 @@ class Index extends React.Component {
 	var eventid = this.props.eventid;
 	var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
 	var street_address_2 = "";
+	
 	if(event.address.street_address_2 != "" && event.address.street_address_2 != null){
 		var street_address_2 = ', ' + event.address.street_address_2; 
 	}

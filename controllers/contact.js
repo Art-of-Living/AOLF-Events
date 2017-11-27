@@ -103,16 +103,23 @@ exports.contactPost = function(req, res, next) {
   var organizers_email = req.body.event.organizers[0].email;
   var organizers_phone = req.body.event.organizers[0].phone;
 
-  var addEvent_start = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm;
-  var addEvent_end = (end_time.getMonth() + 1) + '/' + end_time.getDate() + '/' + end_time.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;
-
-  var addEvent_timezone = req.body.event.event_start.timezone;
-  var addEvent_description = 'For details, link here: http://' + process.env.BASE_URL + '/' + req.body.event.event_name + '/' + req.body.event.address.state + '/' + req.body.event.address.city + '/' + slugifyUrl(req.body.event.event_name) +  '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
-  var addEvent_location = req.body.event.address.street_address_1 + street_address_2 + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + ', ' + req.body.event.address.country + ', ' + req.body.event.address.zipcode;
-
-  var emailTemplatePath = path.join('public', 'templates', 'email', 'email_template.html');
+ 
+   var emailTemplatePath = path.join('public', 'templates', 'email', 'email_template.html');
   var organizersEmailTemplatePath = path.join('public', 'templates', 'email', 'organizers_email_template.html');
-  var checkIfEmailVerified = "https://bpi.briteverify.com/emails.json?address=" + req.body.email + "&apikey=016e9e7d-890a-4514-829b-1f97091285fc"
+  var checkIfEmailVerified = "https://bpi.briteverify.com/emails.json?address=" + req.body.email + "&apikey=016e9e7d-890a-4514-829b-1f97091285fc";
+  
+  var addEventStart = (date.getMonth() + 1) + '%2F' + date.getDate() + '%2F' + date.getFullYear() + ' ' + start_time_hours + '%3A' + start_time_minutes + ' ' + start_am_pm;
+  var addEventEnd = (end_time.getMonth() + 1) + '%2F' + end_time.getDate() + '%2F' + end_time.getFullYear() + ' ' + end_time_hours + '%3A' + end_time_minutes + ' ' + end_am_pm;
+  var addEventTitle = req.body.event.event_name;
+  var addEventTimezone = req.body.event.event_start.timezone;
+  
+  var  addEventApple = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=apple';
+  var  addEventGoogle = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=google';
+  var  addEventOutlook = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=outlook';
+  var  addEventOutlookcom = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=outlookcom';
+  var  addEventYahoo = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=yahoo';
+  
+  var eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
 
   function slugifyUrl (string){
 	if(!string) return '';
@@ -158,7 +165,43 @@ exports.contactPost = function(req, res, next) {
 	},
 	function(cb){		
 		// Pardot API to save the data;
-		var body = 'country=' + userDetail.data.country + '&city=' + userDetail.data.city + '&state=' + userDetail.data.state + '&cname=' + blank + '&terms_of_use=' + '1' + '&email=' + req.body.email + '&first_name=' + firstName + '&last_name=' + lastName + '&phone=' + req.body.tel + '&event_date=' + req.body.event.event_start.local + '&event_name=' + req.body.event.event_name + '&zip_code=' + req.body.event.address.zipcode + '&center_contact_name=' + blank + '&center_email=' + req.body.event.center.email + '&event_id=' + req.body.event._id + '&center_phone=' + blank + '&event_url=' + process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id + '&center_state=' + req.body.event.address.state + '&center_country=' + req.body.event.address.country + '&center_zip=' + blank + '&event_time=' + start_time_hours + ":" + start_time_minutes + start_am_pm + '&event_address=' + req.body.event.address.street_address_1 + street_address_2 + '&event_email=' + req.body.event.organizers[0].email + '&event_contact_name=' + req.body.event.organizers[0].name + '&event_phone=' + req.body.event.organizers[0].phone + '&rsvp_date=' + start_time_hours + ":" + start_time_minutes + start_am_pm + '&Event_Parent_ID=' + req.body.event.event_web_series_name + '&location=' + userDetail.data.timezone.id + '&Event_Start_Date=' + req.body.event.event_start.local + '&Event_End_Date=' + req.body.event.event_end.local + '&Event_Start_Time_=' + start_time_hours + ":" + start_time_minutes + start_am_pm + '&Event_End_Time_=' + end_time_hours + ":" + end_time_minutes + end_am_pm + '&Event_Timezone=' + req.body.event.event_start.timezone + '&Event_Address_Line_2=' + street_address_2 + '&Event_Address_Line_1=' + req.body.event.address.street_address_1 + '&Event_Zip=' + req.body.event.address.zipcode + '&Event_State=' + req.body.event.address.state + '&Event_City=' + req.body.event.address.city + '&Additional_Details=' + req.body.event.additional_details;
+		var body = 'country=' + userDetail.data.country;
+			body += '&city=' + userDetail.data.city;
+			body += '&state=' + userDetail.data.state; 
+			body += '&cname=' + blank; 
+			body += '&terms_of_use=' + '1'; 
+			body += '&email=' + req.body.email; 
+			body += '&first_name=' + firstName;
+			body += '&last_name=' + lastName; 
+			body += '&phone=' + req.body.tel;
+			body += '&event_name=' + req.body.event.event_name; 
+			body += '&zip_code=' + userDetail.data.postal; 
+			body += '&center_contact_name=' + blank; 
+			body += '&center_email=' + req.body.event.center.email; 
+			body += '&event_id=' + req.body.event._id; 
+			body += '&center_phone=' + blank; 
+			body += '&event_url=' + eventUri; 
+			body += '&center_state=' + req.body.event.address.state; 
+			body += '&center_country=' + req.body.event.address.country; 
+			body += '&center_zip=' + blank; 
+			body += '&event_email=' + req.body.event.organizers[0].email; 
+			body += '&event_contact_name=' + req.body.event.organizers[0].name; 
+			body += '&event_phone=' + req.body.event.organizers[0].phone; 
+			body += '&rsvp_date=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
+			body += '&event_parent_id=' + req.body.event.event_web_series_name; 
+			body += '&location=' + userDetail.data.timezone.location; 
+			body += '&event_start_date=' + req.body.event.event_start.local; 
+			body += '&event_end_date=' + req.body.event.event_end.local; 
+			body += '&event_start_time_=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
+			body += '&event_end_time_=' + end_time_hours + ":" + end_time_minutes + end_am_pm; 
+			body += '&Event_Timezone=' + req.body.event.event_start.timezone; 
+			body += '&Event_Address_Line_2=' + street_address_2; 
+			body += '&Event_Address_Line_1=' + req.body.event.address.street_address_1;  
+			body += '&Event_Zip=' + req.body.event.address.zipcode; 
+			body += '&Event_State=' + req.body.event.address.state; 
+			body += '&Event_City=' + req.body.event.address.city; 
+			body += '&Additional_Details=' + req.body.event.additional_details;
+			body += '&event_address=' + req.body.event.address.street_address_1 + street_address_2 + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + ', ' + req.body.event.address.country + ', ' + req.body.event.address.zipcode; 
 		
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
 			if (err) {
@@ -198,16 +241,14 @@ exports.contactPost = function(req, res, next) {
 			emailHTML = emailHTML.replace(/{direction_href_cycle}/g, direction_href_cycle);
 			emailHTML = emailHTML.replace(/{organizers_email}/g, organizers_email);
 			emailHTML = emailHTML.replace(/{organizers_phone}/g, organizers_phone);
-			emailHTML = emailHTML.replace(/{addEvent_start}/g, addEvent_start);
-			emailHTML = emailHTML.replace(/{addEvent_end}/g, addEvent_end);
-			emailHTML = emailHTML.replace(/{addEvent_timezone}/g, addEvent_timezone);
-			emailHTML = emailHTML.replace(/{addEvent_title}/g, req.body.event.event_name);
-			emailHTML = emailHTML.replace(/{addEvent_description}/g, addEvent_description);
-			emailHTML = emailHTML.replace(/{addEvent_location}/g, addEvent_location);
-			emailHTML = emailHTML.replace(/{addEvent_location}/g, addEvent_location);
-			emailHTML = emailHTML.replace(/{addEvent_location}/g, addEvent_location);
 			emailHTML = emailHTML.replace(/{organizers_name}/g, organizers_name);
 			emailHTML = emailHTML.replace(/{BASE_URL}/g, process.env.BASE_URL);			
+			emailHTML = emailHTML.replace(/{addEventApple}/g, addEventApple);			
+			emailHTML = emailHTML.replace(/{addEventGoogle}/g, addEventGoogle);			
+			emailHTML = emailHTML.replace(/{addEventOutlook}/g, addEventOutlook);			
+			emailHTML = emailHTML.replace(/{addEventOutlookcom}/g, addEventOutlookcom);			
+			emailHTML = emailHTML.replace(/{addEventYahoo}/g, addEventYahoo);			
+			emailHTML = emailHTML.replace(/{eventUri}/g, encodeURI(eventUri));			
 			cb();
 		});
 	},
@@ -229,16 +270,14 @@ exports.contactPost = function(req, res, next) {
 			organizersEmailHTML = organizersEmailHTML.replace(/{direction_href_cycle}/g, direction_href_cycle);
 			organizersEmailHTML = organizersEmailHTML.replace(/{organizers_email}/g, organizers_email);
 			organizersEmailHTML = organizersEmailHTML.replace(/{organizers_phone}/g, organizers_phone);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_start}/g, addEvent_start);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_end}/g, addEvent_end);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_timezone}/g, addEvent_timezone);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_title}/g, req.body.event.event_name);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_description}/g, addEvent_description);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_location}/g, addEvent_location);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_location}/g, addEvent_location);
-			organizersEmailHTML = organizersEmailHTML.replace(/{addEvent_location}/g, addEvent_location);
 			organizersEmailHTML = organizersEmailHTML.replace(/{organizers_name}/g, organizers_name);
 			organizersEmailHTML = organizersEmailHTML.replace(/{BASE_URL}/g, process.env.BASE_URL);			
+			organizersEmailHTML = organizersEmailHTML.replace(/{addEventApple}/g, addEventApple);			
+			organizersEmailHTML = organizersEmailHTML.replace(/{addEventGoogle}/g, addEventGoogle);			
+			organizersEmailHTML = organizersEmailHTML.replace(/{addEventOutlook}/g, addEventOutlook);			
+			organizersEmailHTML = organizersEmailHTML.replace(/{addEventOutlookcom}/g, addEventOutlookcom);			
+			organizersEmailHTML = organizersEmailHTML.replace(/{addEventYahoo}/g, addEventYahoo);				
+			organizersEmailHTML = organizersEmailHTML.replace(/{eventUri}/g, encodeURI(eventUri));				
 			cb();
 		});
 	},
