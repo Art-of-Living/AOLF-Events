@@ -25,5 +25,5 @@ module.exports = function (app) {
 	app.post('/api/content/:collection/:id', commonController.getRow);
 	app.put('/api/content/:collection/:id', commonController.updateRow);
 	app.post('/api/content/:collection', userController.ensureAuthenticated, commonController.addRow);
-	app.post('/api/content/multiple/:collection', userController.ensureAuthenticated, commonController.addRows);
+	app.post('/api/multiple/:collection', userController.checkAuth, commonController.addRows);
 }

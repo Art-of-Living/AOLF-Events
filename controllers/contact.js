@@ -192,11 +192,11 @@ exports.contactPost = function(req, res, next) {
 			body += '&location=' + userDetail.data.timezone.location; 
 			body += '&event_start_date=' + req.body.event.event_start.local; 
 			body += '&event_end_date=' + req.body.event.event_end.local; 
-			body += '&event_start_time_=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
-			body += '&event_end_time_=' + end_time_hours + ":" + end_time_minutes + end_am_pm; 
-			body += '&Event_Timezone=' + req.body.event.event_start.timezone; 
-			body += '&Event_Address_Line_2=' + street_address_2; 
-			body += '&Event_Address_Line_1=' + req.body.event.address.street_address_1;  
+			body += '&event_start_time=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
+			body += '&event_end_time=' + end_time_hours + ":" + end_time_minutes + end_am_pm; 
+			body += '&event_timezone=' + req.body.event.event_start.timezone; 
+			body += '&event_address_line_2=' + street_address_2; 
+			body += '&event_address_line_1=' + req.body.event.address.street_address_1;  
 			body += '&Event_Zip=' + req.body.event.address.zipcode; 
 			body += '&Event_State=' + req.body.event.address.state; 
 			body += '&Event_City=' + req.body.event.address.city; 

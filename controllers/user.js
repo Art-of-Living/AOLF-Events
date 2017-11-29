@@ -17,6 +17,18 @@ function generateToken(user) {
   return jwt.sign(payload, process.env.TOKEN_SECRET);
 }
 
+exports.checkAuth = function(req, res, next) {
+	var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
+	var auth_key = process.env.AUTH_TOKEN_KEY;
+	if(!token){
+		res.status(401).send({ msg: 'Unauthorized' });
+	} else if(token === auth_key) {
+		next();
+	} else {
+		res.status(401).send({ msg: 'Unauthorized' });
+	}
+};
+
 /**
  * Login required middleware
  */
