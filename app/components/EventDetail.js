@@ -33,7 +33,7 @@ class EventDetail extends React.Component {
 				that.setState({events: data, template : data[0].template_id.name });
 				that.checkEventExpiry(data);
 			}else{
-				browserHistory.push('/notfound');
+				window.location = 'https://www.artofliving.org/us-en/search/course#distance=2&sSearch=&st=&lat=&lng=&ctype=12371,12517,54553,12519&acol=0&c=&cc=&d1=&d2=';
 			}
 		});
 	}
@@ -55,8 +55,12 @@ class EventDetail extends React.Component {
 		var eventid = this.props.params.eventid ? this.props.params.eventid : '';
 		var event = data.filter(function(data){return data.event_web_id === eventid})
 		if(event.length){
-			var eventUTC = new Date(event[0].event_start.utc);
-			var currentUTC = new Date();
+			var eventUTC = event[0].event_start.utc;
+			var currentUTC = window.date.date;
+			
+			console.log(event[0].event_start.utc);
+			console.log(currentUTC);
+			
 			if(eventUTC < currentUTC){
 				// Set status to inactive in the database
 				fetch("/api/content/event/" + this.props.params.eventid, {

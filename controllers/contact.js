@@ -104,7 +104,7 @@ exports.contactPost = function(req, res, next) {
   var organizers_phone = req.body.event.organizers[0].phone;
 
  
-   var emailTemplatePath = path.join('public', 'templates', 'email', 'email_template.html');
+  var emailTemplatePath = path.join('public', 'templates', 'email', 'email_template.html');
   var organizersEmailTemplatePath = path.join('public', 'templates', 'email', 'organizers_email_template.html');
   var checkIfEmailVerified = "https://bpi.briteverify.com/emails.json?address=" + req.body.email + "&apikey=016e9e7d-890a-4514-829b-1f97091285fc";
   
@@ -136,6 +136,17 @@ exports.contactPost = function(req, res, next) {
   }  
   
   async.series([
+	function(cb){
+		var currentUTC = new Date();
+		var eventUTC = new Date(req.body.event.event_start.utc);
+		
+		if(eventUTC < currentUTC){
+			res.status(400).send({ msg: 'We are sorry, this event has taken place in past. Please select another date.' });
+			next(err);
+		}else {
+			cb();
+		}		
+	},
 	function(cb){
 		// Check briteverify API for the email verification
 		request.get({ url : checkIfEmailVerified }, function(err, httpResponse, body) {
@@ -178,7 +189,7 @@ exports.contactPost = function(req, res, next) {
 			body += '&zip_code=' + userDetail.data.postal; 
 			body += '&center_contact_name=' + blank; 
 			body += '&center_email=' + req.body.event.center.email; 
-			body += '&event_id=' + req.body.event._id; 
+			body += '&event_id=' + req.body.event.event_id; 
 			body += '&center_phone=' + blank; 
 			body += '&event_url=' + eventUri; 
 			body += '&center_state=' + req.body.event.address.state; 
@@ -295,7 +306,6 @@ exports.contactPost = function(req, res, next) {
 		cb();
 	},
 	function(cb){
-		
 		var organizer = [];
 		async.each(req.body.event.organizers, function(org, callback) {
 			organizer.push({

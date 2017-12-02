@@ -285,7 +285,7 @@ class Index extends React.Component {
 							About <span>The Happiness Program</span>
 						</h2>
 						<p>
-							The Happiness Program is for overall well-being and vitality, rest and rejuvenation. The above results are from independent research studies, based on an adaptation of the standard Happiness Program to special needs groups. <span>The Happiness Program</span> is not designed to treat or alleviate clinical symptoms. If you suspect you may have a clinical condition, consult your health care professional before deciding whether to enroll in our program.
+							The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 						</p>
 					</div>
 				</div>

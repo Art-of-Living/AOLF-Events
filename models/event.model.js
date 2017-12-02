@@ -13,6 +13,8 @@ var schemaOptions = {
 var eventSchema = new mongoose.Schema({
   event_id : {type : String},
   event_web_id : {type : String},
+  shortUrl : {type : String},
+  longUrl : {type : String},
   event_status : {type : String, default : 'active'},
   event_name: {type : String, required : true},
   event_series_name: {type : String, required : true},
@@ -29,6 +31,7 @@ var eventSchema = new mongoose.Schema({
   location:{type : Object},
   center:{type : Object},
   organizers:{type : Array},
+  
 }, schemaOptions);
 
 eventSchema.plugin(autopopulate);

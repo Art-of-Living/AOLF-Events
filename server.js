@@ -130,7 +130,8 @@ app.use(function(req, res) {
       ));
       res.render('layouts/main', {
         html: html,
-        initialState: store.getState()
+        initialState: store.getState(),
+		    date : {date : new Date()}
       });
     } else {
       res.sendStatus(404);
