@@ -70,14 +70,6 @@ class Index extends React.Component {
 			slide: '.reviews--slide'
 		});
 
-
-		$('a[href*="#"]').click(function(event) {
-		  event.preventDefault();
-		  var id  = $(this).attr('href'),
-		  top = $(id).offset().top;
-		  $('body,html').animate({scrollTop: top}, 1500);
-		});
-
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 300) {
 				$('.go_top').addClass('visible');
@@ -86,6 +78,13 @@ class Index extends React.Component {
 				$('.go_top').removeClass('visible');
 			}
 		});
+	}
+	
+	onClickScroll (event){
+		event.preventDefault();
+		var id  = $(event.currentTarget).attr('href'),
+		top = $(id).offset().top;
+		$('body,html').animate({scrollTop: top}, 1500);
 	}
 	
 	renderMap() {
@@ -152,7 +151,7 @@ class Index extends React.Component {
 								FREE mini workshop and introduction to more advanced paid programs including the world-renowned Happiness Program
 							</p>
 						</div>
-						<a href="#chose_day" className="btn btn-lg">
+						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
 							Choose a date & Time
 						</a>
 					</div>
@@ -284,7 +283,10 @@ class Index extends React.Component {
 						<h2 className="happiness--title">
 							About <span>The Happiness Program</span>
 						</h2>
-						<p>
+						<p className="hide-for-mobile">
+							The Happiness program is a transformative 3-day immersion in powerful<br /> breathing techniques and mind mastery. The main technique on<br /> The Happiness Program is called Sudarshan Kriya, a research-backed<br /> breathing technique that has helped millions of people release stress,<br /> experience deep meditation, and get back in touch with their true self.
+						</p>
+						<p className="show-for-mobile">
 							The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 						</p>
 					</div>
@@ -514,7 +516,7 @@ class Index extends React.Component {
 							<h2>Mind &   Meditation</h2>
 							<h5>Register Now for FREE</h5>
 						</div>
-						<a href="#chose_day" className="btn btn-lg">
+						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
 							Save my Spot
 						</a>
 					</div>

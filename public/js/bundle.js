@@ -8133,13 +8133,6 @@ var Index = function (_get__$Component) {
 				slide: '.reviews--slide'
 			});
 
-			$('a[href*="#"]').click(function (event) {
-				event.preventDefault();
-				var id = $(this).attr('href'),
-				    top = $(id).offset().top;
-				$('body,html').animate({ scrollTop: top }, 1500);
-			});
-
 			$(window).scroll(function () {
 				if ($(this).scrollTop() > 300) {
 					$('.go_top').addClass('visible');
@@ -8147,6 +8140,14 @@ var Index = function (_get__$Component) {
 					$('.go_top').removeClass('visible');
 				}
 			});
+		}
+	}, {
+		key: 'onClickScroll',
+		value: function onClickScroll(event) {
+			event.preventDefault();
+			var id = $(event.currentTarget).attr('href'),
+			    top = $(id).offset().top;
+			$('body,html').animate({ scrollTop: top }, 1500);
 		}
 	}, {
 		key: 'renderMap',
@@ -8252,7 +8253,7 @@ var Index = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'a',
-								{ href: '#chose_day', className: 'btn btn-lg' },
+								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
 								'Choose a date & Time'
 							)
 						)
@@ -8503,7 +8504,20 @@ var Index = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'p',
-								null,
+								{ className: 'hide-for-mobile' },
+								'The Happiness program is a transformative 3-day immersion in powerful',
+								_react2.default.createElement('br', null),
+								' breathing techniques and mind mastery. The main technique on',
+								_react2.default.createElement('br', null),
+								' The Happiness Program is called Sudarshan Kriya, a research-backed',
+								_react2.default.createElement('br', null),
+								' breathing technique that has helped millions of people release stress,',
+								_react2.default.createElement('br', null),
+								' experience deep meditation, and get back in touch with their true self.'
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'show-for-mobile' },
 								'The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
 							)
 						)
@@ -8960,7 +8974,7 @@ var Index = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'a',
-								{ href: '#chose_day', className: 'btn btn-lg' },
+								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
 								'Save my Spot'
 							)
 						)

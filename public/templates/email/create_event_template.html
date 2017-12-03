@@ -8,32 +8,6 @@
     url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.woff") format("woff"),
     url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.ttf") format("truetype"),
     url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.svg#Arial") format("svg");}
-    .grid{
-    	font-size: 0;
-    }
-    .grid_item{
-    	width: 25%;
-    	display: inline-block;
-    	text-align: center;
-    	vertical-align: top;
-    	box-sizing: border-box;
-    	padding: 0 5px;
-    }
-    .grid_item_img{
-    	height: 74px;
-    }
-    .grid_item h6{
-    	margin: 0;
-    	letter-spacing: .5px;
-    	margin-bottom: 10px;
-    }
-    .grid_item p{
-    	font-family:  'Arial', sans-serif;
-    	font-size: 12px;
-    }
-    p{
-    	color: #545454;
-    }
     @media (max-width: 540px){
     	.grid_item{
     	    width: 50%;
@@ -46,7 +20,7 @@
 			<tr>
 				<td colspan="2" style="text-align: center; padding: 14px 10px 7px;">
 					<a href="#" style="display: inline-block;">
-						<img src="logo.png" alt="logo">
+						<img src="{BASE_URL}templates/email/logo.png" alt="logo">
 					</a>
 					<p style="line-height: 1.4; font-family: 'Arial', sans-serif; font-size: 10px; color: #afaeae; text-align: center; max-width: 280px;margin: 10px auto 0;">
 						You are receiving this email because you created an event or someone listed you as a co-organizer for this event
@@ -108,48 +82,48 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="">
-				<div class="grid">
-					<div class="grid_item">
-						<div class="grid_item_img">
+				<div class="grid" style="font-size: 0;">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/dashboard.png" alt="dashboard">
 						</div>
-						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;">
+						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;margin: 0;letter-spacing: .5px;    	margin-bottom: 10px;">
 							Dashboard
 						</h6>
-						<p style="margin:0; ">
+						<p style="margin:0;font-family:  'Arial', sans-serif; font-size: 12px; color: #545454; ">
 							Check reports, event analytics, and manage attendees
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/promote_event.png" alt="promote_event">
 						</div>
-						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;">
+						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;margin: 0;letter-spacing: .5px;    	margin-bottom: 10px;">
 							Promote Event
 						</h6>
-						<p style="margin:0; ">
+						<p style="margin:0; font-family:  'Arial', sans-serif; font-size: 12px;color: #545454; ">
 							Low turnout days are gone. Get experts to run your event promotion for you
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/check-in.png" alt="Check-In">
 						</div>
-						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;">
+						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;margin: 0;letter-spacing: .5px;    	margin-bottom: 10px;">
 							Check-In
 						</h6>
-						<p style="margin:0; ">
+						<p style="margin:0; font-family:  'Arial', sans-serif; font-size: 12px;color: #545454; ">
 							Mark attendance of event participants
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/contact_center.png" alt="contact_center">
 						</div>
-						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;">
+						<h6 style="font-size: 15px;color: #2a97eb; font-weight: bold; font-family:  'Arial', sans-serif;margin: 0;letter-spacing: .5px;    	margin-bottom: 10px;">
 							Contact Center
 						</h6>
-						<p style="margin:0; ">
+						<p style="margin:0;font-family:  'Arial', sans-serif;font-size: 12px; color: #545454;">
 							Notify RSVPs of changes in venue, time, etc.
 						</p>
 					</div>
@@ -165,36 +139,36 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="">
-				<div class="grid">
-					<div class="grid_item">
-						<div class="grid_item_img">
+				<div class="grid" style="font-size: 0;">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/sms.png" alt="sms">
 						</div>
-						<p style="margin:0; ">
+						<p style="margin:0;font-family:  'Arial', sans-serif;font-size: 12px; color: #545454; ">
 							<b style="display: block;">SMS Reminder</b>  (automated)
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/reminder_emails.png" alt="reminder_emails">
 						</div>
-						<p style="margin:0; ">
+						<p style="margin:0;font-size: 12px; font-family:  'Arial', sans-serif; color: #545454;">
 							<b>Confirmation <br> Reminder Emails</b>
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/discount.png" alt="discount">
 						</div>
-						<p style="margin:0; ">
+						<p style="margin:0;font-family:  'Arial', sans-serif; font-size: 12px; color: #545454;">
 							<b style="display: block;">Discount Codes</b> (coming soon)
 						</p>
 					</div>
-					<div class="grid_item">
-						<div class="grid_item_img">
+					<div class="grid_item" style="width: 25%;display: inline-block;text-align: center;vertical-align: top; 	box-sizing: border-box;   	padding: 0 5px;">
+						<div class="grid_item_img" style="height: 74px;">
 							<img src="{BASE_URL}templates/email/calls.png" alt="calls">
 						</div>
-						<p style="margin:0; ">
+						<p style="margin:0; font-family:  'Arial', sans-serif;font-size: 12px;color: #545454; ">
 							<b>Personalized <br> Reminder calls</b>
 						</p>
 					</div>

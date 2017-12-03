@@ -228,7 +228,7 @@ exports.addRows = function(req, res, next) {
 				
 				const msg = {
 				  to: organizer,
-				  from: 'Art of Living <harshchhabra832000@gmail.com>',
+				  from: 'Art of Living <events@us.artofliving.org>',
 				  subject: 'Event Created: ' + singleEvent.event_name,
 				  html: createEventTemplate,
 				};
