@@ -103,10 +103,7 @@ class Contact extends React.Component {
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
 			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + eventId);
-			  
-			  var optionTxt = $('option:selected', this.SelectBox).html();
-			  var elm = $('.jq-selectbox__select-text');
-			  elm.html(optionTxt);
+
 		  },
 	  });
   }

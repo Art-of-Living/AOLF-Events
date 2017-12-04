@@ -48,6 +48,11 @@ class Index extends React.Component {
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
             'transitionOut'     : 'none',
+			helpers: {
+				overlay: {
+				  locked: false
+				}
+			}
         });
 
 		//Make elements equal height
@@ -57,8 +62,6 @@ class Index extends React.Component {
 		$('.research__block--subtitle').matchHeight();
 		
 		$(this.reviews__slider).slick({
-			// cssEase: 'ease',
-			// fade: true,
 			arrows: false,
 			dots: true,
 			infinite: true,
@@ -508,7 +511,19 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid}/>
+			<section className="highlight hide-for-mobile" style={style.highlight}>
+				<div className="row">
+					<div className="">
+						<div className="highlight--left_block">
+							<h2>Mind &   Meditation</h2>
+							<h5>Register Now for FREE</h5>
+						</div>
+						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-primary pull-right">
+							Save my Spot
+						</a>
+					</div>
+				</div>
+			</section>
 			<section className="highlight show-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="col-md-12">
