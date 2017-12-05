@@ -11,7 +11,7 @@ class Contact extends React.Component {
     super(props);
 	this.onSuccess = this.onSuccess.bind(this);
 	this.onError = this.onError.bind(this);
-    this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : ''};
+    this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : '', userdetail : {}};
 	this.onSubmit = true;
   }
 
@@ -73,7 +73,7 @@ class Contact extends React.Component {
     event.preventDefault();
 	if(this.onSubmit === false) return;
 	$(this.loader).removeClass('display-none');
-    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.onSuccess, this.onError));
+    this.props.dispatch(submitContactForm(this.state.name, this.state.email, this.state.tel, this.state.event, this.state.userdetail, this.onSuccess, this.onError));
   }
   
   filterEvent(eventid){
@@ -82,6 +82,43 @@ class Contact extends React.Component {
 		  if(item.event_web_id == eventid) event = item;
 	  })
 	  return event;
+  }
+  
+  componentWillMount(){
+	this.getUserTimeZone();
+  } 
+	
+  getUserTimeZone(){
+	var that = this;
+	fetch(
+		"https://timezoneapi.io/api/ip"
+	).then(function(response) { 			
+		if (response.ok) {
+			response.json().then((json) => {
+				if(Object.keys(json.data).length){
+					that.setState({
+						userdetail : {
+							country : (json.data.country && json.data.country != null) ? json.data.country : "",
+							state : (json.data.state && json.data.state != null) ? json.data.state : "",
+							city : (json.data.city && json.data.city != null) ? json.data.city : "",
+							postal : (json.data.postal && json.data.postal != null) ? json.data.postal : "",
+							timezone : (json.data.timezone && json.data.timezone != null) ? json.data.timezone.location : ""
+						}
+					});						
+				}
+			})
+		}else{
+			that.setState({
+				userdetail : {
+					country : "",
+					state : "",
+					city : "",
+					postal : "",
+					timezone : ""
+				}
+			});
+		}
+	});
   }
   
   componentDidMount(){

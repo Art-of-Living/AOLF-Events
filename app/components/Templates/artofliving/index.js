@@ -87,7 +87,7 @@ class Index extends React.Component {
 		event.preventDefault();
 		var id  = $(event.currentTarget).attr('href'),
 		top = $(id).offset().top;
-		$('body,html').animate({scrollTop: top}, 1500);
+		window.location.href=id;
 	}
 	
 	renderMap() {
@@ -126,6 +126,7 @@ class Index extends React.Component {
 	var eventid = this.props.eventid;
 	var eventDate = new Date().getDate() + '-' + new Date().getMonth() + '-' + new Date().getFullYear();
 	var street_address_2 = "";
+	var userDetail = this.props.userDetail;
 	
 	if(event.address.street_address_2 != "" && event.address.street_address_2 != null){
 		var street_address_2 = ', ' + event.address.street_address_2; 

@@ -24,17 +24,19 @@ class EventDetail extends React.Component {
 					sort : {event_start : {local: -1}}
 				}
 			})
-		}).then(function(response) { return response.json(); })
-		  .then(function(data) {
-			return data;
-		  })
-		  .then(function(data) {
-			if(data.length){
-				that.setState({events: data, template : data[0].template_id.name });
-				that.checkEventExpiry(data);
+		}).then(function(response) { 
+			if (response.ok) {
+				response.json().then((data) => {
+					if(data.length){
+						that.setState({events: data, template : data[0].template_id.name });
+						that.checkEventExpiry(data);
+					}else{
+						window.location = 'https://www.artofliving.org/us-en/search/course#distance=2&sSearch=&st=&lat=&lng=&ctype=12371,12517,54553,12519&acol=0&c=&cc=&d1=&d2=';
+					}
+				});
 			}else{
 				window.location = 'https://www.artofliving.org/us-en/search/course#distance=2&sSearch=&st=&lat=&lng=&ctype=12371,12517,54553,12519&acol=0&c=&cc=&d1=&d2=';
-			}
+			}	
 		});
 	}
 	
@@ -98,7 +100,6 @@ class EventDetail extends React.Component {
 		var eventid = this.props.params.eventid ? this.props.params.eventid : '';
 		var renderedItem = this.state.events;
 		var template = this.state.template;
-		
 		return (
 			<div>
 				<Template name={template} eventid={eventid} data={renderedItem}/>

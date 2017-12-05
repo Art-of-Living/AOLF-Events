@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router';
 
-export function submitContactForm(name, email, tel, event, onSuccess, onError) {
+export function submitContactForm(name, email, tel, event, userDetail, onSuccess, onError) {
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -13,7 +13,8 @@ export function submitContactForm(name, email, tel, event, onSuccess, onError) {
         name: name,
         email: email,
         tel: tel,
-		event : event
+		event : event,
+		userDetail : userDetail
       })
     }).then((response) => {
       if (response.ok) {

@@ -53,18 +53,18 @@ exports.contactPost = function(req, res, next) {
   // Pardot API details;
   var pardotUrl = 'https://go.pardot.com/l/23282/2017-11-06/559j7l';
   
-  // Timezone API Url;
-  var timeZoneAPI = 'https://timezoneapi.io/api/ip';
-  
-  var userDetail = {};
   var blank = ''
+  
+  var userDetail = req.body.userDetail;
   
   var userEmail = req.body.email;
   var userPhone = req.body.tel;
   var userName = req.body.name;
+  
   var parts = userName.split(" "),
       firstName = parts.shift(),
       lastName = parts.shift() || "";
+	  
   var emailHTML;
   var organizersEmailHTML;
   
@@ -163,22 +163,11 @@ exports.contactPost = function(req, res, next) {
 			}
 		});	
 	},
-	function(cb){
-		request.get({ url : timeZoneAPI }, function(err, httpResponse, body) {
-			if(err){
-				res.status(400).send({ msg: 'There is some error please contact administrate.' });
-				next(err);
-			}
-			
-			userDetail = JSON.parse(body);
-			cb();
-		})
-	},
 	function(cb){		
 		// Pardot API to save the data;
-		var body = 'country=' + userDetail.data.country;
-			body += '&city=' + userDetail.data.city;
-			body += '&state=' + userDetail.data.state; 
+		var body = 'country=' + userDetail.country;
+			body += '&city=' + userDetail.city;
+			body += '&state=' + userDetail.state; 
 			body += '&cname=' + blank; 
 			body += '&terms_of_use=' + '1'; 
 			body += '&email=' + req.body.email; 
@@ -186,7 +175,7 @@ exports.contactPost = function(req, res, next) {
 			body += '&last_name=' + lastName; 
 			body += '&phone=' + req.body.tel;
 			body += '&event_name=' + req.body.event.event_name; 
-			body += '&zip_code=' + userDetail.data.postal; 
+			body += '&zip_code=' + userDetail.postal; 
 			body += '&center_contact_name=' + blank; 
 			body += '&center_email=' + req.body.event.center.email; 
 			body += '&event_id=' + req.body.event.event_id; 
@@ -200,7 +189,7 @@ exports.contactPost = function(req, res, next) {
 			body += '&event_phone=' + req.body.event.organizers[0].phone; 
 			body += '&rsvp_date=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
 			body += '&event_parent_id=' + req.body.event.event_web_series_name; 
-			body += '&location=' + userDetail.data.timezone.location; 
+			body += '&location=' + userDetail.timezone.location; 
 			body += '&event_start_date=' + req.body.event.event_start.local; 
 			body += '&event_end_date=' + req.body.event.event_end.local; 
 			body += '&event_start_time=' + start_time_hours + ":" + start_time_minutes + start_am_pm; 
@@ -213,6 +202,8 @@ exports.contactPost = function(req, res, next) {
 			body += '&Event_City=' + req.body.event.address.city; 
 			body += '&Additional_Details=' + req.body.event.additional_details;
 			body += '&event_address=' + req.body.event.address.street_address_1 + street_address_2 + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + ', ' + req.body.event.address.country + ', ' + req.body.event.address.zipcode; 
+			
+		console.log(body);
 		
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
 			if (err) {
@@ -313,7 +304,6 @@ exports.contactPost = function(req, res, next) {
 			});
 			callback();
 		}, function(err, result) {
-			
 			if( err ) {
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 				next(err);
@@ -323,7 +313,7 @@ exports.contactPost = function(req, res, next) {
 				sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 				const msg = {
 				  to: organizer,
-				  from: userName + ' at The Art of Living <' + userEmail + '>',
+				  from: 'The Art of Living <events@us.artofliving.org>',
 				  subject: 'Event Confirmation: ' + req.body.event.event_name,
 				  html: organizersEmailHTML,
 				};
