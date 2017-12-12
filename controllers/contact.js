@@ -120,6 +120,8 @@ exports.contactPost = function(req, res, next) {
   var  addEventYahoo = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=yahoo';
   
   var eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
+  
+  var note = 'This free 60-90 minute session will give you a taste of powerful breathing techniques and easy, effective approach to meditation.\n - Date: ' + eventDate + '\n - Times: ' + eventTime + '\n - Venue: ' + event_address_street + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + '\n\nLearn more and RSVP at ' + eventUri;
 
   function slugifyUrl (string){
 	if(!string) return '';
@@ -251,6 +253,7 @@ exports.contactPost = function(req, res, next) {
 			emailHTML = emailHTML.replace(/{addEventOutlookcom}/g, addEventOutlookcom);			
 			emailHTML = emailHTML.replace(/{addEventYahoo}/g, addEventYahoo);			
 			emailHTML = emailHTML.replace(/{eventUri}/g, encodeURI(eventUri));			
+			emailHTML = emailHTML.replace(/{note}/g, encodeURI(note));			
 			cb();
 		});
 	},

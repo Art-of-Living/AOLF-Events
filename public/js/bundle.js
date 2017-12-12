@@ -7203,8 +7203,9 @@ var Contact = function (_get__$Component) {
 		value: function componentDidMount() {
 			var that = this;
 			var state = this.state;
+
 			// Get value from select and load the event;
-			$(this.SelectBox).styler({
+			$(".selectbox").styler({
 				onSelectClosed: function onSelectClosed(select) {
 					var eventId = $(that.SelectBox).val() ? $(that.SelectBox).val() : '';
 
@@ -7387,7 +7388,7 @@ var Contact = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'select',
-									{ className: eventid ? '' : 'no-event', ref: function ref(select) {
+									{ className: eventid ? 'selectbox' : 'selectbox no-event', ref: function ref(select) {
 											_this2.SelectBox = select;
 										} },
 									selected,

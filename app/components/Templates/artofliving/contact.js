@@ -124,8 +124,9 @@ class Contact extends React.Component {
   componentDidMount(){
 	  var that = this; 
 	  var state = this.state;
+	  
 	  // Get value from select and load the event;
-	  $(this.SelectBox).styler({
+	  $(".selectbox").styler({
 		  onSelectClosed: function(select) {
 			  var eventId = $(that.SelectBox).val() ? $(that.SelectBox).val() : '';
 			  
@@ -140,7 +141,6 @@ class Contact extends React.Component {
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
 			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + eventId);
-
 		  },
 	  });
   }
@@ -250,7 +250,7 @@ class Contact extends React.Component {
 						</div>
 						<div className="highlight--right_block">
 							<h3>Choose a date & time</h3>
-							<select className={eventid ? '' : 'no-event'} ref={(select) => {this.SelectBox = select }}>
+							<select className={eventid ? 'selectbox' : 'selectbox no-event'} ref={(select) => {this.SelectBox = select }}>
 								{selected}
 								{selectBox}
 							</select>
