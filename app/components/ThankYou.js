@@ -123,7 +123,7 @@ class ThankYou extends React.Component {
 				<p>
 					This event is best enjoyed with friends. Click below to share:
 				</p>
-				<div className="addthis_inline_share_toolbox" data-addthis-url={'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} data-addthis-title="Check out this URL"></div>
+				<div className="addthis_inline_share_toolbox"></div>
 				<p>
 					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>

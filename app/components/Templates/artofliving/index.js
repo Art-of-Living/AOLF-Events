@@ -5,6 +5,7 @@ import Footer from './footer';
 import Contact from './contact';
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router' 
+import MetaTags from 'react-meta-tags';
 
 class Index extends React.Component {	
 	constructor(props) {
@@ -134,9 +135,14 @@ class Index extends React.Component {
 	
     return (
       <div>
-	    <Helmet>
-		  <title>{event.event_name}</title>
-		</Helmet>
+		<MetaTags>
+            <title>{event.event_name}</title>
+            <meta name="description" content="Some description." />
+            <meta property="og:title" content="Mind & Meditation: FREE Mini Workshop" />
+            <meta property="og:type" content="Event Promotion" />
+            <meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />			
+            <meta property="og:image" content="" />
+        </MetaTags>
 		<Header/>
 			<section className="home_banner" style={style.home_banner}>
 				<div className="home_banner--caption">

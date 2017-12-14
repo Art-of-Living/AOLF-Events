@@ -47,6 +47,7 @@
     "react-dom": "15.1.0",
     "react-google-maps": "^9.2.2",
     "react-helmet": "^5.2.0",
+    "react-meta-tags": "^0.3.0",
     "react-redux": "4.4.1",
     "react-router": "^2.4.0",
     "redux": "^3.3.1",
