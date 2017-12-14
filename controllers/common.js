@@ -122,60 +122,93 @@ function slugifyUrl (string){
 
 
 exports.addRows = function(req, res, next) {
-  var data = req.body;
-  var Model = mongoose.model(req.params.collection);
+    var data = req.body;
+    var Model = mongoose.model(req.params.collection);
   
-  console.log(data);
+    console.log(data);
   
-  var createdData = [];
-  var createEventTemplate,
+    var createdData = [];
+    var createEventTemplate,
 	  longUrl,
 	  shortUrl,
 	  singleEvent;
 	  
-  var organizer = [];	
+    var organizer = [];	
+	var flagUpdated = false;
   
-  async.forEach(data, function(single, callback) {
+    async.forEach(data, function(single, callback) {
 		
-	switch(req.params.collection){
+		switch(req.params.collection){
 			case 'event':
 				var event_status = single.event_status ? single.event_status : 'active';
 				single.event_status = event_status.toLowerCase()
 			break;
-	}
-	
-	Model.create(single, function(err, result){
-		if(err){
-		  next(err)
-		}	
+		}
 		
-		singleEvent = result;
+		Model.findOne({event_id : single.event_id}, function(err, results){
+			if(err){
+			  res.status(400).send(err);
+			}
+			
+			if(results){
+				flagUpdated = true;
+				var updated = _.assign(results, single);
+				updated.save(function(err, result){
+					if(err){
+					  next(err)
+					}	
+					
+					singleEvent = result;
+					callback();
+				});	
+			}else{
+				Model.create(single, function(err, result){
+					if(err){
+					  next(err)
+					}	
+					
+					singleEvent = result;
+					callback();
+				});	
+			}
+		})
+	
+	},function(err){
+		if(err){
+			res.status(400).send({ msg: 'There is some error please contact administrate.' });
+			next(err);
+		}
 		
 		async.series([
 			function(cb){
-				switch(req.params.collection){
-					case 'event':	
-						longUrl = process.env.BASE_URL + slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city) + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
-						
-						request({
-							uri: "https://api.rebrandly.com/v1/links",
-							method: "POST",
-							body: JSON.stringify({
-								  destination: longUrl,
-								  domain: { fullName: "aolf.us" }
-							}),
-							
-							headers: {
-							  "Content-Type": "application/json",
-							  "apikey": "1e97469880394afa9057045845eb7f57"
-							}},
+				longUrl = process.env.BASE_URL + slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city) + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+				
+				if(!flagUpdated){
+					switch(req.params.collection){
+						case 'event':								
+							request({
+								uri: "https://api.rebrandly.com/v1/links",
+								method: "POST",
+								body: JSON.stringify({
+									  destination: longUrl,
+									  domain: { fullName: "aolf.us" }
+								}),
+								
+								headers: {
+								  "Content-Type": "application/json",
+								  "apikey": "1e97469880394afa9057045845eb7f57"
+								}},
 
-							function(err, response, body) {
-								shortUrl = JSON.parse(body).shortUrl;
-								cb();
-						});
-					break;
-				}		
+								function(err, response, body) {
+									shortUrl = JSON.parse(body).shortUrl;
+									cb();
+							});
+						break;
+					}
+				}else{
+					shortUrl = singleEvent.shortUrl;
+					cb();
+				}				
 			},
 			
 			function (cb){
@@ -222,6 +255,12 @@ exports.addRows = function(req, res, next) {
 			},
 			
 			function(cb){
+				if(!flagUpdated){
+					var subject =  'Event Created: ' + singleEvent.event_name;
+				}else{
+					var subject = 'Event Updated: ' + singleEvent.event_name;
+				}
+				
 				// Send email about the cofirmation of the event to the organizers
 				const sgMail = require('@sendgrid/mail');
 				sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -229,7 +268,7 @@ exports.addRows = function(req, res, next) {
 				const msg = {
 				  to: organizer,
 				  from: 'Art of Living <events@us.artofliving.org>',
-				  subject: 'Event Created: ' + singleEvent.event_name,
+				  subject: subject,
 				  html: createEventTemplate,
 				};
 				
@@ -250,15 +289,7 @@ exports.addRows = function(req, res, next) {
 				next(err);
 			}
 			
-			callback();
+			res.status(200).send(createdData);
 		})
-	});	
-	},function(err){
-		if(err){
-			res.status(400).send({ msg: 'There is some error please contact administrate.' });
-			next(err);
-		}
-		
-		res.status(200).send(createdData);
 	})
 };
