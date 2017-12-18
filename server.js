@@ -16,6 +16,7 @@ var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var request = require('request');
 var helmet = require('helmet');
+var Helmet = require('react-helmet').Helmet;
 var RateLimit = require('express-rate-limit');
 
 // Load environment variables from .env file
@@ -116,7 +117,7 @@ app.use(function(req, res) {
     auth: { token: req.cookies.token, user: req.user },
     messages: {}
   };
-
+  
   var store = configureStore(initialState);
 
   Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
@@ -128,10 +129,12 @@ app.use(function(req, res) {
       var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
         React.createElement(Router.RouterContext, renderProps)
       ));
+	  const helmet = Helmet.renderStatic();
       res.render('layouts/main', {
         html: html,
         initialState: store.getState(),
-		    date : {date : new Date()}
+		date : {date : new Date()},
+		baseurl : process.env.BASE_URL
       });
     } else {
       res.sendStatus(404);

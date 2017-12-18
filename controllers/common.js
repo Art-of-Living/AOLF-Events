@@ -128,10 +128,10 @@ exports.addRows = function(req, res, next) {
     console.log(data);
   
     var createdData = [];
+	var allEvents = [];
     var createEventTemplate,
 	  longUrl,
-	  shortUrl,
-	  singleEvent;
+	  shortUrl;
 	  
     var organizer = [];	
 	var flagUpdated = false;
@@ -158,16 +158,18 @@ exports.addRows = function(req, res, next) {
 					  next(err)
 					}	
 					
-					singleEvent = result;
+					result.updated = true;
+					allEvents.push(result);
 					callback();
 				});	
 			}else{
 				Model.create(single, function(err, result){
 					if(err){
 					  next(err)
-					}	
+					}
 					
-					singleEvent = result;
+					result.updated = false;
+					allEvents.push(result);
 					callback();
 				});	
 			}
@@ -179,117 +181,129 @@ exports.addRows = function(req, res, next) {
 			next(err);
 		}
 		
-		async.series([
-			function(cb){
-				longUrl = process.env.BASE_URL + slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city) + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
-				
-				if(!flagUpdated){
-					switch(req.params.collection){
-						case 'event':								
-							request({
-								uri: "https://api.rebrandly.com/v1/links",
-								method: "POST",
-								body: JSON.stringify({
-									  destination: longUrl,
-									  domain: { fullName: "aolf.us" }
-								}),
-								
-								headers: {
-								  "Content-Type": "application/json",
-								  "apikey": "1e97469880394afa9057045845eb7f57"
-								}},
+		async.forEach(allEvents, function(singleEvent, callback) {		
+			async.series([
+				function(cb){				
+					if(!singleEvent.updated){
+						longUrl = process.env.BASE_URL + slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city) + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+						switch(req.params.collection){
+							case 'event':								
+								request({
+									uri: "https://api.rebrandly.com/v1/links",
+									method: "POST",
+									body: JSON.stringify({
+										  destination: longUrl,
+										  domain: { fullName: "aolf.us" }
+									}),
+									
+									headers: {
+									  "Content-Type": "application/json",
+									  "apikey": "1e97469880394afa9057045845eb7f57"
+									}},
 
-								function(err, response, body) {
-									shortUrl = JSON.parse(body).shortUrl;
-									cb();
-							});
-						break;
-					}
-				}else{
-					shortUrl = singleEvent.shortUrl;
-					cb();
-				}				
-			},
-			
-			function (cb){
-				singleEvent.shortUrl = shortUrl
-				singleEvent.longUrl = longUrl
+									function(err, response, body) {
+										shortUrl = JSON.parse(body).shortUrl;
+										cb();
+								});
+							break;
+						}
+					}else{
+						cb();
+					}				
+				},
 				
-				singleEvent.save(function (err) {
-				  if( err ) {
-						res.status(400).send({ msg: 'There is some error please contact administrate.' });
-						next(err);
-				  }
-				  
-				  cb();
-				})
-			},
-			function (cb){		
-				organizer = [];			
-				async.each(singleEvent.organizers, function(org, cbo) {
-					organizer.push({
-						'email' : org.email
-					});
-					
-					cbo();
-				}, function(err, result) {							
-					if( err ) {
-						res.status(400).send({ msg: 'There is some error please contact administrate.' });
-						next(err);
-					} else {												
+				function (cb){
+					if(!singleEvent.updated){
+						singleEvent.shortUrl = shortUrl
+						singleEvent.longUrl = longUrl
+						
+						singleEvent.save(function (err) {
+						  if( err ) {
+								res.status(400).send({ msg: 'There is some error please contact administrate.' });
+								next(err);
+						  }
+						  
+						  cb();
+						})
+					}else{
 						cb();
 					}
-				});
-			},
-			
-			function(cb){		
-				var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
-				fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
-					createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
-					createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, shortUrl + '.qr');
-					createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
-					createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, longUrl);
-					createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, shortUrl);
+				},
+				function (cb){		
+					organizer = [];			
+					async.each(singleEvent.organizers, function(org, cbo) {
+						organizer.push({
+							'email' : org.email
+						});
+						
+						cbo();
+					}, function(err, result) {							
+						if( err ) {
+							res.status(400).send({ msg: 'There is some error please contact administrate.' });
+							next(err);
+						} else {												
+							cb();
+						}
+					});
+				},
+				
+				function(cb){		
+					var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
+					fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
+						createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
+						createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
+						createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
+						createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
+						createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
+						cb();
+					});
+				},
+				
+				function(cb){
+					if(!singleEvent.updated){
+						var subject =  'Event Created: ' + singleEvent.event_name;
+					}else{
+						var subject = 'Event Updated: ' + singleEvent.event_name;
+					}
+					
+					// Send email about the cofirmation of the event to the organizers
+					const sgMail = require('@sendgrid/mail');
+					sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+					
+					const msg = {
+					  to: organizer,
+					  from: 'Art of Living <events@us.artofliving.org>',
+					  subject: subject,
+					  html: createEventTemplate,
+					};
+					
+					// Send email to organizer to let them know about event;
+					sgMail.send(msg);
+					
+					createdData.push({
+						longUrl : singleEvent.longUrl + "/" + singleEvent.event_web_id,
+						shortUrl : singleEvent.shortUrl,
+						id : singleEvent._id,
+						event_id : singleEvent.event_id
+					});
 					cb();
-				});
-			},
-			
-			function(cb){
-				if(!flagUpdated){
-					var subject =  'Event Created: ' + singleEvent.event_name;
-				}else{
-					var subject = 'Event Updated: ' + singleEvent.event_name;
+				}
+			], function(err){
+				if(err){
+					res.status(400).send({ msg: 'There is some error please contact administrate.' });
+					next(err);
 				}
 				
-				// Send email about the cofirmation of the event to the organizers
-				const sgMail = require('@sendgrid/mail');
-				sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-				
-				const msg = {
-				  to: organizer,
-				  from: 'Art of Living <events@us.artofliving.org>',
-				  subject: subject,
-				  html: createEventTemplate,
-				};
-				
-				// Send email to organizer to let them know about event;
-				sgMail.send(msg);
-				
-				createdData.push({
-					longUrl : longUrl + "/" + singleEvent.event_web_id,
-					shortUrl : shortUrl,
-					id : singleEvent._id,
-					event_id : singleEvent.event_id
-				});
-				cb();
-			}
-		], function(err){
+				callback();
+			})
+	
+		},function(err){
 			if(err){
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 				next(err);
 			}
 			
 			res.status(200).send(createdData);
-		})
+		});
 	})
 };

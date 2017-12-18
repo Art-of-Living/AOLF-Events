@@ -180,7 +180,7 @@ exports.contactPost = function(req, res, next) {
 			body += '&zip_code=' + userDetail.postal; 
 			body += '&center_contact_name=' + blank; 
 			body += '&center_email=' + req.body.event.center.email; 
-			body += '&event_id=' + req.body.event.event_id; 
+			body += '&event_id=' + req.body.event._id; 
 			body += '&center_phone=' + blank; 
 			body += '&event_url=' + eventUri; 
 			body += '&center_state=' + req.body.event.address.state; 

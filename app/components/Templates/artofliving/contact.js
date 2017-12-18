@@ -134,13 +134,13 @@ class Contact extends React.Component {
 				  that.state.event = that.filterEvent(eventId);
 			  }
 			  
-			  eventId = eventId ? '/' + eventId : '';
+			  eventId = eventId ? '/' + eventId : '';			  
 			  
-			  var event = state.event ? state.event : that.props.events[0];
+			  var event = Object.keys(state.event).length ? state.event : that.props.events[0];
 			  var eventState = event.address.state ? that.slugifyUrl(event.address.state) : 'ca';
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
-			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + eventId);
+			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + eventId);
 		  },
 	  });
   }
