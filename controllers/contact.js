@@ -122,6 +122,11 @@ exports.contactPost = function(req, res, next) {
   var eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
   
   var note = 'This free 60-90 minute session will give you a taste of powerful breathing techniques and easy, effective approach to meditation.\n - Date: ' + eventDate + '\n - Times: ' + eventTime + '\n - Venue: ' + event_address_street + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + '\n\nLearn more and RSVP at ' + eventUri;
+  
+  var is_hidden = '';
+  if(req.body.event.event_type == 'online'){
+	var is_hidden = 'style = "display:none;"';  
+  }
 
   function slugifyUrl (string){
 	if(!string) return '';
@@ -254,6 +259,7 @@ exports.contactPost = function(req, res, next) {
 			emailHTML = emailHTML.replace(/{addEventYahoo}/g, addEventYahoo);			
 			emailHTML = emailHTML.replace(/{eventUri}/g, encodeURI(eventUri));			
 			emailHTML = emailHTML.replace(/{note}/g, encodeURI(note));			
+			emailHTML = emailHTML.replace(/{is_hidden}/g, is_hidden);			
 			cb();
 		});
 	},
@@ -283,6 +289,7 @@ exports.contactPost = function(req, res, next) {
 			organizersEmailHTML = organizersEmailHTML.replace(/{addEventOutlookcom}/g, addEventOutlookcom);			
 			organizersEmailHTML = organizersEmailHTML.replace(/{addEventYahoo}/g, addEventYahoo);				
 			organizersEmailHTML = organizersEmailHTML.replace(/{eventUri}/g, encodeURI(eventUri));				
+			organizersEmailHTML = organizersEmailHTML.replace(/{is_hidden}/g, is_hidden);				
 			cb();
 		});
 	},

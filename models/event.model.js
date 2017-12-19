@@ -17,6 +17,7 @@ var eventSchema = new mongoose.Schema({
   longUrl : {type : String},
   event_status : {type : String, default : 'active'},
   event_name: {type : String, required : true},
+  event_type: {type : String, default : 'online'},
   event_series_name: {type : String, required : true},
   event_web_series_name: {type : String, required : true},
   event_description: {type : String},
