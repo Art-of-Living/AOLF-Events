@@ -127,6 +127,13 @@ exports.contactPost = function(req, res, next) {
   if(req.body.event.event_type == 'online'){
 	var is_hidden = 'style = "display:none;"';  
   }
+  
+  var hide_for_inperson = '';
+  if(req.body.event.event_type == 'inperson'){
+	var hide_for_inperson = 'style = "display:none;"';  
+  }
+  
+  var online_session_url = req.body.event.online_session_url ? req.body.event.online_session_url : '';
 
   function slugifyUrl (string){
 	if(!string) return '';
@@ -260,6 +267,8 @@ exports.contactPost = function(req, res, next) {
 			emailHTML = emailHTML.replace(/{eventUri}/g, encodeURI(eventUri));			
 			emailHTML = emailHTML.replace(/{note}/g, encodeURI(note));			
 			emailHTML = emailHTML.replace(/{is_hidden}/g, is_hidden);			
+			emailHTML = emailHTML.replace(/{hide_for_inperson}/g, hide_for_inperson);			
+			emailHTML = emailHTML.replace(/{online_session_url}/g, online_session_url);			
 			cb();
 		});
 	},
@@ -290,6 +299,8 @@ exports.contactPost = function(req, res, next) {
 			organizersEmailHTML = organizersEmailHTML.replace(/{addEventYahoo}/g, addEventYahoo);				
 			organizersEmailHTML = organizersEmailHTML.replace(/{eventUri}/g, encodeURI(eventUri));				
 			organizersEmailHTML = organizersEmailHTML.replace(/{is_hidden}/g, is_hidden);				
+			organizersEmailHTML = organizersEmailHTML.replace(/{hide_for_inperson}/g, hide_for_inperson);				
+			organizersEmailHTML = organizersEmailHTML.replace(/{online_session_url}/g, online_session_url);				
 			cb();
 		});
 	},

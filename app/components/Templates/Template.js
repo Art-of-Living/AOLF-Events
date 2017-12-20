@@ -4,7 +4,7 @@ import FragmentTemplate from './fragment/index';
 import DefaultTemplate from './default/index';
 import MindMeditation from './mindmeditation/index';
 import ArtOfLiving from './artofliving/index';
-import ArtOfLivingInPerson from './artoflivinginperson/index';
+import ArtOfLivingOnline from './artoflivingonline/index';
 
 const templates = {
     Imperial: ImperialTemplate,
@@ -12,7 +12,7 @@ const templates = {
     Default: DefaultTemplate,
 	MindMeditation : MindMeditation,
 	ArtOfLiving : ArtOfLiving,
-	ArtOfLivingInPerson : ArtOfLivingInPerson
+	ArtOfLivingOnline : ArtOfLivingOnline
 };
 
 class Template extends React.Component {

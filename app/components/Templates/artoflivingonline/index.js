@@ -25,7 +25,6 @@ class Index extends React.Component {
 	}
 	 
 	componentDidMount(){
-		this.renderMap();
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 			$('body').addClass('ios theme-artofliving');
 		} else{
@@ -260,31 +259,6 @@ class Index extends React.Component {
 				</div>
 			</section>
 			<Contact events={events} eventid={eventid} />
-			<section className="map_section clearfix">
-				<div className="map_section__content">
-					<h2 className="map_section--title">
-						Event Location
-					</h2>
-					<p>
-						{event.address.street_address_1}{street_address_2}<br/>
-						{event.address.city}, {event.address.state}<br/>
-						{event.address.country}<br/>
-						{event.address.zipcode}<br/>
-					</p>
-					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode)} className="show-on-map show-for-mobile" target="_blank">
-						Show on map
-					</a>
-					<div className="map_section--direction-icon">
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=d")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/sports-car.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=r")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/underground.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=w")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/man-walking-directions-button.png"}/></a>
-						<a target="_blank" href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode +"&dirflg=b")}><img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/youth-bicycle.png"}/></a>
-					</div>
-				</div>
-				<div className="map">
-					<div className="ba-map" id="map"></div>
-				</div>
-			</section>
 			<section className="happiness">
 				<h2 className="happiness__overlay_title">
 					The Happiness Program
