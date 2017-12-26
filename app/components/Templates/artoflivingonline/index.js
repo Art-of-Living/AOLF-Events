@@ -158,7 +158,7 @@ class Index extends React.Component {
 						</h2>
 						<div className="home_banner--text">
 							<p>
-								FREE mini workshop and introduction to more advanced paid programs including the world-renowned Happiness Program
+								FREE online workshop and introduction to more advanced paid programs including the world-renowned Happiness Program
 							</p>
 						</div>
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">

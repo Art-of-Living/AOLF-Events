@@ -9498,7 +9498,7 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'p',
 									null,
-									'FREE mini workshop and introduction to more advanced paid programs including the world-renowned Happiness Program'
+									'FREE online workshop and introduction to more advanced paid programs including the world-renowned Happiness Program'
 								)
 							),
 							_react2.default.createElement(
