@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import EventDetail from './components/EventDetail';
 import NotFound from './components/NotFound';
 import ThankYou from './components/ThankYou';
+import ThankYouOnline from './components/ThankYouOnline';
 import Login from './components/Account/Login';
 import Signup from './components/Account/Signup';
 import Profile from './components/Account/Profile';
@@ -30,14 +31,17 @@ export default function getRoutes(store) {
     });
   };
   return (
-    <Route path="/" component={App}>
+    <Route exact path="/" component={App}>
       <IndexRoute component={ComingSoon} onLeave={clearMessages}/>
-      <Route path="/:state/:city/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
-      <Route path="/:state/:city/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
+      <Route exact path="/:state/:city/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
+      <Route path="/:state/:city/:eventname/:eventsid/" component={EventDetail} onLeave={clearMessages}/>
+      <Route path="/online/event/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
+      <Route path="/online/event/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/events" component={Home} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
-      <Route path="/:state/:city/:eventname/:eventsid/:eventid/thankyou" component={ThankYou} onLeave={clearMessages}/>
+      <Route path="/online/event/:eventname/:eventsid/:eventid/thankyou" component={ThankYouOnline} onLeave={clearMessages}/>
+      <Route path="/:state/:city/:eventname/:eventsid/:eventid/thankyou" component={ThankYou} onLeave={clearMessages}/> 
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/account" component={Profile} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>

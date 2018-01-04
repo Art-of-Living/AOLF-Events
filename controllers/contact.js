@@ -119,7 +119,12 @@ exports.contactPost = function(req, res, next) {
   var  addEventOutlookcom = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=outlookcom';
   var  addEventYahoo = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=yahoo';
   
-  var eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
+  var eventUri = '';
+  if(req.body.event.event_type == 'online'){
+	  eventUri = process.env.BASE_URL + 'online/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
+  } else if(req.body.event.event_type == 'inperson'){
+	  eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
+  }
   
   var note = 'This free 60-90 minute session will give you a taste of powerful breathing techniques and easy, effective approach to meditation.\n - Date: ' + eventDate + '\n - Times: ' + eventTime + '\n - Venue: ' + event_address_street + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + '\n\nLearn more and RSVP at ' + eventUri;
   

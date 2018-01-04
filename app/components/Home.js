@@ -46,8 +46,13 @@ class Home extends Component {
 		  var eventName = that.slugifyUrl(item.event_name);
 		  var eventState = item.address.state ? that.slugifyUrl(item.address.state) : 'ca';
 		  var eventCity = item.address.city ? that.slugifyUrl(item.address.city) : 'los-angles';
-		  return <div className="col-sm-4"><div className="panel"><div className="panel-body"><h3>{item.event_name}</h3>
-		  <p>{item.event_description}</p><Link className="btn btn-default" to={`${eventState}/${eventCity}/${eventName}/${item.event_web_series_name}/${item.event_web_id}`}>View Details</Link></div></div></div>
+		  if(item.event_type == 'inperson'){
+			  return <div className="col-sm-4"><div className="panel"><div className="panel-body"><h3>{item.event_name}</h3>
+			  <p>{item.event_description}</p><Link className="btn btn-default" to={`${eventState}/${eventCity}/${eventName}/${item.event_web_series_name}/${item.event_web_id}`}>View Details</Link></div></div></div>			  
+		  } else if(item.event_type == 'online'){
+			  return <div className="col-sm-4"><div className="panel"><div className="panel-body"><h3>{item.event_name}</h3>
+			  <p>{item.event_description}</p><Link className="btn btn-default" to={`online/event/${eventName}/${item.event_web_series_name}/${item.event_web_id}`}>View Details</Link></div></div></div>			  
+		  }
 	 });
 	 
      return (

@@ -185,7 +185,9 @@ exports.addRows = function(req, res, next) {
 			async.series([
 				function(cb){				
 					if(!singleEvent.updated){
-						longUrl = process.env.BASE_URL + slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city) + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+						/* Check if event type is Online then change the URL of event */
+						var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+						longUrl = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
 						switch(req.params.collection){
 							case 'event':								
 								request({

@@ -140,7 +140,7 @@ class Contact extends React.Component {
 			  var eventState = event.address.state ? that.slugifyUrl(event.address.state) : 'ca';
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
-			  browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + eventId);
+			  browserHistory.push('/online/event/' + that.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + eventId);
 		  },
 	  });
   }
@@ -167,7 +167,7 @@ class Contact extends React.Component {
 	  $(this.loader).addClass('display-none');
 
 	  this.props.router.push({
-	    pathname: '/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + '/' + eventId +'/thankyou',
+	    pathname: '/online/event/' + this.slugifyUrl(state.event.event_name) +  '/' + event.event_web_series_name + '/' + eventId +'/thankyou',
 		state: {
 			event: this.state.event,
 			userEmail: this.state.email

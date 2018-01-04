@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router';
+import { withRouter } from 'react-router'
 import Template from './Templates/Template';
 import { browserHistory } from 'react-router';
 
@@ -114,4 +115,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(EventDetail);
+export default withRouter(connect(mapStateToProps)(EventDetail));
