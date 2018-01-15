@@ -35,6 +35,7 @@
     "helmet": "^3.8.2",
     "jsonwebtoken": "^5.7.0",
     "moment": "^2.19.2",
+    "moment-timezone": "^0.5.14",
     "mongoose": "^4.4.8",
     "mongoose-autopopulate": "^0.6.0",
     "morgan": "^1.7.0",

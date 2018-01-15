@@ -4,6 +4,7 @@ var request = require("request");
 var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
+var momentz = require('moment-timezone');
 
 /**
  * POST /contact
@@ -57,6 +58,7 @@ exports.updateRow = function(req, res, next) {
 }	
 	
 exports.getRows = function(req, res, next) {
+	console.log("getRows");
   var where = req.body.where ? req.body.where : {};
   var Model = mongoose.model(req.params.collection);
   
@@ -69,7 +71,71 @@ exports.getRows = function(req, res, next) {
   })
 };
 
+// function to fetch date/time related details of event 
+
+function formatDate_Time(results,callback)
+{
+	var formatedResult = [];
+	async.forEach(results, function(data, cb) {
+		var timezone = momentz().tz(data.event_start.timezone).format('z');;
+		
+		var start_time = momentz.tz(data.event_start.local,data.event_start.timezone);
+		var end_time = momentz.tz(data.event_end.local,data.event_start.timezone);
+		
+		var start_time_hours = start_time.hour() > 12 ? start_time.hour() - 12 : start_time.hour();
+		var start_time_minutes = start_time.minute() < 10 ? "0" + start_time.minute() : start_time.minute();
+		var start_am_pm = start_time.hour() >= 12 ? "PM" : "AM";
+		var start_day = start_time.day();
+		var start_month = start_time.month();
+		var start_date = start_time.date();
+		var start_year = start_time.format('YYYY');
+		
+		var startDate = { 
+			time : start_time,
+			time_hours : start_time_hours,
+			time_minutes : start_time_minutes,
+			am_pm : start_am_pm,
+			day : start_day,
+			month : start_month,
+			date : start_date,
+			year : start_year,
+			tz : timezone
+		}
+		
+		var end_time_hours = end_time.hour() > 12 ? end_time.hour() - 12 : end_time.hour();
+		var end_time_minutes = end_time.minute() < 10 ? "0" + end_time.minute() : end_time.minute();
+		var end_am_pm = end_time.hour() >= 12 ? "PM" : "AM";
+		var end_day = end_time.day();
+		var end_month = end_time.month();	
+		var end_date = end_time.date();	
+		var end_year = end_time.format('YYYY');	
+		
+		var endDate = { 
+			time : end_time,
+			time_hours : end_time_hours,
+			time_minutes : end_time_minutes,
+			am_pm : end_am_pm,
+			day : end_day,
+			month : start_month,
+			date : end_date,
+			year : end_year,
+			tz : timezone
+		}
+		data.event_start.date = startDate;
+		data.event_end.date = endDate;
+		formatedResult.push(data);
+		cb();
+	},function(err){
+		if(err) {
+			res.status(400).send({ msg: 'There is some error please contact administrate.' });
+		}else {
+			callback(formatedResult);
+		}
+	});
+}
+
 exports.getRow = function(req, res, next) {
+	console.log("getRow");
   var Model = mongoose.model(req.params.collection);
   var id = req.params.id;
   
@@ -91,7 +157,9 @@ exports.getRow = function(req, res, next) {
 	if(err){
 	  res.status(400).send(err);
 	}
-	res.status(200).send(results);
+	formatDate_Time(results,function(data){
+		res.status(200).send(data);
+	});
   })
 };
 

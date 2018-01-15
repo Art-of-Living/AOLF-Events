@@ -179,19 +179,11 @@ class Contact extends React.Component {
 	  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 	  var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	  
-	  var date = new Date(event.event_start.local);
-	  
-	  var start_time = new Date(event.event_start.local);
-	  var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-	  var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-	  var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-	  
-	  var end_time = new Date(event.event_end.local);
-	  var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-	  var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-	  var end_am_pm = end_time.getHours() >= 12 ? "PM" : "AM";	  
-	  
-	  return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;  
+	  var startDate = event.event_start.date;
+	  var endDate = event.event_end.date;
+	   
+	   
+	  return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')'; 
   }
   
   slugifyUrl (string){

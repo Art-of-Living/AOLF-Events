@@ -34,7 +34,7 @@ export default function getRoutes(store) {
     <Route exact path="/" component={App}>
       <IndexRoute component={ComingSoon} onLeave={clearMessages}/>
       <Route exact path="/:state/:city/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
-      <Route path="/:state/:city/:eventname/:eventsid/" component={EventDetail} onLeave={clearMessages}/>
+      <Route path="/:state/:city/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/events" component={Home} onLeave={clearMessages}/>

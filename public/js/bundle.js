@@ -7303,19 +7303,10 @@ var Contact = function (_get__$Component) {
 			var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 			var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-			var date = new Date(event.event_start.local);
+			var startDate = event.event_start.date;
+			var endDate = event.event_end.date;
 
-			var start_time = new Date(event.event_start.local);
-			var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-			var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-			var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-
-			var end_time = new Date(event.event_end.local);
-			var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-			var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-			var end_am_pm = end_time.getHours() >= 12 ? "PM" : "AM";
-
-			return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;
+			return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
 		}
 	}, {
 		key: 'slugifyUrl',
@@ -9511,19 +9502,10 @@ var Contact = function (_get__$Component) {
 			var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 			var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-			var date = new Date(event.event_start.local);
+			var startDate = event.event_start.date;
+			var endDate = event.event_end.date;
 
-			var start_time = new Date(event.event_start.local);
-			var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-			var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-			var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-
-			var end_time = new Date(event.event_end.local);
-			var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-			var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-			var end_am_pm = end_time.getHours() >= 12 ? "PM" : "AM";
-
-			return days[date.getDay()] + ' ' + month[date.getMonth()] + date.getDate() + ': ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm + ' - ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm;
+			return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
 		}
 	}, {
 		key: 'slugifyUrl',
@@ -13701,18 +13683,8 @@ var ThankYou = function (_get__$Component) {
 					var street_address_2 = ', ' + this.state.event.address.street_address_2;
 				}
 
-				var startDate = new Date(event.event_start.local);
-				var endDate = new Date(event.event_start.local);
-
-				var start_time = new Date(event.event_start.local);
-				var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-				var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-				var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-
-				var end_time = new Date(event.event_end.local);
-				var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-				var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-				var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+				var startDate = event.event_start.date;
+				var endDate = event.event_end.date;
 
 				var organizer = this.state.event.organizers.map(function (item, i) {
 					return item.email;
@@ -13768,12 +13740,12 @@ var ThankYou = function (_get__$Component) {
 									_react2.default.createElement(
 										'span',
 										{ className: 'start' },
-										startDate.getMonth() + 1 + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm
+										startDate.month + 1 + '/' + startDate.date + '/' + startDate.year + ' ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm
 									),
 									_react2.default.createElement(
 										'span',
 										{ className: 'end' },
-										endDate.getMonth() + 1 + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm
+										endDate.month + 1 + '/' + endDate.date + '/' + endDate.year + ' ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm
 									),
 									_react2.default.createElement(
 										'span',
@@ -14204,18 +14176,8 @@ var ThankYouOnline = function (_get__$Component) {
 
 				var event = this.state.event;
 
-				var startDate = new Date(event.event_start.local);
-				var endDate = new Date(event.event_start.local);
-
-				var start_time = new Date(event.event_start.local);
-				var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-				var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-				var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-
-				var end_time = new Date(event.event_end.local);
-				var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-				var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-				var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
+				var startDate = event.event_start.date;
+				var endDate = event.event_end.date;
 
 				var organizer = this.state.event.organizers.map(function (item, i) {
 					return item.email;
@@ -14271,12 +14233,12 @@ var ThankYouOnline = function (_get__$Component) {
 									_react2.default.createElement(
 										'span',
 										{ className: 'start' },
-										startDate.getMonth() + 1 + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm
+										startDate.month + 1 + '/' + startDate.date + '/' + startDate.year + ' ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm
 									),
 									_react2.default.createElement(
 										'span',
 										{ className: 'end' },
-										endDate.getMonth() + 1 + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm
+										endDate.month + 1 + '/' + endDate.date + '/' + endDate.year + ' ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm
 									),
 									_react2.default.createElement(
 										'span',
@@ -15261,7 +15223,7 @@ function getRoutes(store) {
     { exact: true, path: '/', component: _get__('App') },
     _react2.default.createElement(_IndexRoute_Component, { component: _get__('ComingSoon'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component2, { exact: true, path: '/:state/:city/:eventname/:eventsid/:eventid', component: _get__('EventDetail'), onLeave: clearMessages }),
-    _react2.default.createElement(_Route_Component3, { path: '/:state/:city/:eventname/:eventsid/', component: _get__('EventDetail'), onLeave: clearMessages }),
+    _react2.default.createElement(_Route_Component3, { path: '/:state/:city/:eventname/:eventsid', component: _get__('EventDetail'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component4, { path: '/online/event/:eventname/:eventsid/:eventid', component: _get__('EventDetail'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component5, { path: '/online/event/:eventname/:eventsid', component: _get__('EventDetail'), onLeave: clearMessages }),
     _react2.default.createElement(_Route_Component6, { path: '/events', component: _get__('Home'), onLeave: clearMessages }),

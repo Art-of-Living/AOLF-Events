@@ -68,18 +68,8 @@ class ThankYou extends React.Component {
 			var street_address_2 = ', ' + this.state.event.address.street_address_2; 
 		}
 		
-		var startDate = new Date(event.event_start.local);
-		var endDate = new Date(event.event_start.local);
-	  
-	    var start_time = new Date(event.event_start.local);
-		var start_time_hours = start_time.getHours() > 12 ? start_time.getHours() - 12 : start_time.getHours();
-		var start_time_minutes = start_time.getMinutes() < 10 ? "0" + start_time.getMinutes() : start_time.getMinutes();
-		var start_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";
-
-		var end_time = new Date(event.event_end.local);
-		var end_time_hours = end_time.getHours() > 12 ? end_time.getHours() - 12 : end_time.getHours();
-		var end_time_minutes = end_time.getMinutes() < 10 ? "0" + end_time.getMinutes() : end_time.getMinutes();
-		var end_am_pm = start_time.getHours() >= 12 ? "PM" : "AM";			
+		var startDate = event.event_start.date;
+	    var endDate = event.event_end.date;
 		
 		var organizer = this.state.event.organizers.map(function(item, i) {
 			return item.email
@@ -101,8 +91,8 @@ class ThankYou extends React.Component {
 						<div title="Add to Calendar" className="addeventatc">
 							Add to Calendar
 							<span className="alarm_reminder">120</span>
-							<span className="start">{(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ' ' + start_time_hours + ':' + start_time_minutes + ' ' + start_am_pm}</span>
-							<span className="end">{(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear() + ' ' + end_time_hours + ':' + end_time_minutes + ' ' + end_am_pm}</span>
+							<span className="start">{(startDate.month + 1) + '/' + startDate.date + '/' + startDate.year + ' ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm}</span>
+							<span className="end">{(endDate.month + 1) + '/' + endDate.date + '/' + endDate.year + ' ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm}</span>
 							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
 							<span className="description">{'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
