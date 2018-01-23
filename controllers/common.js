@@ -176,6 +176,24 @@ exports.addRow = function(req, res, next) {
   })
 };
 
+function getNextSequenceValue(callback){
+	
+	var sequenceDocument = mongoose.model('eventids').findOneAndUpdate(
+	{id: 'updateEventId' },
+	{$inc:{'event_web_id':1, 'event_web_series_name':1}},function(err,data){
+			
+		if(err){
+			console.log(err);
+		} else {
+			var ids = {
+				'event_web_id': data.event_web_id, 
+				'event_web_series_name': data.event_web_series_name
+			};
+			callback(ids);
+		}
+	});
+}
+
 function slugifyUrl (string){
 	return string
 		.toString()
@@ -192,7 +210,7 @@ function slugifyUrl (string){
 exports.addRows = function(req, res, next) {
     var data = req.body;
     var Model = mongoose.model(req.params.collection);
-  
+	
     console.log(data);
   
     var createdData = [];
@@ -205,43 +223,46 @@ exports.addRows = function(req, res, next) {
 	var flagUpdated = false;
   
     async.forEach(data, function(single, callback) {
-		
-		switch(req.params.collection){
-			case 'event':
-				var event_status = single.event_status ? single.event_status : 'active';
-				single.event_status = event_status.toLowerCase()
-			break;
-		}
-		
-		Model.findOne({event_id : single.event_id}, function(err, results){
-			if(err){
-			  res.status(400).send(err);
+			
+			switch(req.params.collection){
+				case 'event':
+					var event_status = single.event_status ? single.event_status : 'active';
+					single.event_status = event_status.toLowerCase()
+				break;
 			}
 			
-			if(results){
-				flagUpdated = true;
-				var updated = _.assign(results, single);
-				updated.save(function(err, result){
-					if(err){
-					  next(err)
-					}	
-					
-					result.updated = true;
-					allEvents.push(result);
-					callback();
-				});	
-			}else{
-				Model.create(single, function(err, result){
-					if(err){
-					  next(err)
-					}
-					
-					result.updated = false;
-					allEvents.push(result);
-					callback();
-				});	
-			}
-		})
+			Model.findOne({event_id : single.event_id}, function(err, results){
+				if(err){
+				  res.status(400).send(err);
+				}
+				
+				if(results){
+					flagUpdated = true;
+					var updated = _.assign(results, single);
+					updated.save(function(err, result){
+						if(err){
+						  next(err)
+						}	
+						
+						result.updated = true;
+						allEvents.push(result);
+						callback();
+					});	
+				}else{	
+					getNextSequenceValue(function(ids){
+						single.event_web_id = ids.event_web_id;
+						single.event_web_series_name = ids.event_web_series_name;
+						Model.create(single, function(err, result){
+							if(err){
+								next(err)
+							}	
+							result.updated = false;
+							allEvents.push(result);
+							callback();
+							});	
+					});
+				}
+			})
 	
 	},function(err){
 		if(err){
@@ -354,7 +375,9 @@ exports.addRows = function(req, res, next) {
 						longUrl : singleEvent.longUrl + "/" + singleEvent.event_web_id,
 						shortUrl : singleEvent.shortUrl,
 						id : singleEvent._id,
-						event_id : singleEvent.event_id
+						event_id : singleEvent.event_id,
+						event_web_id : singleEvent.event_web_id,
+						event_web_series_name : singleEvent.event_web_series_name
 					});
 					cb();
 				}
