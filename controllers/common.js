@@ -58,7 +58,7 @@ exports.updateRow = function(req, res, next) {
 }	
 	
 exports.getRows = function(req, res, next) {
-	console.log("getRows");
+	
   var where = req.body.where ? req.body.where : {};
   var Model = mongoose.model(req.params.collection);
   
@@ -135,7 +135,7 @@ function formatDate_Time(results,callback)
 }
 
 exports.getRow = function(req, res, next) {
-	console.log("getRow");
+	
   var Model = mongoose.model(req.params.collection);
   var id = req.params.id;
   
@@ -176,22 +176,28 @@ exports.addRow = function(req, res, next) {
   })
 };
 
-function getNextSequenceValue(callback){
+function getNextSequenceValue(check,callback){
 	
-	var sequenceDocument = mongoose.model('eventids').findOneAndUpdate(
-	{id: 'updateEventId' },
-	{$inc:{'event_web_id':1, 'event_web_series_name':1}},function(err,data){
-			
-		if(err){
-			console.log(err);
-		} else {
-			var ids = {
-				'event_web_id': data.event_web_id, 
-				'event_web_series_name': data.event_web_series_name
-			};
-			callback(ids);
+	var sequenceDocument = mongoose.model('eventids');
+	sequenceDocument.findOne({id:'updateEventId'},function(err,data){
+		if(check) {
+			data.event_web_id += 1;
+			data.event_web_series_name += 1;
 		}
-	});
+		else {
+			data.event_web_id += 1;
+		}
+		data.save(function(err, result){
+			if(err){
+				next(err)
+			}	
+			var ids = {
+				'event_web_id': result.event_web_id, 
+				'event_web_series_name': result.event_web_series_name
+				};
+				callback(ids);
+		});	
+	})
 }
 
 function slugifyUrl (string){
@@ -210,8 +216,6 @@ function slugifyUrl (string){
 exports.addRows = function(req, res, next) {
     var data = req.body;
     var Model = mongoose.model(req.params.collection);
-	
-    console.log(data);
   
     var createdData = [];
 	var allEvents = [];
@@ -221,8 +225,9 @@ exports.addRows = function(req, res, next) {
 	  
     var organizer = [];	
 	var flagUpdated = false;
+	var flag = 1;
   
-    async.forEach(data, function(single, callback) {
+    async.eachSeries(data, function(single, callback) {
 			
 			switch(req.params.collection){
 				case 'event':
@@ -249,7 +254,9 @@ exports.addRows = function(req, res, next) {
 						callback();
 					});	
 				}else{	
-					getNextSequenceValue(function(ids){
+					var check = flag;
+					flag = 0;
+					getNextSequenceValue(check,function(ids){
 						single.event_web_id = ids.event_web_id;
 						single.event_web_series_name = ids.event_web_series_name;
 						Model.create(single, function(err, result){
@@ -340,12 +347,15 @@ exports.addRows = function(req, res, next) {
 				
 				function(cb){		
 					var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
+					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+					var event_title_url = '<a target="_blank" href="' + process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name + '">' + singleEvent.event_name + '</a>';
 					fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
 						createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
 						createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
 						createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
 						createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
 						createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
+						createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, event_title_url);
 						cb();
 					});
 				},
