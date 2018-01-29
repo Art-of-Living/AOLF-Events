@@ -264,20 +264,20 @@ exports.addRows = function(req, res, next) {
 						} else if(result != null) {
 							flag = 0;
 						}
-					})
-					getNextSequenceValue(flag,function(ids){
-						flag = 2;
-						single.event_web_id = ids.event_web_id;
-						single.event_web_series_name = ids.event_web_series_name;
-						Model.create(single, function(err, result){
-							if(err){
-								next(err)
-							}	
-							result.updated = false;
-							allEvents.push(result);
-							callback();
-							});	
-					});
+						getNextSequenceValue(flag,function(ids){
+							flag = 2;
+							single.event_web_id = ids.event_web_id;
+							single.event_web_series_name = ids.event_web_series_name;
+							Model.create(single, function(err, result){
+								if(err){
+									next(err)
+								}	
+								result.updated = false;
+								allEvents.push(result);
+								callback();
+								});	
+						});
+						})
 				}
 			})
 	
