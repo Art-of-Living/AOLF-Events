@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var async = require("async");
 var request = require("request");
 var _ = require('lodash');
+var underscore = require('underscore');
 var path = require('path');
 var fs = require('fs');
 var momentz = require('moment-timezone');
@@ -261,7 +262,7 @@ exports.addRows = function(req, res, next) {
 						} else if(result != null) {
 							flag = 2;
 						}
-						
+						console.log("fffffffffffffffffff",flag);
 						getNextSequenceValue(flag,function(ids){
 							flag = 2;
 							single.event_web_id = ids.event_web_id;
@@ -338,6 +339,8 @@ exports.addRows = function(req, res, next) {
 				function (cb){		
 					organizer = [];			
 					async.each(singleEvent.organizers, function(org, cbo) {
+						if(underscore.contains(organizer,org.email))
+							cbo();
 						organizer.push({
 							'email' : org.email
 						});
@@ -371,7 +374,9 @@ exports.addRows = function(req, res, next) {
 					}else{
 						var subject = 'Event Updated: ' + singleEvent.event_name;
 					}
-					
+
+					console.log(organizer);
+
 				    msg = {
 					  to: organizer,
 					  from: 'Art of Living <events@us.artofliving.org>',
@@ -407,7 +412,9 @@ exports.addRows = function(req, res, next) {
 			// Send email about the cofirmation of the event to the organizers
 			const sgMail = require('@sendgrid/mail');
 			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-					
+
+			console.log("m------------------------------",msg);
+
 			// Send email to organizer to let them know about event;
 			sgMail.send(msg);
 			
