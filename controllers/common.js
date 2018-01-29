@@ -187,9 +187,6 @@ function getNextSequenceValue(check,callback){
 		else if(check == 2) {
 			data.event_web_id += 1;
 		}
-		else {
-
-		}
 		data.save(function(err, result){
 			if(err){
 				next(err)
@@ -262,8 +259,9 @@ exports.addRows = function(req, res, next) {
 						if(err) {
 							res.status(400).send(err);
 						} else if(result != null) {
-							flag = 0;
+							flag = 2;
 						}
+						
 						getNextSequenceValue(flag,function(ids){
 							flag = 2;
 							single.event_web_id = ids.event_web_id;
