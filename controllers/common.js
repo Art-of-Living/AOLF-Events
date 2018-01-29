@@ -180,12 +180,15 @@ function getNextSequenceValue(check,callback){
 	
 	var sequenceDocument = mongoose.model('eventids');
 	sequenceDocument.findOne({id:'updateEventId'},function(err,data){
-		if(check) {
+		if(check == 1) {
 			data.event_web_id += 1;
 			data.event_web_series_name += 1;
 		}
-		else {
+		else if(check == 2) {
 			data.event_web_id += 1;
+		}
+		else {
+
 		}
 		data.save(function(err, result){
 			if(err){
@@ -226,6 +229,7 @@ exports.addRows = function(req, res, next) {
     var organizer = [];	
 	var flagUpdated = false;
 	var flag = 1;
+	var msg= {};
   
     async.eachSeries(data, function(single, callback) {
 			
@@ -254,9 +258,15 @@ exports.addRows = function(req, res, next) {
 						callback();
 					});	
 				}else{	
-					var check = flag;
-					flag = 0;
-					getNextSequenceValue(check,function(ids){
+					Model.findOne({event_series_name: single.event_series_name},function(err,result){
+						if(err) {
+							res.status(400).send(err);
+						} else if(result != null) {
+							flag = 0;
+						}
+					})
+					getNextSequenceValue(flag,function(ids){
+						flag = 2;
 						single.event_web_id = ids.event_web_id;
 						single.event_web_series_name = ids.event_web_series_name;
 						Model.create(single, function(err, result){
@@ -347,15 +357,12 @@ exports.addRows = function(req, res, next) {
 				
 				function(cb){		
 					var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
-					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
-					var event_title_url = '<a target="_blank" href="' + process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name + '">' + singleEvent.event_name + '</a>';
 					fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
 						createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
 						createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
 						createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
 						createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
 						createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
-						createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, event_title_url);
 						cb();
 					});
 				},
@@ -367,19 +374,12 @@ exports.addRows = function(req, res, next) {
 						var subject = 'Event Updated: ' + singleEvent.event_name;
 					}
 					
-					// Send email about the cofirmation of the event to the organizers
-					const sgMail = require('@sendgrid/mail');
-					sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-					
-					const msg = {
+				    msg = {
 					  to: organizer,
 					  from: 'Art of Living <events@us.artofliving.org>',
 					  subject: subject,
 					  html: createEventTemplate,
 					};
-					
-					// Send email to organizer to let them know about event;
-					sgMail.send(msg);
 					
 					createdData.push({
 						longUrl : singleEvent.longUrl + "/" + singleEvent.event_web_id,
@@ -405,6 +405,13 @@ exports.addRows = function(req, res, next) {
 				res.status(400).send({ msg: 'There is some error please contact administrate.' });
 				next(err);
 			}
+
+			// Send email about the cofirmation of the event to the organizers
+			const sgMail = require('@sendgrid/mail');
+			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+					
+			// Send email to organizer to let them know about event;
+			sgMail.send(msg);
 			
 			res.status(200).send(createdData);
 		});
