@@ -154,11 +154,11 @@ class Index extends React.Component {
 					</h6>
 					<div className="home_banner--desk" style={style.banner_desk}>
 						<h2 className="home_banner--center_title">
-							Discover the power of breath  and an easy, effective approach  to meditation.
+							Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.
 						</h2>
 						<div className="home_banner--text">
 							<p>
-								FREE online workshop and introduction to more advanced paid programs including the world-renowned Happiness Program
+								Join this online introductory workshop to the world-renowned Happiness Program
 							</p>
 						</div>
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
