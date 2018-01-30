@@ -13679,8 +13679,8 @@ var ThankYou = function (_get__$Component) {
 				this.state.userEmail = this.props.location.state.userEmail;
 
 				var event = this.state.event;
-				var eventState = this.state.event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
-				var eventCity = this.state.event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
+				var eventState = this.state.event.address.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
+				var eventCity = this.state.event.address.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
 
 				var street_address_2 = "";
 				if (this.state.event.address.street_address_2 != "" && this.state.event.address.street_address_2 != null) {
