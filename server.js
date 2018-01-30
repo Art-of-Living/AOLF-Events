@@ -115,7 +115,8 @@ require('./api')(app);
 app.use(function(req, res) {
     var initialState = {
         auth: { token: req.cookies.token, user: req.user },
-        messages: {}
+        messages: {},
+		url: { baseurl: process.env.BASE_URL }
     };
 
     var store = configureStore(initialState);
