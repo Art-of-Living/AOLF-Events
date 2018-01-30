@@ -261,7 +261,7 @@ class Contact extends React.Component {
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>
-							<p>
+							<p className="padding-top-20">
 								By registering I agree to the <a href="https://www.artofliving.org/us-en/privacy-policy" target="_blank">privacy policy</a>, confirm that I am at least 18 years of age, and agree to receive promotional phone calls, text messages, and e-mails from The Art of Living. We respect your privacy and you can unsubscribe at any time.
 							</p>
 						</form>
