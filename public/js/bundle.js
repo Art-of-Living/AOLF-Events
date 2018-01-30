@@ -13739,7 +13739,7 @@ var ThankYou = function (_get__$Component) {
 						_react2.default.createElement(
 							'h1',
 							null,
-							'You & #8217;re all set to experience the ',
+							'You\u2019re all set to experience the ',
 							_react2.default.createElement(
 								'strong',
 								null,

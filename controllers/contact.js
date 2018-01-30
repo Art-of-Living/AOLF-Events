@@ -113,18 +113,20 @@ exports.contactPost = function(req, res, next) {
   var addEventTitle = req.body.event.event_name;
   var addEventTimezone = req.body.event.event_start.timezone;
   
-  var  addEventApple = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=apple';
-  var  addEventGoogle = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=google';
-  var  addEventOutlook = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=outlook';
-  var  addEventOutlookcom = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=outlookcom';
-  var  addEventYahoo = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&service=yahoo';
-  
   var eventUri = '';
   if(req.body.event.event_type == 'online'){
 	  eventUri = process.env.BASE_URL + 'online/event/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
   } else if(req.body.event.event_type == 'inperson'){
 	  eventUri = process.env.BASE_URL + slugifyUrl(req.body.event.address.state) + '/' + slugifyUrl(req.body.event.address.city) + '/' + slugifyUrl(req.body.event.event_name) + '/' + req.body.event.event_web_series_name + '/' + req.body.event.event_web_id;
   }
+  var eventDescription = 'For details, link here:' + eventUri;
+  var eventLocation = req.body.event.event_type == 'online' ? 'Online Session' : req.body.event.address.street_address_1 + street_address_2 +", "+ req.body.event.address.city +", "+ req.body.event.address.state +", "+ req.body.event.address.country +", "+ req.body.event.address.zipcode;
+  
+  var  addEventApple = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&location=' + eventLocation + '&alarm=120' + '&description=' + eventDescription + '&service=apple';
+  var  addEventGoogle = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&location=' + eventLocation + '&alarm=120' + '&description=' + eventDescription + '&service=google';
+  var  addEventOutlook = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&location=' + eventLocation + '&alarm=120' + '&description=' + eventDescription + '&service=outlook';
+  var  addEventOutlookcom = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&location=' + eventLocation + '&alarm=120' + '&description=' + eventDescription + '&service=outlookcom';
+  var  addEventYahoo = 'https://www.addevent.com/dir/?client=aSDCejTKazIfGlQnEmey32822&start=' + addEventStart + '&end=' + addEventEnd + '&title=' + addEventTitle + '&timezone=' + addEventTimezone + '&location=' + eventLocation + '&alarm=120' + '&description=' + eventDescription + '&service=yahoo';
   
   var note = 'This free 60-90 minute session will give you a taste of powerful breathing techniques and easy, effective approach to meditation.\n - Date: ' + eventDate + '\n - Times: ' + eventTime + '\n - Venue: ' + event_address_street + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + '\n\nLearn more and RSVP at ' + eventUri;
   

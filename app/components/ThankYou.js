@@ -96,7 +96,7 @@ class ThankYou extends React.Component {
             h6 > Thank you, your seat has been reserved < /h6> <
             p > A confirmation email has been sent to { this.state.userEmail } < /p> <
             h1 >
-            You & #8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
+            You&#8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
 				</h1>
 			<div className="thank_you_buttons">
 					<a href="#">
