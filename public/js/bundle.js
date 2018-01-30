@@ -13609,6 +13609,8 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
+var _reactHelmet = require('react-helmet');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13616,6 +13618,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var store = require('../store/configureStore').default;
 
 var ThankYou = function (_get__$Component) {
 	_inherits(ThankYou, _get__$Component);
@@ -13652,7 +13656,7 @@ var ThankYou = function (_get__$Component) {
 			var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
 
 			addthis.layers.refresh();
-			addthis.update('share', 'url', 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id);
+			addthis.update('share', 'url', window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id);
 			addeventatc.refresh();
 		}
 	}, {
@@ -13691,9 +13695,27 @@ var ThankYou = function (_get__$Component) {
 				});
 			}
 
+			var _Helmet_Component = _get__('Helmet');
+
 			return _react2.default.createElement(
 				'div',
 				null,
+				_react2.default.createElement(
+					_Helmet_Component,
+					null,
+					_react2.default.createElement(
+						'title',
+						{ 'data-react-helmet': 'true' },
+						event.event_name
+					),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:url', content: window.INITIAL_STATE.url.baseurl + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:title', content: 'Mind & Meditation: FREE Mini Workshop' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:type', content: 'fitness' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:image', content: '{{{baseurl}}}templates/ArtOfLiving/images/home_banner_fb.jpg' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'fb:app_id', content: '547829512233839' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
+				),
+				' ',
 				_react2.default.createElement(
 					'section',
 					{ className: 'thank_you_container' },
@@ -13703,18 +13725,21 @@ var ThankYou = function (_get__$Component) {
 						_react2.default.createElement(
 							'h6',
 							null,
-							'Thank you, your seat has been reserved'
+							' Thank you, your seat has been reserved '
 						),
+						' ',
 						_react2.default.createElement(
 							'p',
 							null,
-							'A confirmation email has been sent to ',
-							this.state.userEmail
+							' A confirmation email has been sent to ',
+							this.state.userEmail,
+							' '
 						),
+						' ',
 						_react2.default.createElement(
 							'h1',
 							null,
-							'You\u2019re all set to experience the ',
+							'You & #8217;re all set to experience the ',
 							_react2.default.createElement(
 								'strong',
 								null,
@@ -13749,18 +13774,18 @@ var ThankYou = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'span',
-										{ className: 'timezone' },
-										this.state.event.event_start.timezone
-									),
-									_react2.default.createElement(
-										'span',
 										{ className: 'title' },
 										this.state.event.event_name
 									),
 									_react2.default.createElement(
 										'span',
+										{ className: 'timezone' },
+										this.state.event.event_start.timezone
+									),
+									_react2.default.createElement(
+										'span',
 										{ className: 'description' },
-										'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
+										'For details, link here:' + window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
 									),
 									_react2.default.createElement(
 										'span',
@@ -13811,7 +13836,7 @@ var ThankYou = function (_get__$Component) {
 							null,
 							_react2.default.createElement(
 								'a',
-								{ href: "mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
+								{ href: "mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
 								'Contact us'
 							),
 							' if you have any questions about the event.'
@@ -13973,6 +13998,9 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'Helmet':
+			return _reactHelmet.Helmet;
+
 		case 'React':
 			return _react2.default;
 
@@ -14091,7 +14119,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":317,"react-redux":135,"react-router":169}],46:[function(require,module,exports){
+},{"../store/configureStore":52,"react":317,"react-helmet":130,"react-redux":135,"react-router":169}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14110,6 +14138,8 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
+
+var _reactHelmet = require('react-helmet');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14152,7 +14182,7 @@ var ThankYouOnline = function (_get__$Component) {
 			var event = this.state.event;
 
 			addthis.layers.refresh();
-			addthis.update('share', 'url', 'http://events.us.artofliving.org/online/event/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id);
+			addthis.update('share', 'url', window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id);
 			addeventatc.refresh();
 		}
 	}, {
@@ -14184,9 +14214,26 @@ var ThankYouOnline = function (_get__$Component) {
 				});
 			}
 
+			var _Helmet_Component = _get__('Helmet');
+
 			return _react2.default.createElement(
 				'div',
 				null,
+				_react2.default.createElement(
+					_Helmet_Component,
+					null,
+					_react2.default.createElement(
+						'title',
+						{ 'data-react-helmet': 'true' },
+						event.event_name
+					),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:url', content: window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:title', content: 'Mind & Meditation: FREE Mini Workshop' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:type', content: 'fitness' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:image', content: '{{{baseurl}}}templates/ArtOfLiving/images/home_banner_fb.jpg' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'fb:app_id', content: '547829512233839' }),
+					_react2.default.createElement('meta', { 'data-react-helmet': 'true', property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
+				),
 				_react2.default.createElement(
 					'section',
 					{ className: 'thank_you_container' },
@@ -14253,7 +14300,7 @@ var ThankYouOnline = function (_get__$Component) {
 									_react2.default.createElement(
 										'span',
 										{ className: 'description' },
-										'For details, link here: http://events.us.artofliving.org/online/event/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
+										'For details, link here:' + window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + '/' + event.event_web_id
 									),
 									_react2.default.createElement(
 										'span',
@@ -14274,7 +14321,7 @@ var ThankYouOnline = function (_get__$Component) {
 							null,
 							_react2.default.createElement(
 								'a',
-								{ href: "mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/online/event/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
+								{ href: "mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id },
 								'Contact us'
 							),
 							' if you have any questions about the event.'
@@ -14436,6 +14483,9 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'Helmet':
+			return _reactHelmet.Helmet;
+
 		case 'React':
 			return _react2.default;
 
@@ -14554,7 +14604,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":317,"react-redux":135,"react-router":169}],47:[function(require,module,exports){
+},{"react":317,"react-helmet":130,"react-redux":135,"react-router":169}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

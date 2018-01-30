@@ -357,12 +357,17 @@ exports.addRows = function(req, res, next) {
 				
 				function(cb){		
 					var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
+					
+					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+					var	event_title_url = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+					
 					fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
 						createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
 						createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
 						createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
 						createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
 						createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
+						createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, event_title_url);
 						cb();
 					});
 				},

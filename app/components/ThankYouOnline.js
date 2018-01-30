@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 
 class ThankYouOnline extends React.Component {
 	
@@ -30,7 +31,7 @@ class ThankYouOnline extends React.Component {
 	  var event = this.state.event;
 
 	  addthis.layers.refresh();
-	  addthis.update('share', 'url', 'http://events.us.artofliving.org/online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id)
+	  addthis.update('share', 'url', window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id)
 	  addeventatc.refresh();
   }
   
@@ -69,6 +70,15 @@ class ThankYouOnline extends React.Component {
 	
 	return (
 		<div>
+			<Helmet>
+				<title data-react-helmet="true">{event.event_name}</title>
+				<meta data-react-helmet="true" property="og:url" content={window.INITIAL_STATE.url.baseurl +'online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} />
+				<meta data-react-helmet="true" property="og:title" content="Mind & Meditation: FREE Mini Workshop" />
+				<meta data-react-helmet="true" property="og:type" content="fitness" />
+				<meta data-react-helmet="true" property="og:image" content="{{{baseurl}}}templates/ArtOfLiving/images/home_banner_fb.jpg" />
+				<meta data-react-helmet="true" property="fb:app_id" content="547829512233839" />
+				<meta data-react-helmet="true" property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
+			</Helmet>
 		  <section className="thank_you_container">
 			<div className="inner_container">
 				<h6>Thank you, your seat has been reserved</h6>
@@ -86,7 +96,7 @@ class ThankYouOnline extends React.Component {
 							<span className="end">{(endDate.month + 1) + '/' + endDate.date + '/' + endDate.year + ' ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm}</span>
 							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
-							<span className="description">{'For details, link here: http://events.us.artofliving.org/online/event/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
+							<span className="description">{'For details, link here:' + window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
 							<span className="location">{"Online Event"}</span>
 						</div>
 					</a>
@@ -96,7 +106,7 @@ class ThankYouOnline extends React.Component {
 				</p>
 				<div className="addthis_inline_share_toolbox"></div>
 				<p>
-					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + window.INITIAL_STATE.url.baseurl + 'online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>

@@ -35,27 +35,27 @@ var app = express();
 // connection with the mongodb
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
-  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-  process.exit(1);
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
 });
 
 mongoose.connection.once('open', function() {
-  require('./models')(app, mongoose);
+    require('./models')(app, mongoose);
 });
 
 var hbs = exphbs.create({
-  defaultLayout: 'main',
-  helpers: {
-    ifeq: function(a, b, options) {
-      if (a === b) {
-        return options.fn(this);
-      }
-      return options.inverse(this);
-    },
-    toJSON : function(object) {
-      return JSON.stringify(object);
+    defaultLayout: 'main',
+    helpers: {
+        ifeq: function(a, b, options) {
+            if (a === b) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        },
+        toJSON: function(object) {
+            return JSON.stringify(object);
+        }
     }
-  }
 });
 
 /* ----------------------- Used features in the framework --------------------------------*/ // Begin
@@ -70,15 +70,15 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
- 
+
 app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc) 
- 
+
 var limiter = new RateLimit({
-  windowMs: 15*60*1000, // 15 minutes 
-  max: 100, // limit each IP to 100 requests per windowMs 
-  delayMs: 0 // disable delaying - full speed until the max limit is reached 
+    windowMs: 15 * 60 * 1000, // 15 minutes 
+    max: 100, // limit each IP to 100 requests per windowMs 
+    delayMs: 0 // disable delaying - full speed until the max limit is reached 
 });
- 
+
 // apply to all requests 
 app.use(limiter);
 
@@ -86,26 +86,26 @@ app.use(limiter);
 
 // Authentication for the user
 app.use(function(req, res, next) {
-  req.isAuthenticated = function() {
-    var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
-    try {
-      return jwt.verify(token, process.env.TOKEN_SECRET);
-    } catch (err) {
-      return false;
-    }
-  };
+    req.isAuthenticated = function() {
+        var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
+        try {
+            return jwt.verify(token, process.env.TOKEN_SECRET);
+        } catch (err) {
+            return false;
+        }
+    };
 
-  if (req.isAuthenticated()) {
-    var payload = req.isAuthenticated();
-     var Model = mongoose.model('user');
-  
-	 Model.findById(payload.sub, function(err, user) {
-      req.user = user;
-      next();
-    });
-  } else {
-    next();
-  }
+    if (req.isAuthenticated()) {
+        var payload = req.isAuthenticated();
+        var Model = mongoose.model('user');
+
+        Model.findById(payload.sub, function(err, user) {
+            req.user = user;
+            next();
+        });
+    } else {
+        next();
+    }
 });
 
 // Requiring API's for the backend process
@@ -113,45 +113,51 @@ require('./api')(app);
 
 // React server rendering
 app.use(function(req, res) {
-  var initialState = {
-    auth: { token: req.cookies.token, user: req.user },
-    messages: {}
-  };
-  
-  var store = configureStore(initialState);
+    var initialState = {
+        auth: { token: req.cookies.token, user: req.user },
+        messages: {}
+    };
 
-  Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirectLocation) {
-      res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
-        React.createElement(Router.RouterContext, renderProps)
-      ));
-	  const helmet = Helmet.renderStatic();
-      res.render('layouts/main', {
-        html: html,
-        initialState: store.getState(),
-		date : {date : new Date()},
-		baseurl : process.env.BASE_URL
-      });
-    } else {
-      res.sendStatus(404);
-    }
-  });
+    var store = configureStore(initialState);
+
+    Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
+        if (err) {
+            res.status(500).send(err.message);
+        } else if (redirectLocation) {
+            res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
+        } else if (renderProps) {
+            var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
+                React.createElement(Router.RouterContext, renderProps)
+            ));
+            const helmet = Helmet.renderStatic();
+            const regexp = /{{{baseurl}}}/g;
+            const meta = helmet.meta.toString().replace(regexp, process.env.BASE_URL);
+            const title = helmet.title.toString();
+
+            res.render('layouts/main', {
+                html: html,
+                head: meta,
+                title: title,
+                initialState: store.getState(),
+                date: { date: new Date() },
+                baseurl: process.env.BASE_URL
+            });
+        } else {
+            res.sendStatus(404);
+        }
+    });
 });
 
 // Production error handler
 if (app.get('env') === 'production') {
-  app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.sendStatus(err.status || 500);
-  });
+    app.use(function(err, req, res, next) {
+        console.error(err.stack);
+        res.sendStatus(err.status || 500);
+    });
 }
 
 app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
 
 module.exports = app;

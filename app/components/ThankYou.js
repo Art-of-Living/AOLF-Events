@@ -2,100 +2,112 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
+var store = require('../store/configureStore').default;
 
 class ThankYou extends React.Component {
-	
-  constructor(props) {
-		super(props)
-		
-		this.state = {
-			event : {},
-			userEmail : ''
-		}
-		
-		if(this.props.location.state === null){
-			this.props.router.push({
-				pathname: '/events'
-			})
-		}
-  }
-  
-  componentDidMount(){
-	  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-			$('body').addClass('ios thank-you-page');
-	  } else{
-			$('body').addClass('web thank-you-page');
-	  };
-	  
-	  var event = this.state.event;
-	  var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
-	  var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
 
-	  addthis.layers.refresh();
-	  addthis.update('share', 'url', 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id)
-	  addeventatc.refresh();
-  }
-  
-  componentWillUnmount() {
-	$('body').removeClass('thank-you-page');
-  }
-  
-  slugifyUrl (string){
-	  if(!string) return '';
-	  
-		return string
-			.toString()
-			.trim()
-			.toLowerCase()
-			.replace(/\s+/g, "-")
-			.replace(/[^\w\-]+/g, "")
-			.replace(/\-\-+/g, "-")
-			.replace(/^-+/, "")
-			.replace(/-+$/, "");
-  }
+    constructor(props) {
+        super(props)
 
-  render() { 
-	if(this.props.location.state !== null){
-		this.state.event = this.props.location.state.event;
-		this.state.userEmail = this.props.location.state.userEmail;
+        this.state = {
+            event: {},
+            userEmail: ''
+        }
+
+        if (this.props.location.state === null) {
+            this.props.router.push({
+                pathname: '/events'
+            })
+        }
+    }
+
+    componentDidMount() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            $('body').addClass('ios thank-you-page');
+        } else {
+            $('body').addClass('web thank-you-page');
+        };
+
+        var event = this.state.event;
+        var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
+        var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
 		
-		var event = this.state.event;
-		var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
-		var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
-    
-		var street_address_2 = "";
-		if(this.state.event.address.street_address_2 != "" && this.state.event.address.street_address_2 != null){
-			var street_address_2 = ', ' + this.state.event.address.street_address_2; 
-		}
-		
-		var startDate = event.event_start.date;
-	    var endDate = event.event_end.date;
-		
-		var organizer = this.state.event.organizers.map(function(item, i) {
-			return item.email
-		});
-	}
-	
-	return (
-		<div>
-		  <section className="thank_you_container">
-			<div className="inner_container">
-				<h6>Thank you, your seat has been reserved</h6>
-				<p>A confirmation email has been sent to {this.state.userEmail}</p>
-				<h1>
-					You&#8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
+        addthis.layers.refresh();
+        addthis.update('share', 'url', window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id)
+        addeventatc.refresh();
+    }
+
+    componentWillUnmount() {
+        $('body').removeClass('thank-you-page');
+    }
+
+    slugifyUrl(string) {
+        if (!string) return '';
+
+        return string
+            .toString()
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w\-]+/g, "")
+            .replace(/\-\-+/g, "-")
+            .replace(/^-+/, "")
+            .replace(/-+$/, "");
+    }
+
+    render() {
+        if (this.props.location.state !== null) {
+            this.state.event = this.props.location.state.event;
+            this.state.userEmail = this.props.location.state.userEmail;
+
+            var event = this.state.event;
+            var eventState = event.state ? this.slugifyUrl(this.state.event.address.state) : 'ca';
+            var eventCity = event.city ? this.slugifyUrl(this.state.event.address.city) : 'los-angeles';
+
+            var street_address_2 = "";
+            if (this.state.event.address.street_address_2 != "" && this.state.event.address.street_address_2 != null) {
+                var street_address_2 = ', ' + this.state.event.address.street_address_2;
+            }
+
+            var startDate = event.event_start.date;
+            var endDate = event.event_end.date;
+
+            var organizer = this.state.event.organizers.map(function(item, i) {
+                return item.email
+            });
+        }
+
+        return ( <
+            div >
+           <Helmet>
+				<title data-react-helmet="true">{event.event_name}</title>
+				<meta data-react-helmet="true" property="og:url" content={window.INITIAL_STATE.url.baseurl + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} />
+				<meta data-react-helmet="true" property="og:title" content="Mind & Meditation: FREE Mini Workshop" />
+				<meta data-react-helmet="true" property="og:type" content="fitness" />
+				<meta data-react-helmet="true" property="og:image" content="{{{baseurl}}}templates/ArtOfLiving/images/home_banner_fb.jpg" />
+				<meta data-react-helmet="true" property="fb:app_id" content="547829512233839" />
+				<meta data-react-helmet="true" property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
+			</Helmet> <
+            section className = "thank_you_container" >
+            <
+            div className = "inner_container" >
+            <
+            h6 > Thank you, your seat has been reserved < /h6> <
+            p > A confirmation email has been sent to { this.state.userEmail } < /p> <
+            h1 >
+            You & #8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
 				</h1>
-
-				<div className="thank_you_buttons">
+			<div className="thank_you_buttons">
 					<a href="#">
 						<div title="Add to Calendar" className="addeventatc">
 							Add to Calendar
 							<span className="alarm_reminder">120</span>
 							<span className="start">{(startDate.month + 1) + '/' + startDate.date + '/' + startDate.year + ' ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm}</span>
 							<span className="end">{(endDate.month + 1) + '/' + endDate.date + '/' + endDate.year + ' ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm}</span>
-							<span className="timezone">{this.state.event.event_start.timezone}</span>
 							<span className="title">{this.state.event.event_name}</span>
-							<span className="description">{'For details, link here: http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
+							<span className="timezone">{this.state.event.event_start.timezone}</span>
+							<span className="description">{'For details, link here:' + window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + '/' + event.event_web_id}</span>
 							<span className="location">{this.state.event.address.street_address_1 + street_address_2 +", "+ this.state.event.address.city +", "+ this.state.event.address.state +", "+ this.state.event.address.country +", "+ this.state.event.address.zipcode}</span>
 						</div>
 					</a>
@@ -115,7 +127,7 @@ class ThankYou extends React.Component {
 				</p>
 				<div className="addthis_inline_share_toolbox"></div>
 				<p>
-					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + 'http://events.us.artofliving.org/' + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
+					<a href={"mailto:" + organizer.toString() + "?cc=Anna.chicgo@artofliving.org&body=" + window.INITIAL_STATE.url.baseurl + eventState + '/' + eventCity + '/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id}>Contact us</a> if you have any questions about the event.
 				</p>
 				<hr/>
 			</div>
