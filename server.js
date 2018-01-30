@@ -118,6 +118,8 @@ app.use(function(req, res) {
         messages: {},
 		url: { baseurl: process.env.BASE_URL }
     };
+	
+	console.log(initialState);
 
     var store = configureStore(initialState);
 
@@ -134,6 +136,8 @@ app.use(function(req, res) {
             const regexp = /{{{baseurl}}}/g;
             const meta = helmet.meta.toString().replace(regexp, process.env.BASE_URL);
             const title = helmet.title.toString();
+			
+			console.log(store.getState());
 
             res.render('layouts/main', {
                 html: html,
