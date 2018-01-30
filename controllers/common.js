@@ -262,7 +262,6 @@ exports.addRows = function(req, res, next) {
 						} else if(result != null) {
 							flag = 2;
 						}
-						console.log("fffffffffffffffffff",flag);
 						getNextSequenceValue(flag,function(ids){
 							flag = 2;
 							single.event_web_id = ids.event_web_id;
@@ -337,14 +336,14 @@ exports.addRows = function(req, res, next) {
 					}
 				},
 				function (cb){		
-					organizer = [];			
+					//organizer = [];			
 					async.each(singleEvent.organizers, function(org, cbo) {
-						if(underscore.contains(organizer,org.email))
-							cbo();
-						organizer.push({
-							'email' : org.email
-						});
-						
+						var chckMail = {
+							'email': org.email
+						};
+						if(!underscore.findWhere(organizer,chckMail)){
+							organizer.push(chckMail);
+						}
 						cbo();
 					}, function(err, result) {							
 						if( err ) {
@@ -374,8 +373,6 @@ exports.addRows = function(req, res, next) {
 					}else{
 						var subject = 'Event Updated: ' + singleEvent.event_name;
 					}
-
-					console.log(organizer);
 
 				    msg = {
 					  to: organizer,
@@ -412,8 +409,6 @@ exports.addRows = function(req, res, next) {
 			// Send email about the cofirmation of the event to the organizers
 			const sgMail = require('@sendgrid/mail');
 			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-			console.log("m------------------------------",msg);
 
 			// Send email to organizer to let them know about event;
 			sgMail.send(msg);
