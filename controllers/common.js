@@ -72,11 +72,34 @@ exports.getRows = function(req, res, next) {
   })
 };
 
+function sortJson(arr, prop) {
+    return arr.sort(function(a,b) {
+        var propA,propB;
+        if (prop == "event_start") {
+            propA = a['event_start']['local'];
+            propB = b['event_start']['local'];
+        } else {
+            propA = a[prop];
+            propB = b[prop];
+        }
+
+        if (propA < propB) {
+            return -1;
+        } else {
+            return 1;
+        }
+    });
+}
+
+
 // function to fetch date/time related details of event 
 
 function formatDate_Time(results,callback)
 {
 	var formatedResult = [];
+	
+	var results = sortJson(results, 'event_start');
+	
 	async.forEach(results, function(data, cb) {
 		var timezone = momentz().tz(data.event_start.timezone).format('z');;
 		
@@ -122,10 +145,12 @@ function formatDate_Time(results,callback)
 			year : end_year,
 			tz : timezone
 		}
+		
 		data.event_start.date = startDate;
 		data.event_end.date = endDate;
 		formatedResult.push(data);
 		cb();
+		
 	},function(err){
 		if(err) {
 			res.status(400).send({ msg: 'There is some error please contact administrate.' });

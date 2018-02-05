@@ -4444,7 +4444,7 @@ exports.__RewireAPI__ = _RewireAPI__;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
 
@@ -4456,6 +4456,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactHelmet = require('react-helmet');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4465,26 +4467,54 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var App = function (_get__$Component) {
-  _inherits(App, _get__$Component);
+    _inherits(App, _get__$Component);
 
-  function App() {
-    _classCallCheck(this, App);
+    function App() {
+        _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.children
-      );
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
     }
-  }]);
 
-  return App;
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            var _Helmet_Component = _get__('Helmet');
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _Helmet_Component,
+                    null,
+                    _react2.default.createElement(
+                        'title',
+                        null,
+                        ' Events '
+                    ),
+                    ' ',
+                    _react2.default.createElement('meta', { name: 'description',
+                        content: 'Some description.' }),
+                    _react2.default.createElement('meta', { property: 'og:url',
+                        content: 'Mind & Meditation: FREE Mini Workshop' }),
+                    _react2.default.createElement('meta', { property: 'og:title',
+                        content: 'Mind & Meditation: FREE Mini Workshop' }),
+                    _react2.default.createElement('meta', { property: 'og:type',
+                        content: 'fitness' }),
+                    _react2.default.createElement('meta', { property: 'og:image',
+                        content: '{{{baseurl}}}templates/ArtOfLiving/images/home_banner_fb.jpg' }),
+                    _react2.default.createElement('meta', { property: 'fb:app_id',
+                        content: '547829512233839' }),
+                    _react2.default.createElement('meta', { property: 'og:description',
+                        content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
+                ),
+                ' ',
+                this.props.children,
+                ' '
+            );
+        }
+    }]);
+
+    return App;
 }(_get__('React').Component);
 
 exports.default = _get__('App');
@@ -4492,123 +4522,126 @@ var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
 (function () {
-  function addPropertyToAPIObject(name, value) {
-    Object.defineProperty(_RewireAPI__, name, {
-      value: value,
-      enumerable: false,
-      configurable: true
-    });
-  }
+    function addPropertyToAPIObject(name, value) {
+        Object.defineProperty(_RewireAPI__, name, {
+            value: value,
+            enumerable: false,
+            configurable: true
+        });
+    }
 
-  addPropertyToAPIObject('__get__', _get__);
-  addPropertyToAPIObject('__GetDependency__', _get__);
-  addPropertyToAPIObject('__Rewire__', _set__);
-  addPropertyToAPIObject('__set__', _set__);
-  addPropertyToAPIObject('__reset__', _reset__);
-  addPropertyToAPIObject('__ResetDependency__', _reset__);
-  addPropertyToAPIObject('__with__', _with__);
+    addPropertyToAPIObject('__get__', _get__);
+    addPropertyToAPIObject('__GetDependency__', _get__);
+    addPropertyToAPIObject('__Rewire__', _set__);
+    addPropertyToAPIObject('__set__', _set__);
+    addPropertyToAPIObject('__reset__', _reset__);
+    addPropertyToAPIObject('__ResetDependency__', _reset__);
+    addPropertyToAPIObject('__with__', _with__);
 })();
 
 function _get__(variableName) {
-  return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
+    return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
 }
 
 function _get_original__(variableName) {
-  switch (variableName) {
-    case 'React':
-      return _react2.default;
+    switch (variableName) {
+        case 'Helmet':
+            return _reactHelmet.Helmet;
 
-    case 'App':
-      return App;
-  }
+        case 'React':
+            return _react2.default;
 
-  return undefined;
+        case 'App':
+            return App;
+    }
+
+    return undefined;
 }
 
 function _assign__(variableName, value) {
-  if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
-    return _set_original__(variableName, value);
-  } else {
-    return _RewiredData__[variableName] = value;
-  }
+    if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
+        return _set_original__(variableName, value);
+    } else {
+        return _RewiredData__[variableName] = value;
+    }
 }
 
 function _set_original__(variableName, _value) {
-  switch (variableName) {}
+    switch (variableName) {}
 
-  return undefined;
+    return undefined;
 }
 
 function _update_operation__(operation, variableName, prefix) {
-  var oldValue = _get__(variableName);
+    var oldValue = _get__(variableName);
 
-  var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
+    var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
 
-  _assign__(variableName, newValue);
+    _assign__(variableName, newValue);
 
-  return prefix ? newValue : oldValue;
+    return prefix ? newValue : oldValue;
 }
 
 function _set__(variableName, value) {
-  if ((typeof variableName === 'undefined' ? 'undefined' : _typeof(variableName)) === 'object') {
-    Object.keys(variableName).forEach(function (name) {
-      _RewiredData__[name] = variableName[name];
-    });
-  } else {
-    return _RewiredData__[variableName] = value;
-  }
+    if ((typeof variableName === 'undefined' ? 'undefined' : _typeof(variableName)) === 'object') {
+        Object.keys(variableName).forEach(function (name) {
+            _RewiredData__[name] = variableName[name];
+        });
+    } else {
+        return _RewiredData__[variableName] = value;
+    }
 }
 
 function _reset__(variableName) {
-  delete _RewiredData__[variableName];
+    delete _RewiredData__[variableName];
 }
 
 function _with__(object) {
-  var rewiredVariableNames = Object.keys(object);
-  var previousValues = {};
+    var rewiredVariableNames = Object.keys(object);
+    var previousValues = {};
 
-  function reset() {
-    rewiredVariableNames.forEach(function (variableName) {
-      _RewiredData__[variableName] = previousValues[variableName];
-    });
-  }
-
-  return function (callback) {
-    rewiredVariableNames.forEach(function (variableName) {
-      previousValues[variableName] = _RewiredData__[variableName];
-      _RewiredData__[variableName] = object[variableName];
-    });
-    var result = callback();
-
-    if (!!result && typeof result.then == 'function') {
-      result.then(reset).catch(reset);
-    } else {
-      reset();
+    function reset() {
+        rewiredVariableNames.forEach(function (variableName) {
+            _RewiredData__[variableName] = previousValues[variableName];
+        });
     }
 
-    return result;
-  };
+    return function (callback) {
+        rewiredVariableNames.forEach(function (variableName) {
+            previousValues[variableName] = _RewiredData__[variableName];
+            _RewiredData__[variableName] = object[variableName];
+        });
+        var result = callback();
+
+        if (!!result && typeof result.then == 'function') {
+            result.then(reset).catch(reset);
+        } else {
+            reset();
+        }
+
+        return result;
+    };
 }
 
 var _typeOfOriginalExport = typeof App === 'undefined' ? 'undefined' : _typeof(App);
 
 function addNonEnumerableProperty(name, value) {
-  Object.defineProperty(App, name, {
-    value: value,
-    enumerable: false,
-    configurable: true
-  });
+    Object.defineProperty(App, name, {
+        value: value,
+        enumerable: false,
+        configurable: true
+    });
 }
 
 if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(App)) {
-  addNonEnumerableProperty('__get__', _get__);
-  addNonEnumerableProperty('__GetDependency__', _get__);
-  addNonEnumerableProperty('__Rewire__', _set__);
-  addNonEnumerableProperty('__set__', _set__);
-  addNonEnumerableProperty('__reset__', _reset__);
-  addNonEnumerableProperty('__ResetDependency__', _reset__);
-  addNonEnumerableProperty('__with__', _with__);
-  addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
+    addNonEnumerableProperty('__get__', _get__);
+    addNonEnumerableProperty('__GetDependency__', _get__);
+    addNonEnumerableProperty('__Rewire__', _set__);
+    addNonEnumerableProperty('__set__', _set__);
+    addNonEnumerableProperty('__reset__', _reset__);
+    addNonEnumerableProperty('__ResetDependency__', _reset__);
+    addNonEnumerableProperty('__with__', _with__);
+    addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
 }
 
 exports.__get__ = _get__;
@@ -4618,7 +4651,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":318}],17:[function(require,module,exports){
+},{"react":318,"react-helmet":131}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
