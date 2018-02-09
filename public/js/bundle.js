@@ -7468,17 +7468,17 @@ var Contact = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'form',
-								{ onSubmit: this.handleSubmit.bind(this) },
+								{ onSubmit: this.handleSubmit.bind(this), autocomplete: 'off' },
 								_react2.default.createElement(
 									'div',
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(name) {
 											return _this2.name = name;
-										}, name: 'name', onChange: this.handleChange.bind(this), placeholder: 'First Name *', required: true }),
+										}, name: 'name', onChange: this.handleChange.bind(this), placeholder: 'First Name *', required: true, autocomplete: 'off' }),
 									_react2.default.createElement('div', { className: 'error' }),
 									_react2.default.createElement('input', { type: 'email', name: 'email', ref: function ref(email) {
 											return _this2.email = email;
-										}, onChange: this.handleChange.bind(this), placeholder: 'Email *', required: true }),
+										}, onChange: this.handleChange.bind(this), placeholder: 'Email *', required: true, autocomplete: 'off' }),
 									_react2.default.createElement('div', { className: 'error' })
 								),
 								_react2.default.createElement(
@@ -7486,7 +7486,7 @@ var Contact = function (_get__$Component) {
 									null,
 									_react2.default.createElement('input', { type: 'text', ref: function ref(tel) {
 											return _this2.tel = tel;
-										}, name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true }),
+										}, name: 'tel', onChange: this.handleChange.bind(this), placeholder: 'Phone *', required: true, autocomplete: 'off' }),
 									_react2.default.createElement('div', { className: 'error' }),
 									checkIfEvent
 								),

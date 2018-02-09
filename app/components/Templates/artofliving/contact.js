@@ -249,15 +249,15 @@ class Contact extends React.Component {
 						<div className="col-md-12 clearfix contact-error">
 							<Messages messages={this.props.messages}/>
 						</div>
-						<form onSubmit={this.handleSubmit.bind(this)} >
+						<form onSubmit={this.handleSubmit.bind(this)} autocomplete="off" >
 							<div>
-								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
+								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required autocomplete="off" />
 								<div className="error"></div>
-								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required />
+								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required autocomplete="off" />
 								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required autocomplete="off" />
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>
