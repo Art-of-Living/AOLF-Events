@@ -11,8 +11,8 @@ var contactSchema = new mongoose.Schema({
   email: {type : String, required : true},
   message: {type : String},
   tel: {type : String},
-  event_id: {type : Schema.Types.ObjectId, ref: 'event', autopopulate: true}
-  
+  event_id: {type : Schema.Types.ObjectId, ref: 'event', autopopulate: true},
+  order_id: {type : String} // 2018.02.09: Ivan Azarov
 }, schemaOptions);
 
 contactSchema.plugin(autopopulate);

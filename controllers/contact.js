@@ -60,6 +60,8 @@ exports.contactPost = function(req, res, next) {
   var userEmail = req.body.email;
   var userPhone = req.body.tel;
   var userName = req.body.name;
+  var order_id = ""; // 2018.02.09 Ivan Azarov
+  var order_qr_url = ""; // 2018.02.09: Ivan Azarov
   
   var parts = userName.split(" "),
       firstName = parts.shift(),
@@ -184,6 +186,32 @@ exports.contactPost = function(req, res, next) {
 			}
 		});	
 	},
+	function(cb){
+		// Create data in the database
+		// 2018.02.09: Ivan Azarov
+		// This function was placed before sending data to pardot instead of afterwards
+		// because the order_id which needs to be sent to pardot is being updated after
+		// entry creation in the mongo database.
+		Model.create(dataToInsert, function(err, results){
+			if(err){
+			  res.status(400).send({ msg: 'There is some error please contact administrate.' });
+			  next(err);
+			}
+			// 2018.02.09: Ivan Azarov
+			// The following code takes the automatically generated id (_id) for the new mongo database entry
+			// from the returned "results" and puts it in the "order_id" of field of that same entry.
+			// From the "order_id" it also creates at url for google chart api QR code.
+			order_id = results['_id'];
+			order_qr_url = "http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl&chma=0,0,0,0="+order_id;
+			Model.update({ _id: order_id }, { order_id: order_id }, function(err, results){
+				if(err){
+				  res.status(400).send({ msg: 'Sorry, there was an error, please contact administrator.' });
+				  next(err);
+				}
+			});
+			cb();
+		});	
+	},
 	function(cb){		
 		// Pardot API to save the data;
 		var body = 'country=' + userDetail.country;
@@ -223,7 +251,8 @@ exports.contactPost = function(req, res, next) {
 			body += '&Event_City=' + req.body.event.address.city; 
 			body += '&Additional_Details=' + req.body.event.additional_details;
 			body += '&event_address=' + req.body.event.address.street_address_1 + street_address_2 + ', ' + req.body.event.address.city + ', ' + req.body.event.address.state + ', ' + req.body.event.address.country + ', ' + req.body.event.address.zipcode; 
-			
+			body += '&order_id=' + order_id; // 2018.02.09: Ivan Azarov
+			// body += '&order_qr_url=' + order_qr_url; // 2018.02.07: Ivan Azarov
 		console.log(body);
 		
 		request.post({ url : pardotUrl, body : body }, function(err, httpResponse, body) {
@@ -234,17 +263,6 @@ exports.contactPost = function(req, res, next) {
 			
 			cb();
 		});
-	},
-	function(cb){
-		// Create data in the database
-		Model.create(dataToInsert, function(err, results){
-			if(err){
-			  res.status(400).send({ msg: 'There is some error please contact administrate.' });
-			  next(err);
-			}
-			
-			cb();
-		});	
 	},
 	function(cb){			
 		
@@ -275,7 +293,9 @@ exports.contactPost = function(req, res, next) {
 			emailHTML = emailHTML.replace(/{note}/g, encodeURI(note));			
 			emailHTML = emailHTML.replace(/{is_hidden}/g, is_hidden);			
 			emailHTML = emailHTML.replace(/{hide_for_inperson}/g, hide_for_inperson);			
-			emailHTML = emailHTML.replace(/{online_session_url}/g, online_session_url);			
+			emailHTML = emailHTML.replace(/{online_session_url}/g, online_session_url);	
+			emailHTML = emailHTML.replace(/{order_id}/g, order_id); // 2018.02.09: Ivan Azarov
+			emailHTML = emailHTML.replace(/{order_qr_url}/g, order_qr_url); // 2018.02.09: Ivan Azarov		
 			cb();
 		});
 	},
