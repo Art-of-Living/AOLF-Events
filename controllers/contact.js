@@ -202,7 +202,7 @@ exports.contactPost = function(req, res, next) {
 			// from the returned "results" and puts it in the "order_id" of field of that same entry.
 			// From the "order_id" it also creates at url for google chart api QR code.
 			order_id = results['_id'];
-			order_qr_url = "http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl&chma=0,0,0,0="+order_id;
+			order_qr_url = "https://chart.apis.google.com/chart?cht=qr&chs=250x250&chma=0,0,0,0&chl="+order_id;
 			Model.update({ _id: order_id }, { order_id: order_id }, function(err, results){
 				if(err){
 				  res.status(400).send({ msg: 'Sorry, there was an error, please contact administrator.' });
