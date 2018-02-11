@@ -241,6 +241,8 @@ exports.addRows = function(req, res, next) {
 	var allEvents = [];
 	
     var createEventTemplate,
+		longUrl,
+		shortUrl,
 		event_web_series_name;
 	  
     var organizer = [];	
@@ -322,49 +324,66 @@ exports.addRows = function(req, res, next) {
 			})
 		},		
 		function(cb){	
-			async.each(allEvents, function(singleEvent, callback){
-				if(!singleEvent.updated){
-					//Check if event type is Online then change the URL of event 
-					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
-					var longUrl = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name + "/" + singleEvent.event_web_id;
-					
-					switch(req.params.collection){
-						case 'event':								
-							request({
-								uri: "https://api.rebrandly.com/v1/links",
-								method: "POST",
-								body: JSON.stringify({
-									  destination: longUrl,
-									  domain: { fullName: "aolf.us" }
-								}),
-								
-								headers: {
-								  "Content-Type": "application/json",
-								  "apikey": "1e97469880394afa9057045845eb7f57"
-								}},
+			//Check if event type is Online then change the URL of event 
+			var singleEvent = allEvents[0];
+			
+			if(!singleEvent.longUrl){
+				var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+				longUrl = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+				
+				switch(req.params.collection){
+					case 'event':								
+						request({
+							uri: "https://api.rebrandly.com/v1/links",
+							method: "POST",
+							body: JSON.stringify({
+								  destination: longUrl,
+								  domain: { fullName: "aolf.us" }
+							}),
+							
+							headers: {
+							  "Content-Type": "application/json",
+							  "apikey": "1e97469880394afa9057045845eb7f57"
+							}},
 
-								function(err, response, body) {
-									var shortUrl = JSON.parse(body).shortUrl;
-									
-									singleEvent.shortUrl = shortUrl
-									singleEvent.longUrl = longUrl
-									
-									singleEvent.save(function (err) {
-										if( err ) {
-											res.status(400).send({ msg: 'There is some error please contact administrate.' });
-											next(err);
-										}  
-										callback();
-									})
-							});
-						break;
-						default:
-							callback();				
-						break;
-					}
-				} else {
+							function(err, response, body) {
+								shortUrl = JSON.parse(body).shortUrl;	
+								cb();
+						});
+					break;
+					default:
+						cb();				
+					break;
+				}
+			} else {
+				longUrl = singleEvent.longUrl;
+				shortUrl = singleEvent.shortUrl;
+				cb();
+			}
+		},
+		function (cb){
+			async.each(allEvents, function(singleEvent, callback){
+			
+				createdData.push({
+					longUrl : longUrl,
+					shortUrl : shortUrl,
+					id : singleEvent._id,
+					event_id : singleEvent.event_id,
+					event_web_id : singleEvent.event_web_id,
+					event_web_series_name : singleEvent.event_web_series_name
+				});
+				
+				singleEvent.shortUrl = shortUrl
+				singleEvent.longUrl = longUrl
+				
+				singleEvent.save(function (err) {
+					if( err ) {
+						res.status(400).send({ msg: 'There is some error please contact administrate.' });
+						next(err);
+					}  
 					callback();
-				}	
+				})
+				
 			}, function(err, result) {							
 				if( err ) {
 					res.status(400).send({ msg: 'There is some error please contact administrate.' });
@@ -373,20 +392,6 @@ exports.addRows = function(req, res, next) {
 				
 				cb();
 			});
-		},
-		function (cb){
-			underscore.each(allEvents, function(singleEvent){
-				createdData.push({
-					longUrl : singleEvent.longUrl,
-					shortUrl : singleEvent.shortUrl,
-					id : singleEvent._id,
-					event_id : singleEvent.event_id,
-					event_web_id : singleEvent.event_web_id,
-					event_web_series_name : singleEvent.event_web_series_name
-				});
-			});	
-			
-			cb();
 		},
 		function (cb){	
 			async.each(allEvents[0].organizers, function(org, cbo) {
@@ -424,6 +429,7 @@ exports.addRows = function(req, res, next) {
 				createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
 				createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
 				createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
+				createEventTemplate = createEventTemplate.replace(/{event_name}/g, singleEvent.event_name);
 				createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, singleEvent.longUrl);
 				cb();
 			});
