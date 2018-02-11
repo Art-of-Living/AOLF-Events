@@ -250,19 +250,19 @@ class Contact extends React.Component {
 						<div className="col-md-12 clearfix contact-error">
 							<Messages messages={this.props.messages}/>
 						</div>
-						<form onSubmit={this.handleSubmit.bind(this)} >
+						<form onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
 							<div>
-								<input type="text" ref={(name) => this.name = name} name="name" onChange={this.handleChange.bind(this)} placeholder="First Name *" required />
+								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name *" required autoComplete="off" />
 								<div className="error"></div>
-								<input type="email" name="email" ref={(email) => this.email = email} onChange={this.handleChange.bind(this)} placeholder="Email *" required />
+								<input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email *" required autoComplete="off" />
 								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" ref={(tel) => this.tel = tel} name="tel" onChange={this.handleChange.bind(this)} placeholder="Phone *" required />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone *" required autoComplete="off" />
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>
-							<p>
+							<p className="padding-top-20">
 								By registering I agree to the <a href="https://www.artofliving.org/us-en/privacy-policy" target="_blank">privacy policy</a>, confirm that I am at least 18 years of age, and agree to receive promotional phone calls, text messages, and e-mails from The Art of Living. We respect your privacy and you can unsubscribe at any time.
 							</p>
 						</form>

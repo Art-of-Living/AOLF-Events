@@ -59,8 +59,7 @@ exports.updateRow = function(req, res, next) {
 }	
 	
 exports.getRows = function(req, res, next) {
-	
-  var where = req.body.where ? req.body.where : {};
+  var where = req.body.where ? req.body.where : {event_status : 'active'};
   var Model = mongoose.model(req.params.collection);
   
   Model.find({$and: [{$or: [{is_deleted: false}, {is_deleted: null}]}, where]}, function(err, results){
@@ -71,6 +70,7 @@ exports.getRows = function(req, res, next) {
 	res.status(200).send(results);
   })
 };
+
 
 function sortJson(arr, prop) {
     return arr.sort(function(a,b) {
@@ -94,8 +94,7 @@ function sortJson(arr, prop) {
 
 // function to fetch date/time related details of event 
 
-function formatDate_Time(results,callback)
-{
+function formatDate_Time(results,callback){
 	var formatedResult = [];
 	
 	var results = sortJson(results, 'event_start');
@@ -160,8 +159,7 @@ function formatDate_Time(results,callback)
 	});
 }
 
-exports.getRow = function(req, res, next) {
-	
+exports.getRow = function(req, res, next) {	
   var Model = mongoose.model(req.params.collection);
   var id = req.params.id;
   
@@ -202,26 +200,23 @@ exports.addRow = function(req, res, next) {
   })
 };
 
-function getNextSequenceValue(check,callback){
-	
+function getNextSequenceValue(flag,callback){	
 	var sequenceDocument = mongoose.model('eventids');
+	
 	sequenceDocument.findOne({id:'updateEventId'},function(err,data){
-		if(check == 1) {
-			data.event_web_id += 1;
+		
+		if(flag) {
 			data.event_web_series_name += 1;
-		}
-		else if(check == 2) {
+		} else{
 			data.event_web_id += 1;
 		}
+		
 		data.save(function(err, result){
 			if(err){
 				next(err)
 			}	
-			var ids = {
-				'event_web_id': result.event_web_id, 
-				'event_web_series_name': result.event_web_series_name
-				};
-				callback(ids);
+			
+			callback(result);
 		});	
 	})
 }
@@ -238,212 +233,237 @@ function slugifyUrl (string){
 		.replace(/-+$/, "");
 }
 
-
 exports.addRows = function(req, res, next) {
     var data = req.body;
     var Model = mongoose.model(req.params.collection);
   
     var createdData = [];
 	var allEvents = [];
+	
     var createEventTemplate,
-	  longUrl,
-	  shortUrl;
+		event_web_series_name;
 	  
     var organizer = [];	
-	var flagUpdated = false;
-	var flag = 1;
-	var msg= {};
-  
-    async.eachSeries(data, function(single, callback) {
-			
-			switch(req.params.collection){
-				case 'event':
-					var event_status = single.event_status ? single.event_status : 'active';
-					single.event_status = event_status.toLowerCase()
-				break;
-			}
-			
-			Model.findOne({event_id : single.event_id}, function(err, results){
-				if(err){
-				  res.status(400).send(err);
+	var msg = {};
+	
+	async.series([
+		function(cb){
+			// Check if event_series_name exists then increment otherwise not;
+			Model.findOne({event_series_name: data[0].event_series_name},function(err, result){
+				if(err) {
+					res.status(400).send(err);
+				} 
+				
+				if(!result || result === null){
+					var flag = true;
+					getNextSequenceValue(flag ,function(updated){
+						event_web_series_name = updated.event_web_series_name
+						cb();
+					});
+				} else {
+					event_web_series_name = result.event_web_series_name; 
+					cb();
+				} 
+			})
+		},
+		function(cb){		
+			// Create events from data;
+			async.eachSeries(data, function(single, callback) {
+				switch(req.params.collection){
+					case 'event':
+						var event_status = single.event_status ? single.event_status : 'active';
+						single.event_status = event_status.toLowerCase()
+					break;
 				}
 				
-				if(results){
-					flagUpdated = true;
-					var updated = _.assign(results, single);
-					updated.save(function(err, result){
-						if(err){
-						  next(err)
-						}	
+				Model.findOne({event_id : single.event_id}, function(err, results){
+					if(err){
+					  res.status(400).send(err);
+					}
+					
+					if(results){
+						var updated = _.assign(results, single);
+						updated.save(function(err, result){
+							if(err){
+							  next(err)
+							}	
+							
+							result.updated = true;
+							
+							allEvents.push(result);
+							callback();
+						});	
+					} else {		
+						var flag = false;
+						single.event_web_series_name = event_web_series_name;
 						
-						result.updated = true;
-						allEvents.push(result);
-						callback();
-					});	
-				}else{	
-					Model.findOne({event_series_name: single.event_series_name},function(err,result){
-						if(err) {
-							res.status(400).send(err);
-						} else if(result != null) {
-							flag = 2;
-						}
-						getNextSequenceValue(flag,function(ids){
-							flag = 2;
-							single.event_web_id = ids.event_web_id;
-							single.event_web_series_name = ids.event_web_series_name;
+						getNextSequenceValue(flag ,function(updated){
+							single.event_web_id = updated.event_web_id
 							Model.create(single, function(err, result){
 								if(err){
 									next(err)
 								}	
+								
 								result.updated = false;
 								allEvents.push(result);
 								callback();
-								});	
-						});
-						})
-				}
-			})
-	
-	},function(err){
-		if(err){
-			res.status(400).send({ msg: 'There is some error please contact administrate.' });
-			next(err);
-		}
+							});
+						});	
+					}
+				})
 		
-		async.forEach(allEvents, function(singleEvent, callback) {		
-			async.series([
-				function(cb){				
-					if(!singleEvent.updated){
-						/* Check if event type is Online then change the URL of event */
-						var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
-						longUrl = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
-						switch(req.params.collection){
-							case 'event':								
-								request({
-									uri: "https://api.rebrandly.com/v1/links",
-									method: "POST",
-									body: JSON.stringify({
-										  destination: longUrl,
-										  domain: { fullName: "aolf.us" }
-									}),
-									
-									headers: {
-									  "Content-Type": "application/json",
-									  "apikey": "1e97469880394afa9057045845eb7f57"
-									}},
-
-									function(err, response, body) {
-										shortUrl = JSON.parse(body).shortUrl;
-										cb();
-								});
-							break;
-						}
-					}else{
-						cb();
-					}				
-				},
-				
-				function (cb){
-					if(!singleEvent.updated){
-						singleEvent.shortUrl = shortUrl
-						singleEvent.longUrl = longUrl
-						
-						singleEvent.save(function (err) {
-						  if( err ) {
-								res.status(400).send({ msg: 'There is some error please contact administrate.' });
-								next(err);
-						  }
-						  
-						  cb();
-						})
-					}else{
-						cb();
-					}
-				},
-				function (cb){		
-					//organizer = [];			
-					async.each(singleEvent.organizers, function(org, cbo) {
-						var chckMail = {
-							'email': org.email
-						};
-						if(!underscore.findWhere(organizer,chckMail)){
-							organizer.push(chckMail);
-						}
-						cbo();
-					}, function(err, result) {							
-						if( err ) {
-							res.status(400).send({ msg: 'There is some error please contact administrate.' });
-							next(err);
-						} else {												
-							cb();
-						}
-					});
-				},
-				
-				function(cb){		
-					var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
-					
-					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
-					var	event_title_url = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
-					
-					fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
-						createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
-						createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
-						createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
-						createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
-						createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
-						createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, event_title_url);
-						cb();
-					});
-				},
-				
-				function(cb){
-					if(!singleEvent.updated){
-						var subject =  'Event Created: ' + singleEvent.event_name;
-					}else{
-						var subject = 'Event Updated: ' + singleEvent.event_name;
-					}
-
-				    msg = {
-					  to: organizer,
-					  from: 'Art of Living <events@us.artofliving.org>',
-					  subject: subject,
-					  html: createEventTemplate,
-					};
-					
-					createdData.push({
-						longUrl : singleEvent.longUrl + "/" + singleEvent.event_web_id,
-						shortUrl : singleEvent.shortUrl,
-						id : singleEvent._id,
-						event_id : singleEvent.event_id,
-						event_web_id : singleEvent.event_web_id,
-						event_web_series_name : singleEvent.event_web_series_name
-					});
-					cb();
-				}
-			], function(err){
+			},function(err){
 				if(err){
 					res.status(400).send({ msg: 'There is some error please contact administrate.' });
 					next(err);
 				}
 				
-				callback();
+				cb();
 			})
-	
-		},function(err){
-			if(err){
-				res.status(400).send({ msg: 'There is some error please contact administrate.' });
-				next(err);
+		},		
+		function(cb){	
+			async.each(allEvents, function(singleEvent, callback){
+				if(!singleEvent.updated){
+					//Check if event type is Online then change the URL of event 
+					var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+					var longUrl = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name + "/" + singleEvent.event_web_id;
+					
+					switch(req.params.collection){
+						case 'event':								
+							request({
+								uri: "https://api.rebrandly.com/v1/links",
+								method: "POST",
+								body: JSON.stringify({
+									  destination: longUrl,
+									  domain: { fullName: "aolf.us" }
+								}),
+								
+								headers: {
+								  "Content-Type": "application/json",
+								  "apikey": "1e97469880394afa9057045845eb7f57"
+								}},
+
+								function(err, response, body) {
+									var shortUrl = JSON.parse(body).shortUrl;
+									
+									singleEvent.shortUrl = shortUrl
+									singleEvent.longUrl = longUrl
+									
+									singleEvent.save(function (err) {
+										if( err ) {
+											res.status(400).send({ msg: 'There is some error please contact administrate.' });
+											next(err);
+										}  
+										callback();
+									})
+							});
+						break;
+						default:
+							callback();				
+						break;
+					}
+				} else {
+					callback();
+				}	
+			}, function(err, result) {							
+				if( err ) {
+					res.status(400).send({ msg: 'There is some error please contact administrate.' });
+					next(err);
+				}
+				
+				cb();
+			});
+		},
+		function (cb){
+			underscore.each(allEvents, function(singleEvent){
+				createdData.push({
+					longUrl : singleEvent.longUrl,
+					shortUrl : singleEvent.shortUrl,
+					id : singleEvent._id,
+					event_id : singleEvent.event_id,
+					event_web_id : singleEvent.event_web_id,
+					event_web_series_name : singleEvent.event_web_series_name
+				});
+			});	
+			
+			cb();
+		},
+		function (cb){	
+			async.each(allEvents[0].organizers, function(org, cbo) {
+				
+				var chckMail = {
+					'email': org.email
+				};
+				
+				if(!underscore.findWhere(organizer,chckMail)){
+					organizer.push(chckMail);
+				}
+				
+				cbo();
+				
+			}, function(err, result) {							
+				if( err ) {
+					res.status(400).send({ msg: 'There is some error please contact administrate.' });
+					next(err);
+				} else {												
+					cb();
+				}
+			});
+		},
+		
+		function(cb){		
+			var emailTemplatePath = path.join('public', 'templates', 'email', 'create_event_template.html');
+			
+			var singleEvent = allEvents[0];
+			var urlPart = singleEvent.event_type == 'online' ? 'online/event' : slugifyUrl(singleEvent.address.state) + "/" + slugifyUrl(singleEvent.address.city);
+			var	event_title_url = process.env.BASE_URL + urlPart + "/" + slugifyUrl(singleEvent.event_name) + "/" + singleEvent.event_web_series_name;
+			
+			fs.readFile(emailTemplatePath, 'utf8', function(err, html) {
+				createEventTemplate = html.replace(/{BASE_URL}/g, process.env.BASE_URL);
+				createEventTemplate = createEventTemplate.replace(/{qrUrl}/g, singleEvent.shortUrl + '.qr');
+				createEventTemplate = createEventTemplate.replace(/{eventParentId}/g, singleEvent.event_web_series_name);
+				createEventTemplate = createEventTemplate.replace(/{eventUrl}/g, singleEvent.longUrl);
+				createEventTemplate = createEventTemplate.replace(/{shortUrl}/g, singleEvent.shortUrl);
+				createEventTemplate = createEventTemplate.replace(/{event_title_url}/g, singleEvent.longUrl);
+				cb();
+			});
+		},
+		
+		function(cb){
+			var singleEvent = allEvents[0];
+			
+			if(!singleEvent.updated){
+				var subject =  'Event Created: ' + singleEvent.event_name;
+			}else{
+				var subject = 'Event Updated: ' + singleEvent.event_name;
 			}
 
-			// Send email about the cofirmation of the event to the organizers
-			const sgMail = require('@sendgrid/mail');
-			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+			msg = {
+			  to: organizer,
+			  from: 'Art of Living <events@us.artofliving.org>',
+			  subject: subject,
+			  html: createEventTemplate,
+			};
 
+			cb();
+		}
+	], function(err){
+		if(err){
+			res.status(400).send({ msg: 'There is some error please contact administrate.' });
+			next(err);
+		}
+		
+		// Send email about the cofirmation of the event to the organizers
+		const sgMail = require('@sendgrid/mail');
+		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+		var baseURL = process.env.BASE_URL;
+		
+		if(baseURL.indexOf("localhost") < 0){
 			// Send email to organizer to let them know about event;
 			sgMail.send(msg);
-			
-			res.status(200).send(createdData);
-		});
-	})
+		}
+		
+		res.status(200).send(createdData);
+	})	
 };
