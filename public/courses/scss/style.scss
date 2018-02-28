@@ -1,0 +1,444 @@
+/* custom css by M Asif Iqbal */
+
+@import "bootstrap.scss";
+@import "slick.scss";
+@import "font-awesome.scss";
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+	src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'gothambold1';
+	src: url('../fonts/gothambold1.eot');
+	src: local('gothambold1'), url('../fonts/gothambold1.woff') format('woff'), url('../fonts/gothambold1.ttf') format('truetype'), url('../fonts/gothambold1.woff2') format('woff2'), url('../fonts/gothambold1.svg') format('svg');
+}
+
+@font-face {
+	font-family: 'GothamBook';
+	src: url('../fonts/GothamBook.eot');
+	src: local('GothamBook'),
+	url('../fonts/GothamBook.woff') format('woff'),
+	url('../fonts/GothamBook.ttf') format('truetype'),
+	url('../fonts/GothamBook.woff2') format('woff2'),
+	url('../fonts/GothamBook.svg') format('svg');
+}
+@font-face {
+	font-family: 'GothamLight';
+	src: url('../fonts/GothamLight.eot');
+	src: local('GothamLight'),
+	url('../fonts/GothamLight.woff') format('woff'),
+	url('../fonts/GothamLight.ttf') format('truetype'),
+	url('../fonts/GothamLight.woff2') format('woff2'),
+	url('../fonts/GothamLight.svg') format('svg');
+}
+@font-face {
+	font-family: "Arial";
+	src: url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.eot");
+	src: url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.eot?#iefix") format("embedded-opentype"),
+	url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.woff2") format("woff2"),
+	url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.woff") format("woff"),
+	url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.ttf") format("truetype"),
+	url("//db.onlinewebfonts.com/t/8d223b3ad8d4819e9dcf22757e4cc2c4.svg#Arial") format("svg");
+}
+
+$gotham: 'GothamBook';
+
+body{
+	overflow-x: hidden;
+}
+img{
+	max-width: 100%;
+}
+.row{
+	max-width: 1190px;
+	margin: 0 auto;
+}
+
+.landing_banner{
+	padding: 40px 0;
+	background-size: cover;
+	background-position: 50%;
+	&--title{
+		font-size: 48px;
+		font-family: 'GothamBook';
+		padding: 0 15px;
+		margin: 20px 0;
+		@media (max-width: 1024px){font-size: 42px;}
+		@media (max-width: 767px){font-size: 38px;}
+		@media (max-width: 640px){font-size: 32px;}
+		@media (max-width: 480px){font-size: 26px;}
+	}
+	&--text{
+		text-align: center;
+		span{
+			display: block;
+			font-size: 12px;
+			font-family: 'GothamBook';
+			color: #000;
+			font-weight: 600;
+			margin: 0 auto;
+		}
+	}
+	.banner_gift_card{
+		max-width: 430px;
+		width: 100%;
+		margin: 0 auto;
+		position: relative;
+		.price{
+			font-size: 50px;
+			font-family: 'GothamLight';
+			position: absolute;
+			right: 18px;
+			bottom: 52px;
+			color: #000;
+			display: inline-block;
+			line-height: 1;
+			letter-spacing: -3.5px;
+			@media (max-width: 480px){font-size: 42px;}
+			@media (max-width: 400px){font-size: 38px;}
+			span{
+				font-size: 40px;
+				line-height: 1;
+			}
+		}
+		.code{
+			position: absolute;
+			right: 24px;
+			bottom: 21px;
+			display: inline-block;
+			border-radius: 5px;
+			border: 1px solid #909090;
+			padding: 0px 8px;
+			letter-spacing: -1px;
+			color: #444;
+			font-size: 17px;
+			font-family: 'GothamBook';
+		}
+	}
+}
+
+
+.landing_find_course{
+	padding: 37px 0 55px;
+	&_footer{
+		font-size: 18px;
+	}
+	.text_caption{
+		span{
+			font-size: 20px;
+			display: block;
+			margin-bottom: 20px;
+			letter-spacing: -1.2px;
+			font-family: 'GothamBook';
+			@media (max-width: 1024px){font-size: 19px;}
+			@media (max-width: 767px){font-size: 18px;}
+			@media (max-width: 640px){font-size: 17px;}
+			@media (max-width: 480px){font-size: 16px;}
+		}
+		h2{
+			font-size: 30px;
+			font-family: 'GothamBook';
+			letter-spacing: -2.2px;
+			margin-bottom: 5px;
+			@media (max-width: 1024px){font-size: 28px;}
+			@media (max-width: 767px){font-size: 26px;}
+			@media (max-width: 640px){font-size: 24px;}
+			@media (max-width: 480px){font-size: 22px;}
+		}
+		p{
+			font-size: 16px;
+			font-family: 'GothamBook';
+			letter-spacing: -.9px;
+		}
+	}
+}
+.landing_find_course_slider{
+	padding: 0 90px;
+	margin-top: 40px;
+	margin-bottom: 25px;
+	@media (max-width: 1200px){padding: 0 60px;}
+	@media (max-width: 1024px){padding: 0 40px;}
+	@media (max-width: 991px){padding: 0 25px;}
+	@media (max-width: 380px){padding: 0 10px;}
+}
+.find_course_slide{
+	padding: 0 10px;
+	.inner_block{
+		background: #F9F9F9;
+		border: 2px solid #d4d4d4;
+		border-radius: 10px;
+		padding: 28px 22px 22px;
+		text-align: center;
+		.subtitle{
+			font-size: 18px;
+			display: block;
+			font-family: 'GothamBook';
+			letter-spacing: -1px;
+		}
+		.title{
+			// font-family: 'gothambold1';
+			font-family: 'GothamBook';
+			font-size: 30px;
+			border-bottom: 2px solid #c3c3c3;
+			padding-bottom: 10px;
+			letter-spacing: -2.3px;
+			margin-top: 0;
+			@media (max-width: 1100px){font-size: 28px;}
+			@media (max-width: 767px){font-size: 26px;}
+			@media (max-width: 640px){font-size: 24px;}
+			@media (max-width: 480px){font-size: 22px;}
+		}
+		.location{
+			font-family: 'GothamBook';
+			font-size: 16px;
+			letter-spacing: -1.3px;
+			.location_icon{
+				width: 20px;
+				height: 20px;
+				background: #000;
+				border-radius: 50%;
+				color: #FFF;
+				font-size: 14px;
+				display: inline-block;
+				text-align: center;
+				margin: 0;
+			}
+		}
+		.btn_yellow{
+			color: #000;
+			font-size: 16px;
+			text-align: center;
+			width: 100%;
+			display: block;
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 25px;
+			background: #FFAE00;
+			transition: all .3s;
+			.fa{
+				margin-right: 5px;
+			}
+			&:hover{
+				text-decoration: none;
+				background: #ffd400;
+			}
+		}
+	}
+}
+
+
+.landing_featured_sect{
+	background: #F2F2F2;
+	padding: 45px 0 33px;
+	span{
+		display: block;
+		font-size: 20px;
+		color: #888;
+		font-family: 'GothamBook';
+		text-align: center;
+		letter-spacing: -1.3px;
+	}
+	.flex{
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+	}
+	img{
+		margin: 2px 15px 5px;
+	}
+}
+
+.share_sect{
+	padding: 30px 0;
+	&--title{
+		font-size: 30px;
+		text-align: center;
+	}
+	ul{
+		list-style: none;
+		margin: 30px 0 5px;
+		padding: 0;
+		text-align: center;
+		li{
+			display: inline-block;
+			margin: 0 10px 5px;
+			@media (max-width: 480px){
+				margin: 0 5px 5px;
+			}
+			a{
+				display: inline-block;
+			}
+		}
+	}
+	p{
+		margin-bottom: 0;
+		font-size: 12px;
+	}
+}
+
+
+
+.landing_testimonial_sect{
+	padding: 50px 0 57px;
+	background-size: cover;
+	background-position: 50%;
+	.landing_testimonial--title{
+		color: #FFF;
+		font-family: 'GothamLight';
+		letter-spacing: -2.7px;
+		font-size: 40px;
+		@media (max-width: 1024px){font-size: 36px;}
+		@media (max-width: 767px){font-size: 32px;}
+		@media (max-width: 640px){font-size: 26px;}
+		@media (max-width: 480px){font-size: 22px;}
+		span{
+			font-family: 'gothambold1';
+		}
+	}
+}
+.landing_testimonial__slider{
+	margin: 20px 0 30px;
+}
+.land_testimon_slide{
+	padding: 15px;
+	@media (max-width: 640px){
+		padding: 0;
+	}
+	.block-text{
+		background-color: #fff;
+		border-radius: 5px;
+		color: rgba(0,0,0,0.8);
+		font-family: 'GothamBook';
+		font-size: 14px;
+		line-height: 20px;
+		padding: 15px 30px;
+		font-weight: normal;
+		position: relative;
+		border-radius: 7px;
+		.person-text{
+			margin-bottom: 12px;
+			clear: both;
+			float: left;
+			width: 100%;
+			img{
+				float: left;
+				margin-right: 10px;
+				border-radius: 100%;
+				width: 66px !important;
+				height: auto !important;
+			}
+			.testi_name {
+				float: left;
+				text-align: left;
+				margin-top: 10px;
+				color: #333;
+				font-size: 15px;
+				margin-top: 3px;
+				font-family: 'GothamBook';
+				font-weight: 300;
+				span{
+					display: block;
+				}
+				i{
+					color: #999;
+					font-size: 13px;
+					font-style: normal;
+					font-family: 'GothamBook';
+					font-weight: normal;
+					max-width: 180px;
+					display: block;
+				}
+			}
+		}
+		p{
+			font-size: 14px;
+			color: #000;
+			clear: both;
+		}
+	}
+}
+
+.footer{
+	background: #E8E6E3;
+	padding: 25px 0;
+	&__text{
+		margin: 15px 0;
+	}
+	p{
+		font-size: 14px;
+		font-family: 'GothamBook';
+		color: rgba(0,0,0,.76);
+		line-height: 1.2;
+	}
+	&__copyright{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: 0;
+		li{
+			margin-right: 25px;
+			display: inline-block;
+			@media (max-width: 480px){
+				display: block;
+				margin-bottom: 7px;
+			}
+			&:last-child{
+				margin-right: 0;
+			}
+			span,a{
+				font-size: 14px;
+				font-family: 'GothamBook';
+				color: rgba(0,0,0,.76);
+				line-height: 1.2;
+			}
+			a{
+				transition: all .4s;
+				&:hover{
+					text-decoration: none;
+					color: #000;
+				}
+			}
+			span{
+				color: #999;
+			}
+		}
+	}
+	iframe{
+		display: block;
+	}
+	&__connect_list{
+		list-style: none;
+		margin: 0 0 15px 0;
+		padding: 0;
+		font-size: 0;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		@media (max-width: 767px){
+			margin-top: 30px;
+		}
+		li{
+			margin-right: 15px;
+			font-size: 16px;
+			color: #000;
+			font-family: 'GothamBook';
+			font-weight: bold;
+			a{
+				color: #A5A5A5;
+				font-size: 32px;
+				transition: all .4s;
+				&:hover{
+					text-decoration: none;
+					color: darken(#A5A5A5, 15);
+				}
+			}
+		}
+	}
+}

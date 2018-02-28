@@ -3,6 +3,7 @@ import { IndexRoute, Route } from 'react-router';
 import App from './components/App';
 import Home from './components/Home';
 import ComingSoon from './components/ComingSoon';
+import Courses from './components/Courses';
 import Contact from './components/Contact';
 import EventDetail from './components/EventDetail';
 import NotFound from './components/NotFound';
@@ -38,6 +39,7 @@ export default function getRoutes(store) {
       <Route path="/online/event/:eventname/:eventsid/:eventid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/events" component={Home} onLeave={clearMessages}/>
+      <Route path="/courses" component={Courses} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid/:eventid/thankyou" component={ThankYouOnline} onLeave={clearMessages}/>

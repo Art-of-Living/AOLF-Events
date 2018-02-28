@@ -113,13 +113,15 @@ require('./api')(app);
 
 // React server rendering
 app.use(function(req, res) {
+	//console.log(req)
     var initialState = {
         auth: { token: req.cookies.token, user: req.user },
         messages: {},
-		url: { baseurl: process.env.BASE_URL }
+		url: { baseurl: process.env.BASE_URL },
+        request : req
     };
 	
-	console.log(initialState);
+	console.log("initialState", initialState);
 
     var store = configureStore(initialState);
 
