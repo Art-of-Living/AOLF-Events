@@ -169,20 +169,26 @@ exports.contactPost = function(req, res, next) {
 		}		
 	},
 	function(cb){
+		var env = process.env.environment ? process.env.environment : 'dev';
 		// Check briteverify API for the email verification
-		request.get({ url : checkIfEmailVerified }, function(err, httpResponse, body) {
-			if (err) {
-				res.status(400).send({ msg: 'There is some error please contact administrate.' });
-				next(err);
-			}
+		
+		if(env !== 'dev'){
+			request.get({ url : checkIfEmailVerified }, function(err, httpResponse, body) {
+				if (err) {
+					res.status(400).send({ msg: 'There is some error please contact administrate.' });
+					next(err);
+				}
 
-			var json = JSON.parse(body);
-			if(json.status === 'valid' || json.status === 'unknown'){
-				cb();
-			}else{
-				res.status(400).send({ msg: 'Email is not valid.' });
-			}
-		});	
+				var json = JSON.parse(body);
+				if(json.status === 'valid' || json.status === 'unknown'){
+					cb();
+				}else{
+					res.status(400).send({ msg: 'Email is not valid.' });
+				}
+			});
+		}else{
+			cb();
+		}
 	},
 	function(cb){		
 		// Pardot API to save the data;
