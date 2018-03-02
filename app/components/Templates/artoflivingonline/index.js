@@ -411,10 +411,13 @@ class Index extends React.Component {
 					Research
 				</h2>
 				<div className="row">
-					<div className="col-md-12">
+					<div className="col-md-12 hide-for-mobile">
 						<h2 className="research__title">
 							Scientific Research on the <br /> Art of Living Breathing Techniques<span>*</span>
 						</h2>
+					</div>
+					<div className="col-md-12 show-for-mobile">
+						<h2 className="research__title">Scientific Research <br /> on the Art of Living <br /> Breathing Techniques</h2>
 					</div>
 				</div>
 				<div className="row research__container">
@@ -483,7 +486,7 @@ class Index extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div className="row">
+				<div className="row hide-for-mobile">
 					<div className="col-md-12">
 						<div className="text-center research__bottom_text">
 							<p>

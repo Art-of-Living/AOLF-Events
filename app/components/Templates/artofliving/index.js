@@ -145,7 +145,9 @@ class Index extends React.Component {
 			<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
         </Helmet>
 		<Header/>
-			<section className="home_banner" style={style.home_banner}>
+			<Contact addClassName="show-for-mobile" events={events} eventid={eventid} />
+			
+			<section className="home_banner hide-for-mobile" style={style.home_banner}>
 				<div className="home_banner--caption">
 					<h1 className="home_banner--top_title">
 					{event.event_name}
@@ -168,12 +170,46 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
-
-
+			
+			<section className="home_banner_mobile show-for-mobile">
+				<img height="300" width="100%" src={"/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg"} alt="img"/>
+			</section>
+			
+			<section className="map_section clearfix show-for-mobile">
+				<div className="map_section__content">
+					<h2 className="map_section--title">
+						Event Location
+					</h2>
+					<p>
+						{event.address.street_address_1}{street_address_2}<br/>
+						{event.address.city}, {event.address.state}<br/>
+						{event.address.country}<br/>
+						{event.address.zipcode}<br/>
+					</p>
+					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode)} className="show-on-map show-for-mobile" target="_blank">
+						View on a map
+					</a>
+				</div>
+			</section>
+			
+			<section className="get_tast_mobile show-for-mobile">
+				<h2>
+					Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.
+				</h2>
+				<div>
+					<p>
+						Join this FREE introductory workshop to the world-renowned Happiness Program
+					</p>
+				</div>
+				<h2 className="get_taste">
+					Get a taste of...
+				</h2>
+			</section>
+			
 			<section className="get_tast">
 				<div className="row">
 					<div className="col-md-12">
-						<h2 className="get_tast--title">
+						<h2 className="get_tast--title hide-for-mobile">
 							get a taste of
 						</h2>
 
@@ -222,7 +258,6 @@ class Index extends React.Component {
 				</div>
 			</section>
 
-
 			<section className="logos_sect">
 				<div className="row logos_sect--container">
 					<div className="col-md-3 col-sm-6 col-xs-6">
@@ -257,10 +292,15 @@ class Index extends React.Component {
 							</p>
 						</div>
 					</div>
+					<div className="row show-for-mobile">
+						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
+							CHOOSE A DATE & TIME
+						</a>
+					</div>
 				</div>
 			</section>
-			<Contact events={events} eventid={eventid} />
-			<section className="map_section clearfix">
+			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid} />
+			<section className="map_section clearfix hide-for-mobile">
 				<div className="map_section__content">
 					<h2 className="map_section--title">
 						Event Location
@@ -437,10 +477,13 @@ class Index extends React.Component {
 					Research
 				</h2>
 				<div className="row">
-					<div className="col-md-12">
+					<div className="col-md-12 hide-for-mobile">
 						<h2 className="research__title">
 							Scientific Research on the <br /> Art of Living Breathing Techniques<span>*</span>
 						</h2>
+					</div>
+					<div className="col-md-12 show-for-mobile">
+						<h2 className="research__title">Scientific Research <br /> on the Art of Living <br /> Breathing Techniques</h2>
 					</div>
 				</div>
 				<div className="row research__container">
@@ -509,7 +552,7 @@ class Index extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div className="row">
+				<div className="row hide-for-mobile">
 					<div className="col-md-12">
 						<div className="text-center research__bottom_text">
 							<p>
@@ -519,6 +562,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
+			
 			<section className="highlight hide-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="">
@@ -532,20 +576,20 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
+			
 			<section className="highlight show-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="col-md-12">
 						<div className="highlight--left_block">
-							<h2>Mind &   Meditation</h2>
-							<h5>Register Now for FREE</h5>
+							<h2>Mind & Meditation <br/> Workshop</h2>
+							<h5>{event.address.city}</h5>
 						</div>
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
-							Save my Spot
+							REGISTER FOR FREE
 						</a>
 					</div>
 				</div>
 			</section>
-
 
 			<div id="videopopup" style={style.display_none}>
 				<div className="videoWrapper">
