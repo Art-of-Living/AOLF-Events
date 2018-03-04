@@ -231,7 +231,7 @@ class Contact extends React.Component {
     return (
 	  <div>
 		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id="chose_day">
-				<div className="row hide-for-mobile">
+				<div className="row show-for-mobile">
 					<div className="col-md-12">
 						<div className="header__logo text-center">
 							<a href="#">
