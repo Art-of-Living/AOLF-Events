@@ -7421,7 +7421,7 @@ var Contact = function (_get__$Component) {
 					{ className: this.props.addClassName + " highlight", style: style.highlight, id: 'chose_day' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row hide-for-mobile' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-12' },
@@ -9785,7 +9785,7 @@ var Contact = function (_get__$Component) {
 					{ className: this.props.addClassName + " highlight", style: style.highlight, id: 'chose_day' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row hide-for-mobile' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-12' },
