@@ -5,11 +5,7 @@ import Messages from './Messages';
 import queryString from 'query-string';
 import moment from 'moment';
 
-import root from 'window-or-global';
-
 import CountdownTimer from 'react-awesome-countdowntimer';
-
-var urlencode = require('urlencode');
 
 var store = require('../store/configureStore').default;
 
