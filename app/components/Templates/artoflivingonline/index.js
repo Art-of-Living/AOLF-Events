@@ -176,7 +176,7 @@ class Index extends React.Component {
 				</h2>
 				<div>
 					<p>
-						Join this FREE introductory workshop to the world-renowned Happiness Program
+						Join this FREE online workshop to the world-renowned Happiness Program
 					</p>
 				</div>
 				<h2 className="get_taste">

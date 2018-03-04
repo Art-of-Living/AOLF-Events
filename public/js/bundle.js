@@ -10338,7 +10338,7 @@ var Index = function (_get__$Component) {
 						_react2.default.createElement(
 							'p',
 							null,
-							'Join this FREE introductory workshop to the world-renowned Happiness Program'
+							'Join this FREE online workshop to the world-renowned Happiness Program'
 						)
 					),
 					_react2.default.createElement(
