@@ -144,7 +144,9 @@ class Index extends React.Component {
 			<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
         </Helmet>
 		<Header/>
-			<section className="home_banner" style={style.home_banner}>
+			<Contact addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />
+			
+			<section className="home_banner hide-for-mobile" style={style.home_banner}>
 				<div className="home_banner--caption">
 					<h1 className="home_banner--top_title">
 					{event.event_name}
@@ -168,11 +170,24 @@ class Index extends React.Component {
 				</div>
 			</section>
 
+			<section className="get_tast_mobile show-for-mobile">
+				<h2>
+					Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.
+				</h2>
+				<div>
+					<p>
+						Join this FREE introductory workshop to the world-renowned Happiness Program
+					</p>
+				</div>
+				<h2 className="get_taste">
+					Get a taste of...
+				</h2>
+			</section>
 
 			<section className="get_tast">
 				<div className="row">
 					<div className="col-md-12">
-						<h2 className="get_tast--title">
+						<h2 className="get_tast--title hide-for-mobile">
 							get a taste of
 						</h2>
 
@@ -256,9 +271,14 @@ class Index extends React.Component {
 							</p>
 						</div>
 					</div>
+					<div className="row show-for-mobile">
+						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
+							CHOOSE A DATE & TIME
+						</a>
+					</div>
 				</div>
 			</section>
-			<Contact events={events} eventid={eventid} />
+			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid} />
 			<section className="happiness">
 				<h2 className="happiness__overlay_title">
 					The Happiness Program
@@ -312,6 +332,9 @@ class Index extends React.Component {
 				</div>
 			</section>
 			<section className="reviews">
+				<h4 className="reviews-title-mobile show-for-mobile">
+					How The Happiness Program is Changing Lives
+				</h4>
 				<h2 className="reviews__overlay_title">
 					Reviews
 				</h2>
@@ -319,9 +342,6 @@ class Index extends React.Component {
 					<div className="col-md-12">
 						<div className="reviews__slider" ref={(ele) => this.reviews__slider = ele}>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of yout attention on it.
@@ -340,9 +360,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
@@ -361,9 +378,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
@@ -382,9 +396,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.
@@ -513,11 +524,11 @@ class Index extends React.Component {
 				<div className="row">
 					<div className="col-md-12">
 						<div className="highlight--left_block">
-							<h2>Mind &   Meditation</h2>
-							<h5>Register Now for FREE</h5>
+							<h2>Mind & Meditation <br/> Workshop</h2>
+							<h5>{event.address.city}</h5>
 						</div>
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
-							Save my Spot
+							REGISTER FOR FREE
 						</a>
 					</div>
 				</div>

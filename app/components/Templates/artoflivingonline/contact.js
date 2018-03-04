@@ -231,14 +231,24 @@ class Contact extends React.Component {
     return (
 	  <div>
 		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id="chose_day">
-				<h2 className="highlight__overlay_title">
+				<div className="row">
+					<div className="col-md-12">
+						<div className="header__logo text-center">
+							<a href="#">
+								<img src="/templates/ArtOfLiving/images/logo.png" alt="logo" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<h2 className="highlight__overlay_title hide-for-mobile">
 				{events[0].event_name}
 				</h2>
 				<div className="row">
 					<div className="col-md-12">
 						<div className="highlight--left_block">
 							<h2>{events[0].event_name}</h2>
-							<h5>Register Now for FREE</h5>
+							<h5 className="hide-for-mobile">Register Now for FREE</h5>
+							<h5 className="show-for-mobile">Register for FREE</h5>
 						</div>
 						<div className="highlight--right_block">
 							<h3>Choose a date & time</h3>

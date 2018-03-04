@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 class Header extends React.Component {
   render() {    
     return (
-		<header className="header">
+		<header className="header hide-for-mobile">
 			<div className="row">
 				<div className="col-md-12">
 					<div className="header__logo text-center">

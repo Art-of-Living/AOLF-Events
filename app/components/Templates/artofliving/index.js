@@ -145,7 +145,7 @@ class Index extends React.Component {
 			<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
         </Helmet>
 		<Header/>
-			<Contact addClassName="show-for-mobile" events={events} eventid={eventid} />
+			<Contact addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />
 			
 			<section className="home_banner hide-for-mobile" style={style.home_banner}>
 				<div className="home_banner--caption">
@@ -325,7 +325,7 @@ class Index extends React.Component {
 					<div className="ba-map" id="map"></div>
 				</div>
 			</section>
-			<section className="happiness">
+			<section className="happiness hide-for-mobile">
 				<h2 className="happiness__overlay_title">
 					The Happiness Program
 				</h2>
@@ -334,16 +334,24 @@ class Index extends React.Component {
 						<h2 className="happiness--title">
 							About <span>The Happiness Program</span>
 						</h2>
-						<p className="hide-for-mobile">
+						<p>
 							The Happiness program is a transformative 3-day immersion in powerful<br /> breathing techniques and mind mastery. The main technique on<br /> The Happiness Program is called Sudarshan Kriya, a research-backed<br /> breathing technique that has helped millions of people release stress,<br /> experience deep meditation, and get back in touch with their true self.
 						</p>
-						<p className="show-for-mobile">
+					</div>
+				</div>
+			</section>
+			<section className="happiness show-for-mobile">
+				<div className="row">
+					<div className="col-md-12">
+						<h2 className="happiness--title">
+							About <span>The Happiness Program</span>
+						</h2>
+						<p>
 							The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 						</p>
 					</div>
 				</div>
 			</section>
-
 
 			<div className="video_block show-for-mobile">
 				<div className="video_block--img" style={style.home_banner}>
@@ -378,6 +386,9 @@ class Index extends React.Component {
 				</div>
 			</section>
 			<section className="reviews">
+				<h4 className="reviews-title-mobile show-for-mobile">
+					How The Happiness Program is Changing Lives
+				</h4>
 				<h2 className="reviews__overlay_title">
 					Reviews
 				</h2>
@@ -385,9 +396,6 @@ class Index extends React.Component {
 					<div className="col-md-12">
 						<div className="reviews__slider" ref={(ele) => this.reviews__slider = ele}>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of yout attention on it.
@@ -406,9 +414,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
@@ -427,9 +432,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
@@ -448,9 +450,6 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<div className="reviews--slide">
-								<h4 className="show-for-mobile">
-									How The Happiness Program is Changing Lives
-								</h4>
 								<div className="slide_content">
 									<p>
 										I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.

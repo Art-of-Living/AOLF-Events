@@ -7420,8 +7420,25 @@ var Contact = function (_get__$Component) {
 					'section',
 					{ className: this.props.addClassName + " highlight", style: style.highlight, id: 'chose_day' },
 					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'header__logo text-center' },
+								_react2.default.createElement(
+									'a',
+									{ href: '#' },
+									_react2.default.createElement('img', { src: '/templates/ArtOfLiving/images/logo.png', alt: 'logo' })
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
 						'h2',
-						{ className: 'highlight__overlay_title' },
+						{ className: 'highlight__overlay_title hide-for-mobile' },
 						events[0].event_name
 					),
 					_react2.default.createElement(
@@ -7440,8 +7457,13 @@ var Contact = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'h5',
-									null,
+									{ className: 'hide-for-mobile' },
 									'Register Now for FREE'
+								),
+								_react2.default.createElement(
+									'h5',
+									{ className: 'show-for-mobile' },
+									'Register for FREE'
 								)
 							),
 							_react2.default.createElement(
@@ -7997,7 +8019,7 @@ var Header = function (_get__$Component) {
 				value: function render() {
 						return _react2.default.createElement(
 								'header',
-								{ className: 'header' },
+								{ className: 'header hide-for-mobile' },
 								_react2.default.createElement(
 										'div',
 										{ className: 'row' },
@@ -8383,7 +8405,7 @@ var Index = function (_get__$Component) {
 					_react2.default.createElement('meta', { property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
 				),
 				_react2.default.createElement(_Header_Component, null),
-				_react2.default.createElement(_Contact_Component, { addClassName: 'show-for-mobile', events: events, eventid: eventid }),
+				_react2.default.createElement(_Contact_Component, { addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'home_banner hide-for-mobile', style: style.home_banner },
@@ -8716,7 +8738,7 @@ var Index = function (_get__$Component) {
 				),
 				_react2.default.createElement(
 					'section',
-					{ className: 'happiness' },
+					{ className: 'happiness hide-for-mobile' },
 					_react2.default.createElement(
 						'h2',
 						{ className: 'happiness__overlay_title' },
@@ -8740,7 +8762,7 @@ var Index = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'p',
-								{ className: 'hide-for-mobile' },
+								null,
 								'The Happiness program is a transformative 3-day immersion in powerful',
 								_react2.default.createElement('br', null),
 								' breathing techniques and mind mastery. The main technique on',
@@ -8750,10 +8772,32 @@ var Index = function (_get__$Component) {
 								' breathing technique that has helped millions of people release stress,',
 								_react2.default.createElement('br', null),
 								' experience deep meditation, and get back in touch with their true self.'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'happiness show-for-mobile' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'happiness--title' },
+								'About ',
+								_react2.default.createElement(
+									'span',
+									null,
+									'The Happiness Program'
+								)
 							),
 							_react2.default.createElement(
 								'p',
-								{ className: 'show-for-mobile' },
+								null,
 								'The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
 							)
 						)
@@ -8821,6 +8865,11 @@ var Index = function (_get__$Component) {
 					'section',
 					{ className: 'reviews' },
 					_react2.default.createElement(
+						'h4',
+						{ className: 'reviews-title-mobile show-for-mobile' },
+						'How The Happiness Program is Changing Lives'
+					),
+					_react2.default.createElement(
 						'h2',
 						{ className: 'reviews__overlay_title' },
 						'Reviews'
@@ -8839,11 +8888,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -8877,11 +8921,6 @@ var Index = function (_get__$Component) {
 									'div',
 									{ className: 'reviews--slide' },
 									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
-									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
 										_react2.default.createElement(
@@ -8914,11 +8953,6 @@ var Index = function (_get__$Component) {
 									'div',
 									{ className: 'reviews--slide' },
 									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
-									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
 										_react2.default.createElement(
@@ -8950,11 +8984,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -9755,8 +9784,25 @@ var Contact = function (_get__$Component) {
 					'section',
 					{ className: this.props.addClassName + " highlight", style: style.highlight, id: 'chose_day' },
 					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'header__logo text-center' },
+								_react2.default.createElement(
+									'a',
+									{ href: '#' },
+									_react2.default.createElement('img', { src: '/templates/ArtOfLiving/images/logo.png', alt: 'logo' })
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
 						'h2',
-						{ className: 'highlight__overlay_title' },
+						{ className: 'highlight__overlay_title hide-for-mobile' },
 						events[0].event_name
 					),
 					_react2.default.createElement(
@@ -9775,8 +9821,13 @@ var Contact = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'h5',
-									null,
+									{ className: 'hide-for-mobile' },
 									'Register Now for FREE'
+								),
+								_react2.default.createElement(
+									'h5',
+									{ className: 'show-for-mobile' },
+									'Register for FREE'
 								)
 							),
 							_react2.default.createElement(
@@ -10015,233 +10066,8 @@ exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
 },{"../../../actions/contact":9,"../../Messages":23,"_process":1,"isomorphic-fetch":106,"react":317,"react-redux":137,"react-router":170}],31:[function(require,module,exports){
-(function (process){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Footer = function (_get__$Component) {
-	_inherits(Footer, _get__$Component);
-
-	function Footer() {
-		_classCallCheck(this, Footer);
-
-		return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
-	}
-
-	_createClass(Footer, [{
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"footer",
-				{ className: "footer" },
-				_react2.default.createElement(
-					"div",
-					{ className: "row" },
-					_react2.default.createElement(
-						"div",
-						{ className: "col-md-12" },
-						_react2.default.createElement(
-							"div",
-							{ className: "footer__logo" },
-							_react2.default.createElement(
-								"a",
-								{ href: "#" },
-								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
-							)
-						),
-						_react2.default.createElement(
-							"ul",
-							{ className: "footer__links" },
-							_react2.default.createElement(
-								"li",
-								null,
-								_react2.default.createElement(
-									"span",
-									null,
-									"\xA9 2017 Art of Living"
-								)
-							),
-							_react2.default.createElement(
-								"li",
-								null,
-								_react2.default.createElement(
-									"a",
-									{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
-									"Terms of Use"
-								)
-							),
-							_react2.default.createElement(
-								"li",
-								null,
-								_react2.default.createElement(
-									"a",
-									{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
-									"Privacy Policy"
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
-
-	return Footer;
-}(_get__("React").Component);
-
-exports.default = _get__("Footer");
-var _RewiredData__ = {};
-var _RewireAPI__ = {};
-
-(function () {
-	function addPropertyToAPIObject(name, value) {
-		Object.defineProperty(_RewireAPI__, name, {
-			value: value,
-			enumerable: false,
-			configurable: true
-		});
-	}
-
-	addPropertyToAPIObject('__get__', _get__);
-	addPropertyToAPIObject('__GetDependency__', _get__);
-	addPropertyToAPIObject('__Rewire__', _set__);
-	addPropertyToAPIObject('__set__', _set__);
-	addPropertyToAPIObject('__reset__', _reset__);
-	addPropertyToAPIObject('__ResetDependency__', _reset__);
-	addPropertyToAPIObject('__with__', _with__);
-})();
-
-function _get__(variableName) {
-	return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
-}
-
-function _get_original__(variableName) {
-	switch (variableName) {
-		case "React":
-			return _react2.default;
-
-		case "Footer":
-			return Footer;
-	}
-
-	return undefined;
-}
-
-function _assign__(variableName, value) {
-	if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
-		return _set_original__(variableName, value);
-	} else {
-		return _RewiredData__[variableName] = value;
-	}
-}
-
-function _set_original__(variableName, _value) {
-	switch (variableName) {}
-
-	return undefined;
-}
-
-function _update_operation__(operation, variableName, prefix) {
-	var oldValue = _get__(variableName);
-
-	var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
-
-	_assign__(variableName, newValue);
-
-	return prefix ? newValue : oldValue;
-}
-
-function _set__(variableName, value) {
-	if ((typeof variableName === "undefined" ? "undefined" : _typeof(variableName)) === 'object') {
-		Object.keys(variableName).forEach(function (name) {
-			_RewiredData__[name] = variableName[name];
-		});
-	} else {
-		return _RewiredData__[variableName] = value;
-	}
-}
-
-function _reset__(variableName) {
-	delete _RewiredData__[variableName];
-}
-
-function _with__(object) {
-	var rewiredVariableNames = Object.keys(object);
-	var previousValues = {};
-
-	function reset() {
-		rewiredVariableNames.forEach(function (variableName) {
-			_RewiredData__[variableName] = previousValues[variableName];
-		});
-	}
-
-	return function (callback) {
-		rewiredVariableNames.forEach(function (variableName) {
-			previousValues[variableName] = _RewiredData__[variableName];
-			_RewiredData__[variableName] = object[variableName];
-		});
-		var result = callback();
-
-		if (!!result && typeof result.then == 'function') {
-			result.then(reset).catch(reset);
-		} else {
-			reset();
-		}
-
-		return result;
-	};
-}
-
-var _typeOfOriginalExport = typeof Footer === "undefined" ? "undefined" : _typeof(Footer);
-
-function addNonEnumerableProperty(name, value) {
-	Object.defineProperty(Footer, name, {
-		value: value,
-		enumerable: false,
-		configurable: true
-	});
-}
-
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(Footer)) {
-	addNonEnumerableProperty('__get__', _get__);
-	addNonEnumerableProperty('__GetDependency__', _get__);
-	addNonEnumerableProperty('__Rewire__', _set__);
-	addNonEnumerableProperty('__set__', _set__);
-	addNonEnumerableProperty('__reset__', _reset__);
-	addNonEnumerableProperty('__ResetDependency__', _reset__);
-	addNonEnumerableProperty('__with__', _with__);
-	addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
-}
-
-exports.__get__ = _get__;
-exports.__GetDependency__ = _get__;
-exports.__Rewire__ = _set__;
-exports.__set__ = _set__;
-exports.__ResetDependency__ = _reset__;
-exports.__RewireAPI__ = _RewireAPI__;
-
-}).call(this,require('_process'))
-},{"_process":1,"react":317}],32:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"_process":1,"dup":27,"react":317}],32:[function(require,module,exports){
 arguments[4][28][0].apply(exports,arguments)
 },{"_process":1,"dup":28,"react":317,"react-redux":137,"react-router":170}],33:[function(require,module,exports){
 (function (process){
@@ -10432,6 +10258,8 @@ var Index = function (_get__$Component) {
 
 			var _Contact_Component = _get__('Contact');
 
+			var _Contact_Component2 = _get__('Contact');
+
 			var _Footer_Component = _get__('Footer');
 
 			return _react2.default.createElement(
@@ -10454,9 +10282,10 @@ var Index = function (_get__$Component) {
 					_react2.default.createElement('meta', { property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
 				),
 				_react2.default.createElement(_Header_Component, null),
+				_react2.default.createElement(_Contact_Component, { addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
-					{ className: 'home_banner', style: style.home_banner },
+					{ className: 'home_banner hide-for-mobile', style: style.home_banner },
 					_react2.default.createElement(
 						'div',
 						{ className: 'home_banner--caption' },
@@ -10497,6 +10326,29 @@ var Index = function (_get__$Component) {
 				),
 				_react2.default.createElement(
 					'section',
+					{ className: 'get_tast_mobile show-for-mobile' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'p',
+							null,
+							'Join this FREE introductory workshop to the world-renowned Happiness Program'
+						)
+					),
+					_react2.default.createElement(
+						'h2',
+						{ className: 'get_taste' },
+						'Get a taste of...'
+					)
+				),
+				_react2.default.createElement(
+					'section',
 					{ className: 'get_tast' },
 					_react2.default.createElement(
 						'div',
@@ -10506,7 +10358,7 @@ var Index = function (_get__$Component) {
 							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								'h2',
-								{ className: 'get_tast--title' },
+								{ className: 'get_tast--title hide-for-mobile' },
 								'get a taste of'
 							),
 							_react2.default.createElement(
@@ -10648,10 +10500,19 @@ var Index = function (_get__$Component) {
 									'"Shows promise in providing relief for depression"'
 								)
 							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'row show-for-mobile' },
+							_react2.default.createElement(
+								'a',
+								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
+								'CHOOSE A DATE & TIME'
+							)
 						)
 					)
 				),
-				_react2.default.createElement(_Contact_Component, { events: events, eventid: eventid }),
+				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
 					{ className: 'happiness' },
@@ -10759,6 +10620,11 @@ var Index = function (_get__$Component) {
 					'section',
 					{ className: 'reviews' },
 					_react2.default.createElement(
+						'h4',
+						{ className: 'reviews-title-mobile show-for-mobile' },
+						'How The Happiness Program is Changing Lives'
+					),
+					_react2.default.createElement(
 						'h2',
 						{ className: 'reviews__overlay_title' },
 						'Reviews'
@@ -10777,11 +10643,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -10815,11 +10676,6 @@ var Index = function (_get__$Component) {
 									'div',
 									{ className: 'reviews--slide' },
 									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
-									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
 										_react2.default.createElement(
@@ -10852,11 +10708,6 @@ var Index = function (_get__$Component) {
 									'div',
 									{ className: 'reviews--slide' },
 									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
-									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
 										_react2.default.createElement(
@@ -10888,11 +10739,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -11181,18 +11027,20 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'h2',
 									null,
-									'Mind &   Meditation'
+									'Mind & Meditation ',
+									_react2.default.createElement('br', null),
+									' Workshop'
 								),
 								_react2.default.createElement(
 									'h5',
 									null,
-									'Register Now for FREE'
+									event.address.city
 								)
 							),
 							_react2.default.createElement(
 								'a',
 								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
-								'Save my Spot'
+								'REGISTER FOR FREE'
 							)
 						)
 					)
@@ -12853,10 +12701,448 @@ exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
 },{"../../../actions/contact":9,"../../Messages":23,"_process":1,"react":317,"react-redux":137,"react-router":170}],42:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"_process":1,"dup":31,"react":317}],43:[function(require,module,exports){
-arguments[4][28][0].apply(exports,arguments)
-},{"_process":1,"dup":28,"react":317,"react-redux":137,"react-router":170}],44:[function(require,module,exports){
+(function (process){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_get__$Component) {
+	_inherits(Footer, _get__$Component);
+
+	function Footer() {
+		_classCallCheck(this, Footer);
+
+		return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+	}
+
+	_createClass(Footer, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"footer",
+				{ className: "footer" },
+				_react2.default.createElement(
+					"div",
+					{ className: "row" },
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12" },
+						_react2.default.createElement(
+							"div",
+							{ className: "footer__logo" },
+							_react2.default.createElement(
+								"a",
+								{ href: "#" },
+								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
+							)
+						),
+						_react2.default.createElement(
+							"ul",
+							{ className: "footer__links" },
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"span",
+									null,
+									"\xA9 2017 Art of Living"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
+									"Terms of Use"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
+									"Privacy Policy"
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Footer;
+}(_get__("React").Component);
+
+exports.default = _get__("Footer");
+var _RewiredData__ = {};
+var _RewireAPI__ = {};
+
+(function () {
+	function addPropertyToAPIObject(name, value) {
+		Object.defineProperty(_RewireAPI__, name, {
+			value: value,
+			enumerable: false,
+			configurable: true
+		});
+	}
+
+	addPropertyToAPIObject('__get__', _get__);
+	addPropertyToAPIObject('__GetDependency__', _get__);
+	addPropertyToAPIObject('__Rewire__', _set__);
+	addPropertyToAPIObject('__set__', _set__);
+	addPropertyToAPIObject('__reset__', _reset__);
+	addPropertyToAPIObject('__ResetDependency__', _reset__);
+	addPropertyToAPIObject('__with__', _with__);
+})();
+
+function _get__(variableName) {
+	return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
+}
+
+function _get_original__(variableName) {
+	switch (variableName) {
+		case "React":
+			return _react2.default;
+
+		case "Footer":
+			return Footer;
+	}
+
+	return undefined;
+}
+
+function _assign__(variableName, value) {
+	if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
+		return _set_original__(variableName, value);
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _set_original__(variableName, _value) {
+	switch (variableName) {}
+
+	return undefined;
+}
+
+function _update_operation__(operation, variableName, prefix) {
+	var oldValue = _get__(variableName);
+
+	var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
+
+	_assign__(variableName, newValue);
+
+	return prefix ? newValue : oldValue;
+}
+
+function _set__(variableName, value) {
+	if ((typeof variableName === "undefined" ? "undefined" : _typeof(variableName)) === 'object') {
+		Object.keys(variableName).forEach(function (name) {
+			_RewiredData__[name] = variableName[name];
+		});
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _reset__(variableName) {
+	delete _RewiredData__[variableName];
+}
+
+function _with__(object) {
+	var rewiredVariableNames = Object.keys(object);
+	var previousValues = {};
+
+	function reset() {
+		rewiredVariableNames.forEach(function (variableName) {
+			_RewiredData__[variableName] = previousValues[variableName];
+		});
+	}
+
+	return function (callback) {
+		rewiredVariableNames.forEach(function (variableName) {
+			previousValues[variableName] = _RewiredData__[variableName];
+			_RewiredData__[variableName] = object[variableName];
+		});
+		var result = callback();
+
+		if (!!result && typeof result.then == 'function') {
+			result.then(reset).catch(reset);
+		} else {
+			reset();
+		}
+
+		return result;
+	};
+}
+
+var _typeOfOriginalExport = typeof Footer === "undefined" ? "undefined" : _typeof(Footer);
+
+function addNonEnumerableProperty(name, value) {
+	Object.defineProperty(Footer, name, {
+		value: value,
+		enumerable: false,
+		configurable: true
+	});
+}
+
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(Footer)) {
+	addNonEnumerableProperty('__get__', _get__);
+	addNonEnumerableProperty('__GetDependency__', _get__);
+	addNonEnumerableProperty('__Rewire__', _set__);
+	addNonEnumerableProperty('__set__', _set__);
+	addNonEnumerableProperty('__reset__', _reset__);
+	addNonEnumerableProperty('__ResetDependency__', _reset__);
+	addNonEnumerableProperty('__with__', _with__);
+	addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
+}
+
+exports.__get__ = _get__;
+exports.__GetDependency__ = _get__;
+exports.__Rewire__ = _set__;
+exports.__set__ = _set__;
+exports.__ResetDependency__ = _reset__;
+exports.__RewireAPI__ = _RewireAPI__;
+
+}).call(this,require('_process'))
+},{"_process":1,"react":317}],43:[function(require,module,exports){
+(function (process){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _reactRedux = require('react-redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_get__$Component) {
+		_inherits(Header, _get__$Component);
+
+		function Header() {
+				_classCallCheck(this, Header);
+
+				return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+		}
+
+		_createClass(Header, [{
+				key: 'render',
+				value: function render() {
+						return _react2.default.createElement(
+								'header',
+								{ className: 'header' },
+								_react2.default.createElement(
+										'div',
+										{ className: 'row' },
+										_react2.default.createElement(
+												'div',
+												{ className: 'col-md-12' },
+												_react2.default.createElement(
+														'div',
+														{ className: 'header__logo text-center' },
+														_react2.default.createElement(
+																'a',
+																{ href: '#' },
+																_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png", alt: 'logo' })
+														)
+												)
+										)
+								)
+						);
+				}
+		}]);
+
+		return Header;
+}(_get__('React').Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+		return {
+				token: state.auth.token,
+				user: state.auth.user
+		};
+};
+
+var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('Header'));
+
+exports.default = _DefaultExportValue;
+var _RewiredData__ = {};
+var _RewireAPI__ = {};
+
+(function () {
+		function addPropertyToAPIObject(name, value) {
+				Object.defineProperty(_RewireAPI__, name, {
+						value: value,
+						enumerable: false,
+						configurable: true
+				});
+		}
+
+		addPropertyToAPIObject('__get__', _get__);
+		addPropertyToAPIObject('__GetDependency__', _get__);
+		addPropertyToAPIObject('__Rewire__', _set__);
+		addPropertyToAPIObject('__set__', _set__);
+		addPropertyToAPIObject('__reset__', _reset__);
+		addPropertyToAPIObject('__ResetDependency__', _reset__);
+		addPropertyToAPIObject('__with__', _with__);
+})();
+
+function _get__(variableName) {
+		return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
+}
+
+function _get_original__(variableName) {
+		switch (variableName) {
+				case 'React':
+						return _react2.default;
+
+				case 'connect':
+						return _reactRedux.connect;
+
+				case 'mapStateToProps':
+						return mapStateToProps;
+
+				case 'Header':
+						return Header;
+		}
+
+		return undefined;
+}
+
+function _assign__(variableName, value) {
+		if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
+				return _set_original__(variableName, value);
+		} else {
+				return _RewiredData__[variableName] = value;
+		}
+}
+
+function _set_original__(variableName, _value) {
+		switch (variableName) {}
+
+		return undefined;
+}
+
+function _update_operation__(operation, variableName, prefix) {
+		var oldValue = _get__(variableName);
+
+		var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
+
+		_assign__(variableName, newValue);
+
+		return prefix ? newValue : oldValue;
+}
+
+function _set__(variableName, value) {
+		if ((typeof variableName === 'undefined' ? 'undefined' : _typeof(variableName)) === 'object') {
+				Object.keys(variableName).forEach(function (name) {
+						_RewiredData__[name] = variableName[name];
+				});
+		} else {
+				return _RewiredData__[variableName] = value;
+		}
+}
+
+function _reset__(variableName) {
+		delete _RewiredData__[variableName];
+}
+
+function _with__(object) {
+		var rewiredVariableNames = Object.keys(object);
+		var previousValues = {};
+
+		function reset() {
+				rewiredVariableNames.forEach(function (variableName) {
+						_RewiredData__[variableName] = previousValues[variableName];
+				});
+		}
+
+		return function (callback) {
+				rewiredVariableNames.forEach(function (variableName) {
+						previousValues[variableName] = _RewiredData__[variableName];
+						_RewiredData__[variableName] = object[variableName];
+				});
+				var result = callback();
+
+				if (!!result && typeof result.then == 'function') {
+						result.then(reset).catch(reset);
+				} else {
+						reset();
+				}
+
+				return result;
+		};
+}
+
+var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
+
+function addNonEnumerableProperty(name, value) {
+		Object.defineProperty(_DefaultExportValue, name, {
+				value: value,
+				enumerable: false,
+				configurable: true
+		});
+}
+
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
+		addNonEnumerableProperty('__get__', _get__);
+		addNonEnumerableProperty('__GetDependency__', _get__);
+		addNonEnumerableProperty('__Rewire__', _set__);
+		addNonEnumerableProperty('__set__', _set__);
+		addNonEnumerableProperty('__reset__', _reset__);
+		addNonEnumerableProperty('__ResetDependency__', _reset__);
+		addNonEnumerableProperty('__with__', _with__);
+		addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
+}
+
+exports.__get__ = _get__;
+exports.__GetDependency__ = _get__;
+exports.__Rewire__ = _set__;
+exports.__set__ = _set__;
+exports.__ResetDependency__ = _reset__;
+exports.__RewireAPI__ = _RewireAPI__;
+
+}).call(this,require('_process'))
+},{"_process":1,"react":317,"react-redux":137,"react-router":170}],44:[function(require,module,exports){
 (function (process){
 'use strict';
 
