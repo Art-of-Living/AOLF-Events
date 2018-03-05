@@ -58,7 +58,7 @@ class Index extends React.Component {
 
 		//Make elements equal height
 		$('.matchHeight').matchHeight();
-		$('.get_tast__block--img').matchHeight();
+		//$('.get_tast__block--img').matchHeight();
 		$('.get_tast__block').matchHeight();
 		$('.research__block--subtitle').matchHeight();
 		

@@ -168,7 +168,7 @@ exports.contactPost = function(req, res, next) {
 			cb();
 		}		
 	},
-	function(cb){
+	/* function(cb){
 		var env = process.env.environment ? process.env.environment : 'dev';
 		// Check briteverify API for the email verification
 		
@@ -189,7 +189,7 @@ exports.contactPost = function(req, res, next) {
 		}else{
 			cb();
 		}
-	},
+	}, */
 	function(cb){		
 		// Pardot API to save the data;
 		var body = 'country=' + userDetail.country;

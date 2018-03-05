@@ -8297,7 +8297,7 @@ var Index = function (_get__$Component) {
 
 			//Make elements equal height
 			$('.matchHeight').matchHeight();
-			$('.get_tast__block--img').matchHeight();
+			//$('.get_tast__block--img').matchHeight();
 			$('.get_tast__block').matchHeight();
 			$('.research__block--subtitle').matchHeight();
 
