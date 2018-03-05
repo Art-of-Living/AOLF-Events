@@ -14,6 +14,8 @@ import Profile from './components/Account/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
 
+import Courses from './components/Courses';
+
 export default function getRoutes(store) {
   const ensureAuthenticated = (nextState, replace) => {
     if (!store.getState().auth.token) {
@@ -39,6 +41,9 @@ export default function getRoutes(store) {
       <Route path="/online/event/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/events" component={Home} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
+
+	  <Route path="/courses" component={Courses} onLeave={clearMessages}/>
+
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid/:eventid/thankyou" component={ThankYouOnline} onLeave={clearMessages}/>
       <Route path="/:state/:city/:eventname/:eventsid/:eventid/thankyou" component={ThankYou} onLeave={clearMessages}/> 
