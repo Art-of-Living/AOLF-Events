@@ -261,13 +261,13 @@ class Contact extends React.Component {
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
 							<div>
-								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name *" required autoComplete="off" />
+								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Name*" required autoComplete="off" />
 								<div className="error"></div>
-								<input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email *" required autoComplete="off" />
+								<input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email*" required autoComplete="off" />
 								<div className="error"></div>
 							</div>
 							<div>
-								<input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone *" required autoComplete="off" />
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone*" required autoComplete="off" />
 								<div className="error"></div>
 								{checkIfEvent}
 							</div>
