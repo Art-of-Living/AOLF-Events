@@ -44,6 +44,7 @@
     "npm-run-all": "^1.8.0",
     "react": "15.1.0",
     "react-cookie": "^0.4.5",
+    "react-device-detect": "^0.1.0",
     "react-document-title": "^2.0.3",
     "react-dom": "15.1.0",
     "react-google-maps": "^9.2.2",

@@ -45,7 +45,7 @@ class Footer extends React.Component {
 					<ul className="footer__links">
 						<li>
 							<a href="https://www.artofliving.org/us-en/terms-use" target="_blank">
-								Terms of Use
+								Terms of Use 
 							</a>
 						</li>
 						<li>

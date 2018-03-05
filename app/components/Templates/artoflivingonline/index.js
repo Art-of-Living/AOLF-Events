@@ -109,6 +109,9 @@ class Index extends React.Component {
 		home_banner : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 		},
+		video_banner : {
+			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
+		},
 		banner_desk : {
 			"background" : "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
 		},
@@ -170,6 +173,9 @@ class Index extends React.Component {
 				</div>
 			</section>
 
+      <section className="home_banner_mobile show-for-mobile">
+				<img height="300" width="100%" src={"/templates/" + process.env.REACT_TEMPLATE + "/images/mobile_banner.jpg"} alt="img"/>
+			</section>
 			<section className="get_tast_mobile show-for-mobile">
 				<h2>
 					Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.
@@ -257,29 +263,29 @@ class Index extends React.Component {
 					</div>
 					<div className="col-md-3 col-sm-6 col-xs-6">
 						<div className="logos_sect--block">
-							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png"} alt="logo" />
-							<p>
-								"Like Fresh air to millions"
-							</p>
-						</div>
-					</div>
-					<div className="col-md-3 col-sm-6 col-xs-6">
-						<div className="logos_sect--block">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png"} alt="logo" />
 							<p>
 								"Shows promise in providing relief for depression"
 							</p>
 						</div>
 					</div>
+					<div className="col-md-3 col-sm-6 col-xs-6">
+						<div className="logos_sect--block">
+							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png"} alt="logo" />
+							<p>
+								"Like Fresh air to millions"
+							</p>
+						</div>
+					</div>
 					<div className="row show-for-mobile">
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
-							CHOOSE A DATE & TIME
+							Choose a Date & Time
 						</a>
 					</div>
 				</div>
 			</section>
 			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid} />
-			<section className="happiness">
+			<section className="happiness hide-for-mobile">
 				<h2 className="happiness__overlay_title">
 					The Happiness Program
 				</h2>
@@ -288,10 +294,20 @@ class Index extends React.Component {
 						<h2 className="happiness--title">
 							About <span>The Happiness Program</span>
 						</h2>
-						<p className="hide-for-mobile">
-							The Happiness program is a transformative 3-day immersion in powerful<br /> breathing techniques and mind mastery. The main technique on<br /> The Happiness Program is called Sudarshan Kriya, a research-backed<br /> breathing technique that has helped millions of people release stress,<br /> experience deep meditation, and get back in touch with their true self.
+						<p>
+							The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 						</p>
-						<p className="show-for-mobile">
+					</div>
+				</div>
+			</section>
+			
+			<section className="happiness show-for-mobile">
+				<div className="row">
+					<div className="col-md-12">
+						<h2 className="happiness--title">
+							About <span>The Happiness Program</span>
+						</h2>
+						<p>
 							The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 						</p>
 					</div>
@@ -299,13 +315,19 @@ class Index extends React.Component {
 			</section>
 
 
+
 			<div className="video_block show-for-mobile">
-				<div className="video_block--img" style={style.home_banner}>
-					<a href="#" className="video_section--btn mobile_play_btn" onClick={this.onClickPlayButton}>
+				<div className="video_block--img" style={style.video_banner}>
+					<a href="#" className="video_section--btn hide-for-mobile mobile_play_btn" onClick={this.onClickPlayButton}>
 						<span className="icon">
 							<i className="fa fa-play-circle" aria-hidden="true"></i>
 						</span>
 						Watch Trailer
+					</a>
+					<a href="#" className="video_section--btn show-for-mobile mobile_play_btn" onClick={this.onClickPlayButton}>
+						<span className="icon">
+							<i className="fa fa-play-circle" aria-hidden="true"></i>
+						</span>
 					</a>
 				</div>
 				<div className="videoWrapper">
@@ -347,7 +369,18 @@ class Index extends React.Component {
 										It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of yout attention on it.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Louis Gagnon
+									</h5>
+									<span className="job_position">
+										President, Ride.com
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg"} alt="img" />
 									</div>
@@ -365,7 +398,18 @@ class Index extends React.Component {
 										Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Glenn-Douglas Haig
+									</h5>
+									<span className="job_position">
+										CEO
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg"} alt="img" />
 									</div>
@@ -383,7 +427,18 @@ class Index extends React.Component {
 										I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Charlotte Plus
+									</h5>
+									<span className="job_position">
+										Lawyer
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg"} alt="img" />
 									</div>
@@ -401,7 +456,18 @@ class Index extends React.Component {
 										I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Maddy King
+									</h5>
+									<span className="job_position">
+										Model
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg"} alt="img" />
 									</div>
@@ -520,6 +586,7 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
+			
 			<section className="highlight show-for-mobile" style={style.highlight}>
 				<div className="row">
 					<div className="col-md-12">

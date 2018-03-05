@@ -183,7 +183,7 @@ class Contact extends React.Component {
 	  var endDate = event.event_end.date;
 	   
 	   
-	  return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')'; 
+	  return month[startDate.month] + ' ' +  startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')'; 
   }
   
   slugifyUrl (string){
@@ -248,10 +248,10 @@ class Contact extends React.Component {
 						<div className="highlight--left_block">
 							<h2>{events[0].event_name}</h2>
 							<h5 className="hide-for-mobile">Register Now for FREE</h5>
-							<h5 className="show-for-mobile">Register for FREE</h5>
+							<h5 className="show-for-mobile">Register for Free</h5>
 						</div>
 						<div className="highlight--right_block">
-							<h3>Choose a date & time</h3>
+							<h3>Choose a Date & Time</h3>
 							<select className={eventid ? 'selectbox' : 'selectbox no-event'} ref={(select) => {this.SelectBox = select }}>
 								{selected}
 								{selectBox}

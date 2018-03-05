@@ -7339,7 +7339,7 @@ var Contact = function (_get__$Component) {
 			var startDate = event.event_start.date;
 			var endDate = event.event_end.date;
 
-			return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
+			return month[startDate.month] + ' ' + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
 		}
 	}, {
 		key: 'slugifyUrl',
@@ -7463,7 +7463,7 @@ var Contact = function (_get__$Component) {
 								_react2.default.createElement(
 									'h5',
 									{ className: 'show-for-mobile' },
-									'Register for FREE'
+									'Register for Free'
 								)
 							),
 							_react2.default.createElement(
@@ -7472,7 +7472,7 @@ var Contact = function (_get__$Component) {
 								_react2.default.createElement(
 									'h3',
 									null,
-									'Choose a date & time'
+									'Choose a Date & Time'
 								),
 								_react2.default.createElement(
 									'select',
@@ -8263,6 +8263,7 @@ var Index = function (_get__$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.renderMap();
+
 			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 				$('body').addClass('ios theme-artofliving');
 			} else {
@@ -8352,6 +8353,9 @@ var Index = function (_get__$Component) {
 			var style = {
 				home_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
+				},
+				video_banner: {
+					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
 				},
 				banner_desk: {
 					"background": "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
@@ -8450,7 +8454,7 @@ var Index = function (_get__$Component) {
 				_react2.default.createElement(
 					'section',
 					{ className: 'home_banner_mobile show-for-mobile' },
-					_react2.default.createElement('img', { height: '300', width: '100%', src: "/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg", alt: 'img' })
+					_react2.default.createElement('img', { height: '300', width: '100%', src: "/templates/" + process.env.REACT_TEMPLATE + "/images/mobile_banner.jpg", alt: 'img' })
 				),
 				_react2.default.createElement(
 					'section',
@@ -8465,7 +8469,7 @@ var Index = function (_get__$Component) {
 						),
 						_react2.default.createElement(
 							'p',
-							null,
+							{ className: 'hide-for-mobile' },
 							event.address.street_address_1,
 							street_address_2,
 							_react2.default.createElement('br', null),
@@ -8473,6 +8477,21 @@ var Index = function (_get__$Component) {
 							', ',
 							event.address.state,
 							_react2.default.createElement('br', null),
+							event.address.country,
+							_react2.default.createElement('br', null),
+							event.address.zipcode,
+							_react2.default.createElement('br', null)
+						),
+						_react2.default.createElement(
+							'p',
+							{ className: 'show-for-mobile' },
+							event.address.street_address_1,
+							street_address_2,
+							_react2.default.createElement('br', null),
+							event.address.city,
+							', ',
+							event.address.state,
+							', ',
 							event.address.country,
 							_react2.default.createElement('br', null),
 							event.address.zipcode,
@@ -8640,20 +8659,6 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
-								_react2.default.createElement(
-									'p',
-									null,
-									'"Like Fresh air to millions"'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-3 col-sm-6 col-xs-6' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'logos_sect--block' },
 								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
@@ -8664,11 +8669,25 @@ var Index = function (_get__$Component) {
 						),
 						_react2.default.createElement(
 							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"Like Fresh air to millions"'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
 							{ className: 'row show-for-mobile' },
 							_react2.default.createElement(
 								'a',
 								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
-								'CHOOSE A DATE & TIME'
+								'Choose a Date & Time'
 							)
 						)
 					)
@@ -8808,16 +8827,25 @@ var Index = function (_get__$Component) {
 					{ className: 'video_block show-for-mobile' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'video_block--img', style: style.home_banner },
+						{ className: 'video_block--img', style: style.video_banner },
 						_react2.default.createElement(
 							'a',
-							{ href: '#', className: 'video_section--btn mobile_play_btn', onClick: this.onClickPlayButton },
+							{ href: '#', className: 'video_section--btn hide-for-mobile mobile_play_btn', onClick: this.onClickPlayButton },
 							_react2.default.createElement(
 								'span',
 								{ className: 'icon' },
 								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
 							),
 							'Watch Trailer'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#', className: 'video_section--btn show-for-mobile mobile_play_btn', onClick: this.onClickPlayButton },
+							_react2.default.createElement(
+								'span',
+								{ className: 'icon' },
+								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -8899,7 +8927,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Louis Gagnon'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'President, Ride.com'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -8931,7 +8978,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Glenn-Douglas Haig'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'CEO'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -8963,7 +9029,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Charlotte Plus'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Lawyer'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -8995,7 +9080,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Maddy King'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Model'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -9703,7 +9807,7 @@ var Contact = function (_get__$Component) {
 			var startDate = event.event_start.date;
 			var endDate = event.event_end.date;
 
-			return days[startDate.day] + ' ' + month[startDate.month] + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
+			return month[startDate.month] + ' ' + startDate.date + ': ' + startDate.time_hours + ':' + startDate.time_minutes + ' ' + startDate.am_pm + ' - ' + endDate.time_hours + ':' + endDate.time_minutes + ' ' + endDate.am_pm + " " + '(' + endDate.tz + ')';
 		}
 	}, {
 		key: 'slugifyUrl',
@@ -9827,7 +9931,7 @@ var Contact = function (_get__$Component) {
 								_react2.default.createElement(
 									'h5',
 									{ className: 'show-for-mobile' },
-									'Register for FREE'
+									'Register for Free'
 								)
 							),
 							_react2.default.createElement(
@@ -9836,7 +9940,7 @@ var Contact = function (_get__$Component) {
 								_react2.default.createElement(
 									'h3',
 									null,
-									'Choose a date & time'
+									'Choose a Date & Time'
 								),
 								_react2.default.createElement(
 									'select',
@@ -10066,8 +10170,281 @@ exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
 },{"../../../actions/contact":9,"../../Messages":23,"_process":1,"isomorphic-fetch":106,"react":317,"react-redux":137,"react-router":170}],31:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"_process":1,"dup":27,"react":317}],32:[function(require,module,exports){
+(function (process){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_get__$Component) {
+	_inherits(Footer, _get__$Component);
+
+	function Footer() {
+		_classCallCheck(this, Footer);
+
+		return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+	}
+
+	_createClass(Footer, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"footer",
+				{ className: "footer" },
+				_react2.default.createElement(
+					"div",
+					{ className: "row" },
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 hide-for-mobile" },
+						_react2.default.createElement(
+							"div",
+							{ className: "footer__logo" },
+							_react2.default.createElement(
+								"a",
+								{ href: "#" },
+								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
+							)
+						),
+						_react2.default.createElement(
+							"ul",
+							{ className: "footer__links" },
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"span",
+									null,
+									"\xA9 2017 Art of Living"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
+									"Terms of Use"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
+									"Privacy Policy"
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 show-for-mobile" },
+						_react2.default.createElement(
+							"ul",
+							{ className: "footer__links" },
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"span",
+									null,
+									"\xA9 2018 Art of Living"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"span",
+									null,
+									"All rights reserved"
+								)
+							)
+						),
+						_react2.default.createElement(
+							"ul",
+							{ className: "footer__links" },
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
+									"Terms of Use"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
+								_react2.default.createElement(
+									"a",
+									{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
+									"Privacy Policy"
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Footer;
+}(_get__("React").Component);
+
+exports.default = _get__("Footer");
+var _RewiredData__ = {};
+var _RewireAPI__ = {};
+
+(function () {
+	function addPropertyToAPIObject(name, value) {
+		Object.defineProperty(_RewireAPI__, name, {
+			value: value,
+			enumerable: false,
+			configurable: true
+		});
+	}
+
+	addPropertyToAPIObject('__get__', _get__);
+	addPropertyToAPIObject('__GetDependency__', _get__);
+	addPropertyToAPIObject('__Rewire__', _set__);
+	addPropertyToAPIObject('__set__', _set__);
+	addPropertyToAPIObject('__reset__', _reset__);
+	addPropertyToAPIObject('__ResetDependency__', _reset__);
+	addPropertyToAPIObject('__with__', _with__);
+})();
+
+function _get__(variableName) {
+	return _RewiredData__ === undefined || _RewiredData__[variableName] === undefined ? _get_original__(variableName) : _RewiredData__[variableName];
+}
+
+function _get_original__(variableName) {
+	switch (variableName) {
+		case "React":
+			return _react2.default;
+
+		case "Footer":
+			return Footer;
+	}
+
+	return undefined;
+}
+
+function _assign__(variableName, value) {
+	if (_RewiredData__ === undefined || _RewiredData__[variableName] === undefined) {
+		return _set_original__(variableName, value);
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _set_original__(variableName, _value) {
+	switch (variableName) {}
+
+	return undefined;
+}
+
+function _update_operation__(operation, variableName, prefix) {
+	var oldValue = _get__(variableName);
+
+	var newValue = operation === '++' ? oldValue + 1 : oldValue - 1;
+
+	_assign__(variableName, newValue);
+
+	return prefix ? newValue : oldValue;
+}
+
+function _set__(variableName, value) {
+	if ((typeof variableName === "undefined" ? "undefined" : _typeof(variableName)) === 'object') {
+		Object.keys(variableName).forEach(function (name) {
+			_RewiredData__[name] = variableName[name];
+		});
+	} else {
+		return _RewiredData__[variableName] = value;
+	}
+}
+
+function _reset__(variableName) {
+	delete _RewiredData__[variableName];
+}
+
+function _with__(object) {
+	var rewiredVariableNames = Object.keys(object);
+	var previousValues = {};
+
+	function reset() {
+		rewiredVariableNames.forEach(function (variableName) {
+			_RewiredData__[variableName] = previousValues[variableName];
+		});
+	}
+
+	return function (callback) {
+		rewiredVariableNames.forEach(function (variableName) {
+			previousValues[variableName] = _RewiredData__[variableName];
+			_RewiredData__[variableName] = object[variableName];
+		});
+		var result = callback();
+
+		if (!!result && typeof result.then == 'function') {
+			result.then(reset).catch(reset);
+		} else {
+			reset();
+		}
+
+		return result;
+	};
+}
+
+var _typeOfOriginalExport = typeof Footer === "undefined" ? "undefined" : _typeof(Footer);
+
+function addNonEnumerableProperty(name, value) {
+	Object.defineProperty(Footer, name, {
+		value: value,
+		enumerable: false,
+		configurable: true
+	});
+}
+
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(Footer)) {
+	addNonEnumerableProperty('__get__', _get__);
+	addNonEnumerableProperty('__GetDependency__', _get__);
+	addNonEnumerableProperty('__Rewire__', _set__);
+	addNonEnumerableProperty('__set__', _set__);
+	addNonEnumerableProperty('__reset__', _reset__);
+	addNonEnumerableProperty('__ResetDependency__', _reset__);
+	addNonEnumerableProperty('__with__', _with__);
+	addNonEnumerableProperty('__RewireAPI__', _RewireAPI__);
+}
+
+exports.__get__ = _get__;
+exports.__GetDependency__ = _get__;
+exports.__Rewire__ = _set__;
+exports.__set__ = _set__;
+exports.__ResetDependency__ = _reset__;
+exports.__RewireAPI__ = _RewireAPI__;
+
+}).call(this,require('_process'))
+},{"_process":1,"react":317}],32:[function(require,module,exports){
 arguments[4][28][0].apply(exports,arguments)
 },{"_process":1,"dup":28,"react":317,"react-redux":137,"react-router":170}],33:[function(require,module,exports){
 (function (process){
@@ -10230,6 +10607,9 @@ var Index = function (_get__$Component) {
 				home_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 				},
+				video_banner: {
+					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
+				},
 				banner_desk: {
 					"background": "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
 				},
@@ -10323,6 +10703,11 @@ var Index = function (_get__$Component) {
 							)
 						)
 					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'home_banner_mobile show-for-mobile' },
+					_react2.default.createElement('img', { height: '300', width: '100%', src: "/templates/" + process.env.REACT_TEMPLATE + "/images/mobile_banner.jpg", alt: 'img' })
 				),
 				_react2.default.createElement(
 					'section',
@@ -10479,20 +10864,6 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
-								_react2.default.createElement(
-									'p',
-									null,
-									'"Like Fresh air to millions"'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-3 col-sm-6 col-xs-6' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'logos_sect--block' },
 								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
@@ -10503,11 +10874,25 @@ var Index = function (_get__$Component) {
 						),
 						_react2.default.createElement(
 							'div',
+							{ className: 'col-md-3 col-sm-6 col-xs-6' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'logos_sect--block' },
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
+								_react2.default.createElement(
+									'p',
+									null,
+									'"Like Fresh air to millions"'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
 							{ className: 'row show-for-mobile' },
 							_react2.default.createElement(
 								'a',
 								{ href: '#chose_day', onClick: this.onClickScroll, className: 'btn btn-lg' },
-								'CHOOSE A DATE & TIME'
+								'Choose a Date & Time'
 							)
 						)
 					)
@@ -10515,7 +10900,7 @@ var Index = function (_get__$Component) {
 				_react2.default.createElement(_Contact_Component2, { addClassName: 'hide-for-mobile', events: events, eventid: eventid }),
 				_react2.default.createElement(
 					'section',
-					{ className: 'happiness' },
+					{ className: 'happiness hide-for-mobile' },
 					_react2.default.createElement(
 						'h2',
 						{ className: 'happiness__overlay_title' },
@@ -10539,20 +10924,34 @@ var Index = function (_get__$Component) {
 							),
 							_react2.default.createElement(
 								'p',
-								{ className: 'hide-for-mobile' },
-								'The Happiness program is a transformative 3-day immersion in powerful',
-								_react2.default.createElement('br', null),
-								' breathing techniques and mind mastery. The main technique on',
-								_react2.default.createElement('br', null),
-								' The Happiness Program is called Sudarshan Kriya, a research-backed',
-								_react2.default.createElement('br', null),
-								' breathing technique that has helped millions of people release stress,',
-								_react2.default.createElement('br', null),
-								' experience deep meditation, and get back in touch with their true self.'
+								null,
+								'The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ className: 'happiness show-for-mobile' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'h2',
+								{ className: 'happiness--title' },
+								'About ',
+								_react2.default.createElement(
+									'span',
+									null,
+									'The Happiness Program'
+								)
 							),
 							_react2.default.createElement(
 								'p',
-								{ className: 'show-for-mobile' },
+								null,
 								'The Happiness program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on The Happiness Program is called Sudarshan Kriya, a research-backed breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
 							)
 						)
@@ -10563,16 +10962,25 @@ var Index = function (_get__$Component) {
 					{ className: 'video_block show-for-mobile' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'video_block--img', style: style.home_banner },
+						{ className: 'video_block--img', style: style.video_banner },
 						_react2.default.createElement(
 							'a',
-							{ href: '#', className: 'video_section--btn mobile_play_btn', onClick: this.onClickPlayButton },
+							{ href: '#', className: 'video_section--btn hide-for-mobile mobile_play_btn', onClick: this.onClickPlayButton },
 							_react2.default.createElement(
 								'span',
 								{ className: 'icon' },
 								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
 							),
 							'Watch Trailer'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#', className: 'video_section--btn show-for-mobile mobile_play_btn', onClick: this.onClickPlayButton },
+							_react2.default.createElement(
+								'span',
+								{ className: 'icon' },
+								_react2.default.createElement('i', { className: 'fa fa-play-circle', 'aria-hidden': 'true' })
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -10654,7 +11062,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Louis Gagnon'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'President, Ride.com'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -10686,7 +11113,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Glenn-Douglas Haig'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'CEO'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -10718,7 +11164,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Charlotte Plus'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Lawyer'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
@@ -10750,7 +11215,26 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info hide-for-mobile' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'slide_info--img' },
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg", alt: 'img' })
+										),
+										_react2.default.createElement(
+											'h5',
+											{ className: 'author_title' },
+											'Maddy King'
+										),
+										_react2.default.createElement(
+											'span',
+											{ className: 'job_position' },
+											'Model'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'slide_info show-for-mobile' },
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },

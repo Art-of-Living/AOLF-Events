@@ -12,7 +12,7 @@ class Index extends React.Component {
 	}
 
 	componentWillMount(){
-		this.props.dispatch({type : 'title', title : this.props.data.event_name})
+		this.props.dispatch({type : 'title', title : this.props.data.event_name});
 	}
 	
 	onClickPlayButton (event){
@@ -26,6 +26,7 @@ class Index extends React.Component {
 	 
 	componentDidMount(){
 		this.renderMap();
+		
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 			$('body').addClass('ios theme-artofliving');
 		} else{
@@ -110,6 +111,9 @@ class Index extends React.Component {
 		home_banner : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 		},
+		video_banner : {
+			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
+		},
 		banner_desk : {
 			"background" : "url(/templates/" + process.env.REACT_TEMPLATE + "/images/banner_second_bg.png)"
 		},
@@ -172,7 +176,7 @@ class Index extends React.Component {
 			</section>
 			
 			<section className="home_banner_mobile show-for-mobile">
-				<img height="300" width="100%" src={"/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg"} alt="img"/>
+				<img height="300" width="100%" src={"/templates/" + process.env.REACT_TEMPLATE + "/images/mobile_banner.jpg"} alt="img"/>
 			</section>
 			
 			<section className="map_section clearfix show-for-mobile">
@@ -180,10 +184,15 @@ class Index extends React.Component {
 					<h2 className="map_section--title">
 						Event Location
 					</h2>
-					<p>
+					<p className="hide-for-mobile">
 						{event.address.street_address_1}{street_address_2}<br/>
 						{event.address.city}, {event.address.state}<br/>
 						{event.address.country}<br/>
+						{event.address.zipcode}<br/>
+					</p>
+					<p className="show-for-mobile">
+						{event.address.street_address_1}{street_address_2}<br/>
+						{event.address.city}, {event.address.state}, {event.address.country}<br/>						
 						{event.address.zipcode}<br/>
 					</p>
 					<a href={"https://maps.google.com/?saddr=Current+Location&daddr=" + encodeURI(event.address.street_address_1 + street_address_2 +" "+ event.address.city +" "+ event.address.state +" "+ event.address.country +" "+ event.address.zipcode)} className="show-on-map show-for-mobile" target="_blank">
@@ -278,23 +287,23 @@ class Index extends React.Component {
 					</div>
 					<div className="col-md-3 col-sm-6 col-xs-6">
 						<div className="logos_sect--block">
-							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png"} alt="logo" />
-							<p>
-								"Like Fresh air to millions"
-							</p>
-						</div>
-					</div>
-					<div className="col-md-3 col-sm-6 col-xs-6">
-						<div className="logos_sect--block">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png"} alt="logo" />
 							<p>
 								"Shows promise in providing relief for depression"
 							</p>
 						</div>
 					</div>
+					<div className="col-md-3 col-sm-6 col-xs-6">
+						<div className="logos_sect--block">
+							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png"} alt="logo" />
+							<p>
+								"Like Fresh air to millions"
+							</p>
+						</div>
+					</div>
 					<div className="row show-for-mobile">
 						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
-							CHOOSE A DATE & TIME
+							Choose a Date & Time
 						</a>
 					</div>
 				</div>
@@ -354,12 +363,17 @@ class Index extends React.Component {
 			</section>
 
 			<div className="video_block show-for-mobile">
-				<div className="video_block--img" style={style.home_banner}>
-					<a href="#" className="video_section--btn mobile_play_btn" onClick={this.onClickPlayButton}>
+				<div className="video_block--img" style={style.video_banner}>
+					<a href="#" className="video_section--btn hide-for-mobile mobile_play_btn" onClick={this.onClickPlayButton}>
 						<span className="icon">
 							<i className="fa fa-play-circle" aria-hidden="true"></i>
 						</span>
 						Watch Trailer
+					</a>
+					<a href="#" className="video_section--btn show-for-mobile mobile_play_btn" onClick={this.onClickPlayButton}>
+						<span className="icon">
+							<i className="fa fa-play-circle" aria-hidden="true"></i>
+						</span>
 					</a>
 				</div>
 				<div className="videoWrapper">
@@ -401,7 +415,18 @@ class Index extends React.Component {
 										It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of yout attention on it.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Louis Gagnon
+									</h5>
+									<span className="job_position">
+										President, Ride.com
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg"} alt="img" />
 									</div>
@@ -419,7 +444,18 @@ class Index extends React.Component {
 										Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Glenn-Douglas Haig
+									</h5>
+									<span className="job_position">
+										CEO
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg"} alt="img" />
 									</div>
@@ -437,7 +473,18 @@ class Index extends React.Component {
 										I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Charlotte Plus
+									</h5>
+									<span className="job_position">
+										Lawyer
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg"} alt="img" />
 									</div>
@@ -455,7 +502,18 @@ class Index extends React.Component {
 										I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.
 									</p>
 								</div>
-								<div className="slide_info">
+								<div className="slide_info hide-for-mobile">
+									<div className="slide_info--img">
+										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg"} alt="img" />
+									</div>
+									<h5 className="author_title">
+										Maddy King
+									</h5>
+									<span className="job_position">
+										Model
+									</span>
+								</div>
+								<div className="slide_info show-for-mobile">
 									<div className="slide_info--img">
 										<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg"} alt="img" />
 									</div>
