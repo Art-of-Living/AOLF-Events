@@ -116,7 +116,7 @@ class Courses extends React.Component {
     if (duration.asSeconds() >= 0) {
       if (Math.floor(duration.asMonths()) > 0) { if (Math.floor(duration.asMonths()) < 10) { temp.months = '0' + Math.floor(duration.asMonths()) } else { temp.months = Math.floor(duration.asMonths()) } }
       if (Math.floor(duration.asDays()) > 0) { if (Math.floor(duration.days()) < 10) { temp.days = '0' + Math.floor(duration.days()) } else { temp.days = Math.floor(duration.days()) } }
-      if (Math.floor(duration.asHours()) > 0) { if (Math.floor(duration.hours()) < 10) { temp.h = '0' + Math.floor(duration.hours()) } else { temp.h = Math.floor(duration.hours()) } }
+      if (Math.floor(duration.asHours()) > 0) { if (Math.floor(duration.hours()) < 10) { temp.h = '' + Math.floor(duration.hours()) } else { temp.h = Math.floor(duration.hours()) } }
       if (Math.floor(duration.asMinutes()) > 0) { if (Math.floor(duration.minutes()) < 10) { temp.m = '0' + Math.floor(duration.minutes()) } else { temp.m = Math.floor(duration.minutes()) } }
       if (Math.floor(duration.asSeconds()) > 0) { if (Math.floor(duration.seconds()) < 10) { temp.s = '0' + Math.floor(duration.seconds()) } else { temp.s = Math.floor(duration.seconds()) } }
     }

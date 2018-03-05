@@ -3904,7 +3904,7 @@ var Courses = function (_get__$Component) {
         }
         if (Math.floor(duration.asHours()) > 0) {
           if (Math.floor(duration.hours()) < 10) {
-            temp.h = '0' + Math.floor(duration.hours());
+            temp.h = '' + Math.floor(duration.hours());
           } else {
             temp.h = Math.floor(duration.hours());
           }
