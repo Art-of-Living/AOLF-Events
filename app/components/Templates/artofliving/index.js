@@ -149,7 +149,7 @@ class Index extends React.Component {
 			<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
         </Helmet>
 		<Header/>
-			<Contact addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />
+			<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />
 			
 			<section className="home_banner hide-for-mobile" style={style.home_banner}>
 				<div className="home_banner--caption">
@@ -302,13 +302,13 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="row show-for-mobile">
-						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
+						<a href="#chose_day_mobile" onClick={this.onClickScroll} className="btn btn-lg">
 							Choose a Date & Time
 						</a>
 					</div>
 				</div>
 			</section>
-			<Contact addClassName="hide-for-mobile" events={events} eventid={eventid} />
+			<Contact id="chose_day" addClassName="hide-for-mobile" events={events} eventid={eventid} />
 			<section className="map_section clearfix hide-for-mobile">
 				<div className="map_section__content">
 					<h2 className="map_section--title">
@@ -641,7 +641,7 @@ class Index extends React.Component {
 							<h2>Mind & Meditation <br/> Workshop</h2>
 							<h5>{event.address.city}</h5>
 						</div>
-						<a href="#chose_day" onClick={this.onClickScroll} className="btn btn-lg">
+						<a href="#chose_day_mobile" onClick={this.onClickScroll} className="btn btn-lg">
 							REGISTER FOR FREE
 						</a>
 					</div>

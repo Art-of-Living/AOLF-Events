@@ -11,7 +11,7 @@ class Contact extends React.Component {
     super(props);
 	this.onSuccess = this.onSuccess.bind(this);
 	this.onError = this.onError.bind(this);
-    this.state = { name: '', email: '', tel : '', event : {}, events : {}, addClassName : '', userdetail : {}};
+    this.state = { id : '', name: '', email: '', tel : '', event : {}, events : {}, addClassName : '', userdetail : {}};
 	this.onSubmit = true;
   }
 
@@ -229,7 +229,7 @@ class Contact extends React.Component {
 	
     return (
 	  <div>
-		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id="chose_day">
+		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id={this.props.id}>
 				<div className="row show-for-mobile">
 					<div className="col-md-12">
 						<div className="header__logo text-center">
