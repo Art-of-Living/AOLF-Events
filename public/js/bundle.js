@@ -7678,6 +7678,7 @@ var Index = function (_get__$Component) {
 		value: function render() {
 			var _this2 = this;
 
+			var mobile_contact;
 			var style = {
 				home_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
@@ -7707,11 +7708,15 @@ var Index = function (_get__$Component) {
 				var street_address_2 = ', ' + event.address.street_address_2;
 			}
 
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+				var _Contact_Component3 = _get__('Contact');
+
+				mobile_contact = _react2.default.createElement(_Contact_Component3, { id: 'chose_day_mobile', addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid });
+			}
+
 			var _Helmet_Component = _get__('Helmet');
 
 			var _Header_Component = _get__('Header');
-
-			var _Contact_Component = _get__('Contact');
 
 			var _Contact_Component2 = _get__('Contact');
 
@@ -7737,7 +7742,7 @@ var Index = function (_get__$Component) {
 					_react2.default.createElement('meta', { property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
 				),
 				_react2.default.createElement(_Header_Component, null),
-				_react2.default.createElement(_Contact_Component, { id: 'chose_day_mobile', addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid }),
+				mobile_contact,
 				_react2.default.createElement(
 					'section',
 					{ className: 'home_banner hide-for-mobile', style: style.home_banner },
@@ -8775,14 +8780,14 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'Contact':
+			return _contact2.default;
+
 		case 'Helmet':
 			return _reactHelmet.Helmet;
 
 		case 'Header':
 			return _header2.default;
-
-		case 'Contact':
-			return _contact2.default;
 
 		case 'Footer':
 			return _footer2.default;
@@ -9931,6 +9936,7 @@ var Index = function (_get__$Component) {
 		value: function render() {
 			var _this2 = this;
 
+			var mobile_contact;
 			var style = {
 				home_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
@@ -9960,11 +9966,15 @@ var Index = function (_get__$Component) {
 				var street_address_2 = ', ' + event.address.street_address_2;
 			}
 
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+				var _Contact_Component3 = _get__('Contact');
+
+				mobile_contact = _react2.default.createElement(_Contact_Component3, { id: 'chose_day_mobile', addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid });
+			}
+
 			var _Helmet_Component = _get__('Helmet');
 
 			var _Header_Component = _get__('Header');
-
-			var _Contact_Component = _get__('Contact');
 
 			var _Contact_Component2 = _get__('Contact');
 
@@ -9990,7 +10000,7 @@ var Index = function (_get__$Component) {
 					_react2.default.createElement('meta', { property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
 				),
 				_react2.default.createElement(_Header_Component, null),
-				_react2.default.createElement(_Contact_Component, { id: 'chose_day_mobile', addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid }),
+				mobile_contact,
 				_react2.default.createElement(
 					'section',
 					{ className: 'home_banner hide-for-mobile', style: style.home_banner },
@@ -10910,14 +10920,14 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'Contact':
+			return _contact2.default;
+
 		case 'Helmet':
 			return _reactHelmet.Helmet;
 
 		case 'Header':
 			return _header2.default;
-
-		case 'Contact':
-			return _contact2.default;
 
 		case 'Footer':
 			return _footer2.default;
