@@ -7,7 +7,6 @@ module.exports = function(grunt) {
 		  files: [
 			{
 			  'public/css/main.css': [
-				'public/css/**/*.less',
 				'public/templates/**/*.less'
 			  ]
 			}
