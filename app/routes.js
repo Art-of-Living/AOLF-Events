@@ -13,6 +13,7 @@ import Signup from './components/Account/Signup';
 import Profile from './components/Account/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
+import Followup from './components/Followup/Index';
 
 import Courses from './components/Courses';
 
@@ -41,6 +42,7 @@ export default function getRoutes(store) {
       <Route path="/online/event/:eventname/:eventsid" component={EventDetail} onLeave={clearMessages}/>
       <Route path="/events" component={Home} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
+      <Route path="/product-group" component={Followup} onLeave={clearMessages}/>
 
 	  <Route path="/courses" component={Courses} onLeave={clearMessages}/>
 
