@@ -46,15 +46,26 @@ class Courses extends React.Component {
     //this.params = this.state.params = params;
     console.log("this.props.location, params", this.props.location, params);
     if (params.hasOwnProperty('code')) {
-      this.state.code = params.code;
+      //this.state.code = params.code;
+    }
+    if (params.hasOwnProperty('gift_code')) {
+      this.state.code = params.gift_code;
     }
     if (params.hasOwnProperty('email')) {
-      this.state.email = params.email;
+      //this.state.email = params.email;
+    }
+    if (params.hasOwnProperty('gift_email')) {
+      this.state.email = params.gift_email;
     }
     if (params.hasOwnProperty('expire')) {
-      this.state.expire = params.expire;
+      //this.state.expire = params.expire;
     }
+    if (params.hasOwnProperty('gift_expiry')) {
+      this.state.expire = params.gift_expiry;
+    }
+
     this.state.cources = [];
+    console.log('::this.state.params.code::', this.state.code);
     console.log('::this.state.params.courses::', params.courses);
     console.log('::this.state.params.courses[]::', params["courses[0][city]"]);
     for (var i = 0; i < 100; i++) {
@@ -124,15 +135,47 @@ class Courses extends React.Component {
       timeRemaining: temp
     })
   }
+  _getCources() {
+    if (this.state.cources.length > 0) {
+      this.state.cources.map((object, index) => {
+        return (
+          <div className="find_course_slide" key={index}>
+            <div className="inner_block">
+              <h5 className="title">
+                {object.startDateMonth}
+                {" "}
+                {object.startDateDay}
+                {" - "}
+                {object.endDateDay}
+              </h5>
+              <div className="location">
+                {object.city}
+              </div>
+              <a href={object.link} target="_blank" className="btn_yellow">
+                Learn More
+                </a>
+            </div>
+          </div>
+        );
+      })
+    }
+    else {
+      return (
+        <div className="no-cources-found">
+          <a className="btn btn-danger" href="//www.artofliving.org/us-en/search/course#distance=5&sSearch=United%20States&st=&lat=&lng=&ctype=12371,12517,54553,12519,398713,411097,455542,456483,458421,435714,12371,253133&mctype=&acol=0&c=&cc=&d1=&d2=">Register Now</a>
+        </div>
+      )
+    }
+  }
   _getRemainingHours() {
     var all_empty = false;
-    console.log(this.state.timeRemaining.months, " Months");
-    console.log(this.state.timeRemaining.days, " Days, ");
-    console.log(this.state.timeRemaining.h, " Hours");
-    console.log(this.state.timeRemaining.m, " Minutes");
-    console.log(this.state.timeRemaining.s, " Seconds");
+    //console.log(this.state.timeRemaining.months, " Months");
+    //console.log(this.state.timeRemaining.days, " Days, ");
+    //console.log(this.state.timeRemaining.h, " Hours");
+    //console.log(this.state.timeRemaining.m, " Minutes");
+    //console.log(this.state.timeRemaining.s, " Seconds");
     if (this.state.timeRemaining.months == '' && this.state.timeRemaining.days == '' && this.state.timeRemaining.h == '' && this.state.timeRemaining.m == '' && this.state.timeRemaining.s == '') {
-      console.log("All Empty - Code Expired!");
+      //console.log("All Empty - Code Expired!");
       all_empty = true;
     }
     if (all_empty == false) {
@@ -215,29 +258,8 @@ class Courses extends React.Component {
                 </p>
                 </div>
                 <div className="landing_find_course_slider">
-
                   {
-                    this.state.cources.map((object, index) => {
-                      return (
-                        <div className="find_course_slide" key={index}>
-                          <div className="inner_block">
-                            <h5 className="title">
-                              {object.startDateMonth}
-                              {" "}
-                              {object.startDateDay}
-                              {" - "}
-                              {object.endDateDay}
-                            </h5>
-                            <div className="location">
-                              {object.city}
-                            </div>
-                            <a href={object.link} target="_blank" className="btn_yellow">
-                              Learn More
-                              </a>
-                          </div>
-                        </div>
-                      );
-                    })
+                    this._getCources()
                   }
                 </div>
 
@@ -421,7 +443,9 @@ class Courses extends React.Component {
           <footer className="footer">
             <div className="row">
               <div className="col-md-8 col-sm-7">
-                <img src="/courses/images/logo.png" alt="logo" />
+                <a href="https://www.artofliving.org/us-en" target="_blank">
+                  <img src="/courses/images/logo.png" alt="logo" />
+                </a>
                 <div className="footer__text">
                   <p>
                     *exclusions apply - Valid for single purchase only, regular price, cannot be combined with any other offer, USA only, No cash value/ may not be redeemed as cash, only valid for recipient of this offer.
@@ -431,8 +455,8 @@ class Courses extends React.Component {
                   <li>
                     <span>&copy; 2018 art of living</span>
                   </li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Terms of Use</a></li>
+                  <li><a href="//www.artofliving.org/us-en/privacy-policy" target="_blank">Privacy Policy</a></li>
+                  <li><a href="//www.artofliving.org/us-en/terms-use" target="_blank">Terms of Use</a></li>
                 </ul>
               </div>
               <div className="col-md-4 col-sm-5">

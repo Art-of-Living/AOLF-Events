@@ -11914,3 +11914,28 @@ img {
   margin-top: 30px;
   margin-bottom: 30px;
 }
+.landing_testimonial__slider .slick-prev:before, .landing_testimonial__slider .slick-next:before {
+    font-size: 100px;
+    color: #fff;
+}
+.landing_testimonial__slider .slick-prev, .landing_testimonial__slider .slick-next {
+	top: 34%;
+}
+.landing_testimonial__slider .slick-prev {
+    left: -64px;
+}
+.landing_testimonial__slider .slick-next {
+    right: -64px;
+}
+.land_testimon_slide .block-text {
+    height: 250px;
+}
+.no-cources-found { text-align: center }
+.no-cources-found .btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  /* font-weight: bold; */
+  text-transform: uppercase;
+}
+.footer{position:relative; left:unset; right:unset; bottom:unset; background:#E8E6E3; padding:25px 0 }
