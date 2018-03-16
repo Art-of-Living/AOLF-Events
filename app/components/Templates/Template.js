@@ -5,6 +5,7 @@ import DefaultTemplate from './default/index';
 import MindMeditation from './mindmeditation/index';
 import ArtOfLiving from './artofliving/index';
 import ArtOfLivingOnline from './artoflivingonline/index';
+import ArtOfLivingNew from './artoflivingnew/index';
 
 const templates = {
     Imperial: ImperialTemplate,
@@ -12,7 +13,8 @@ const templates = {
     Default: DefaultTemplate,
 	MindMeditation : MindMeditation,
 	ArtOfLiving : ArtOfLiving,
-	ArtOfLivingOnline : ArtOfLivingOnline
+	ArtOfLivingOnline : ArtOfLivingOnline,
+	ArtOfLivingNew : ArtOfLivingNew
 };
 
 class Template extends React.Component {
