@@ -28,12 +28,12 @@ class Index extends React.Component {
 		this.renderMap();
 		
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-			$('body').addClass('ios theme-artofliving');
+		$('body').addClass('ios');
 		} else{
-			$('body').addClass('web theme-artofliving');
+			$('body').addClass('web');
 		};
-		
 		$('body').removeClass('loaded');
+		
 		
 		$('input, textarea').each(function(){
 			var placeholder = $(this).attr('placeholder');
@@ -43,36 +43,64 @@ class Index extends React.Component {
 			});
 		});
 	
+		// Sticky footer
+		// bumpIt();
+
+		$('select').styler();
 		$(".fancybox").fancybox();
 
-		$(".descktop_video_btn").fancybox({
+		$('.mobile_play_btn').click(function(event) {
+			event.preventDefault();
+			$('.video_block--img').hide(200);
+			$(this).hide();
+		});
+
+
+
+		 $(".descktop_video_btn").fancybox({
             'titlePosition'     : 'inside',
             'transitionIn'      : 'none',
-            'transitionOut'     : 'none',
-			helpers: {
-				overlay: {
-				  locked: false
-				}
-			}
+            'transitionOut'     : 'none'
         });
 
+		 $('.home_banner--top_subtitle .arrow').on("click", function(){
+		 	$('.home_banner--locations').toggleClass('hdn');
+		 })
+
+
+
 		//Make elements equal height
-		$('.matchHeight-1').matchHeight();
-		//$('.get_tast__block--img-1').matchHeight();
-		$('.get_tast__block-1').matchHeight();
-		$('.research__block--subtitle-1').matchHeight();
-		
-		$(this.reviews__slider).slick({
+		$('.matchHeight').matchHeight();
+		$('.get_tast__block--img').matchHeight();
+		$('.get_tast__block').matchHeight();
+		$('.research__block--subtitle').matchHeight();
+		$('.logos_sect--block').matchHeight();
+
+
+
+
+
+		$('.reviews__slider').slick({
+			// cssEase: 'ease',
+			// fade: true,
 			arrows: false,
 			dots: true,
 			infinite: true,
 			speed: 500,
-			autoplay: true,
+			autoplay: false,
 			autoplaySpeed: 5000,
 			slidesToShow: 1,
 			slidesToScroll: 1,
 			slide: '.reviews--slide'
 		});
+
+
+		  $('a[href*="#"]').click(function(event) {
+			  event.preventDefault();
+			  var id  = $(this).attr('href'),
+			  top = $(id).offset().top;
+			  $('body,html').animate({scrollTop: top}, 1500);
+			});
 
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 300) {
@@ -82,6 +110,7 @@ class Index extends React.Component {
 				$('.go_top').removeClass('visible');
 			}
 		});
+
 	}
 	
 	onClickScroll (event){
