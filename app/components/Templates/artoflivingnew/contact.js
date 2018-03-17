@@ -253,7 +253,7 @@ class Contact extends React.Component {
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
 							<div className="form-group">
-								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Name*" required autoComplete="off" />
+								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name*" required autoComplete="off" />
 								<div className="error"></div>
 							</div>
 							<div className="form-group">

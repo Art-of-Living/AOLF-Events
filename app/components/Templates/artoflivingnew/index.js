@@ -141,6 +141,9 @@ class Index extends React.Component {
 		home_banner : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 		},
+		article_banner : {
+			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg)"
+		},
 		video_banner : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
 		},
@@ -213,7 +216,7 @@ class Index extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-sm-6">
+					<div className="">
 						<Contact id="chose_day" addClassName="hide-for-mobile" events={events} eventid={eventid} />
 					</div>
 				</div>
@@ -386,8 +389,9 @@ class Index extends React.Component {
 					</div>
 				</div>
 			</section>
+			
 			<section className="simple_section-1">
-				<div className="row-1">
+				<div className="row-1" >
 					<div className="col-md-12" style={style.home_banner}>
 						<h2 className="simple_section--title-1">Mind & Meditation</h2>
 						<h4 className="simple_section--city-1">Los Angeles</h4>
@@ -396,7 +400,7 @@ class Index extends React.Component {
 								Join this expert-led introductory session to
 								the world-renowned Happiness Program
 							</p>
-							<a href="#" className="simple_section--btn-1">
+							<a href="#" onClick={this.onClickScroll} className="simple_section--btn-1">
 								Choose Your Preferred Date & Time
 							</a>
 						</div>

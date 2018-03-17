@@ -12703,7 +12703,7 @@ var Contact = function (_get__$Component) {
 									{ className: 'form-group' },
 									_react2.default.createElement('input', { type: 'text', ref: function ref(name) {
 											return _this2.name = name;
-										}, name: 'name', onfocusout: this.handleChange.bind(this), onChange: this.handleChange.bind(this), placeholder: 'Name*', required: true, autoComplete: 'off' }),
+										}, name: 'name', onfocusout: this.handleChange.bind(this), onChange: this.handleChange.bind(this), placeholder: 'First Name*', required: true, autoComplete: 'off' }),
 									_react2.default.createElement('div', { className: 'error' })
 								),
 								_react2.default.createElement(
@@ -13099,6 +13099,9 @@ var Index = function (_get__$Component) {
 				home_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
 				},
+				article_banner: {
+					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg)"
+				},
 				video_banner: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/video_banner.jpg) no-repeat scroll 50% 50% / cover"
 				},
@@ -13210,7 +13213,7 @@ var Index = function (_get__$Component) {
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-sm-6' },
+							{ className: '' },
 							_react2.default.createElement(_Contact_Component2, { id: 'chose_day', addClassName: 'hide-for-mobile', events: events, eventid: eventid })
 						)
 					)
@@ -13542,7 +13545,7 @@ var Index = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'a',
-									{ href: '#', className: 'simple_section--btn-1' },
+									{ href: '#', onClick: this.onClickScroll, className: 'simple_section--btn-1' },
 									'Choose Your Preferred Date & Time'
 								)
 							)
