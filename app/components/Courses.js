@@ -46,21 +46,21 @@ class Courses extends React.Component {
     //this.params = this.state.params = params;
     console.log("this.props.location, params", this.props.location, params);
     if (params.hasOwnProperty('code')) {
-      //this.state.code = params.code;
+      this.state.code = params.code;
     }
-    if (params.hasOwnProperty('gift_code')) {
+    else if (params.hasOwnProperty('gift_code')) {
       this.state.code = params.gift_code;
     }
     if (params.hasOwnProperty('email')) {
-      //this.state.email = params.email;
+      this.state.email = params.email;
     }
-    if (params.hasOwnProperty('gift_email')) {
+    else if (params.hasOwnProperty('gift_email')) {
       this.state.email = params.gift_email;
     }
     if (params.hasOwnProperty('expire')) {
-      //this.state.expire = params.expire;
+      this.state.expire = params.expire;
     }
-    if (params.hasOwnProperty('gift_expiry')) {
+    else if (params.hasOwnProperty('gift_expiry')) {
       this.state.expire = params.gift_expiry;
     }
 
@@ -137,27 +137,29 @@ class Courses extends React.Component {
   }
   _getCources() {
     if (this.state.cources.length > 0) {
-      this.state.cources.map((object, index) => {
-        return (
-          <div className="find_course_slide" key={index}>
-            <div className="inner_block">
-              <h5 className="title">
-                {object.startDateMonth}
-                {" "}
-                {object.startDateDay}
-                {" - "}
-                {object.endDateDay}
-              </h5>
-              <div className="location">
-                {object.city}
-              </div>
-              <a href={object.link} target="_blank" className="btn_yellow">
-                Learn More
+      return (
+        this.state.cources.map((object, index) => {
+          return (
+            <div className="find_course_slide" key={index}>
+              <div className="inner_block">
+                <h5 className="title">
+                  {object.startDateMonth}
+                  {" "}
+                  {object.startDateDay}
+                  {" - "}
+                  {object.endDateDay}
+                </h5>
+                <div className="location">
+                  {object.city}
+                </div>
+                <a href={object.link} target="_blank" className="btn_yellow">
+                  Learn More
                 </a>
+              </div>
             </div>
-          </div>
-        );
-      })
+          );
+        })
+      )
     }
     else {
       return (
@@ -180,8 +182,11 @@ class Courses extends React.Component {
     }
     if (all_empty == false) {
       var code_expires_in = '';
-      code_expires_in += (this.state.timeRemaining.months * 30 * 24) + (this.state.timeRemaining.days * 24) + this.state.timeRemaining.h + " : ";
-      code_expires_in += this.state.timeRemaining.m + " : ";
+      code_expires_in += (parseInt(this.state.timeRemaining.months || 0) * 30 * 24) + (parseInt(this.state.timeRemaining.days || 0) * 24) + parseInt(this.state.timeRemaining.h || 0) + ":";
+      //code_expires_in += this.state.timeRemaining.months + " : ";
+      //code_expires_in += this.state.timeRemaining.days + " : ";
+      //code_expires_in += this.state.timeRemaining.h + " : ";
+      code_expires_in += this.state.timeRemaining.m + ":";
       code_expires_in += this.state.timeRemaining.s + " Hours ";
       return (
         <span>
@@ -288,7 +293,7 @@ class Courses extends React.Component {
               </div>
             </div>
           </section>
-
+          {/*
           <section className="share_sect">
             <div className="row">
               <div className="col-md-12">
@@ -296,7 +301,7 @@ class Courses extends React.Component {
                   Share this gift with a friend
                 </h3>
                 <div className="addthis_inline_share_toolbox"></div>
-                {/*
+                {/--*
                 <ul>
                   <li>
                     <a target="_blank" href={"http://www.facebook.com/sharer/sharer.php?s=100&p[images][0]=" + this.state.shareOrigin + "/courses/images/logo.png&p[title]=Art+of+Livinggift+card+to+save+on+an+upcoming+Happiness&p[summary]=Use gift card to save on an upcoming Happiness Program&p[url]=" + this.state.shareUrl}>
@@ -319,7 +324,7 @@ class Courses extends React.Component {
                     </a>
                   </li>
                 </ul>
-                */}
+                *--/}
                 <div className="text-center">
                   <p>
                     (this code is good for two uses)
@@ -328,7 +333,7 @@ class Courses extends React.Component {
               </div>
             </div>
           </section>
-
+          */}
           <section className="landing_testimonial_sect" style={{ backgroundImage: "url(/courses/images/landing_testimonial_sect.png)" }}>
             <div className="row">
               <div className="col-md-12">
