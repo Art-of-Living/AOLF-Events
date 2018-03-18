@@ -45,22 +45,22 @@ class Courses extends React.Component {
     let params = queryString.parse(this.props.location.search);
     //this.params = this.state.params = params;
     console.log("this.props.location, params", this.props.location, params);
-    if (params.hasOwnProperty('code')) {
+    if (Object.hasOwnProperty.call(params, 'code')) {
       this.state.code = params.code;
     }
-    else if (params.hasOwnProperty('gift_code')) {
+    else if (Object.hasOwnProperty.call(params,'gift_code')) {
       this.state.code = params.gift_code;
     }
-    if (params.hasOwnProperty('email')) {
+    if (Object.hasOwnProperty.call(params,'email')) {
       this.state.email = params.email;
     }
-    else if (params.hasOwnProperty('gift_email')) {
+    else if (Object.hasOwnProperty.call(params,'gift_email')) {
       this.state.email = params.gift_email;
     }
-    if (params.hasOwnProperty('expire')) {
+    if (Object.hasOwnProperty.call(params,'expire')) {
       this.state.expire = params.expire;
     }
-    else if (params.hasOwnProperty('gift_expiry')) {
+    else if (Object.hasOwnProperty.call(params,'gift_expiry')) {
       this.state.expire = params.gift_expiry;
     }
 
@@ -70,7 +70,7 @@ class Courses extends React.Component {
     console.log('::this.state.params.courses[]::', params["courses[0][city]"]);
     for (var i = 0; i < 100; i++) {
       console.log('::this.state.params::', params);
-      if (params.hasOwnProperty("courses[" + i + "]['saoid']")) {
+      if (Object.hasOwnProperty.call(params,"courses[" + i + "]['saoid']")) {
         let startDateMonth = moment(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         let endDateMonth = moment(params["courses[" + i + "]['end']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         let startDateDay = moment(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('DD');

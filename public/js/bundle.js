@@ -3814,19 +3814,19 @@ var Courses = function (_get__$Component) {
     var params = _get__('queryString').parse(_this.props.location.search);
     //this.params = this.state.params = params;
     console.log("this.props.location, params", _this.props.location, params);
-    if (params.hasOwnProperty('code')) {
+    if (hasOwnProperty(params, 'code')) {
       _this.state.code = params.code;
-    } else if (params.hasOwnProperty('gift_code')) {
+    } else if (hasOwnProperty(params, 'gift_code')) {
       _this.state.code = params.gift_code;
     }
-    if (params.hasOwnProperty('email')) {
+    if (hasOwnProperty(params, 'email')) {
       _this.state.email = params.email;
-    } else if (params.hasOwnProperty('gift_email')) {
+    } else if (hasOwnProperty(params, 'gift_email')) {
       _this.state.email = params.gift_email;
     }
-    if (params.hasOwnProperty('expire')) {
+    if (hasOwnProperty(params, 'expire')) {
       _this.state.expire = params.expire;
-    } else if (params.hasOwnProperty('gift_expiry')) {
+    } else if (hasOwnProperty(params, 'gift_expiry')) {
       _this.state.expire = params.gift_expiry;
     }
 
@@ -3836,7 +3836,7 @@ var Courses = function (_get__$Component) {
     console.log('::this.state.params.courses[]::', params["courses[0][city]"]);
     for (var i = 0; i < 100; i++) {
       console.log('::this.state.params::', params);
-      if (params.hasOwnProperty("courses[" + i + "]['saoid']")) {
+      if (hasOwnProperty(params, "courses[" + i + "]['saoid']")) {
         var startDateMonth = _get__('moment')(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         var endDateMonth = _get__('moment')(params["courses[" + i + "]['end']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         var startDateDay = _get__('moment')(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('DD');
