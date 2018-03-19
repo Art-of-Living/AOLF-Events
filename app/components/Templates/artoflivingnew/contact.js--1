@@ -201,14 +201,10 @@ class Contact extends React.Component {
 	var that = this;
 	var events = this.props.events;
 	var eventid = this.props.eventid;
-	var style = {
-		footerstyle : {
-			"color" : "#9E9E9E"}
-		};
 	
 	if(eventid){
 		var selected = (<option value="">Select Date</option>);
-		var checkIfEvent = (<button className="btn inputs_sset_button inputs_sset">Register for Free <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
+		var checkIfEvent = (<button className="savespot">Register for Free  <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
 		var selectBox = events.map(function(item, i) {
 			if(eventid == item.event_web_id){
 				that.state.event = item;
@@ -219,7 +215,7 @@ class Contact extends React.Component {
 		})
 	} else {
 		var selected = (<option value="" selected>Select Date</option>);
-		var checkIfEvent = (<button className="disabled savespot" disabled>Save My Spot</button>);
+		var checkIfEvent = (<button className="disabled savespot" disabled>Register for Free </button>);
 		var selectBox = events.map(function(item, i) {
 			return <option value={item.event_web_id}>{that.formatDateTime(item)}</option>
 		})
@@ -232,44 +228,54 @@ class Contact extends React.Component {
 	};
 	
     return (
-		<div className="date_box--1">
-					<h4>
-						Choose a Date & Time
-					</h4>
-					<form onSubmit={this.handleSubmit.bind(this)} autoComplete="off" className="form-horizontal" >
-						<div className="form-group">
-						<select className={eventid ? 'selectbox' : 'selectbox no-event'} ref={(select) => {this.SelectBox = select }}>
-						     {selected}
-						     {selectBox}
-					    </select>
+	  <div className="xyz">
+		  <section className={this.props.addClassName + " highlight"} style={style.highlight} id={this.props.id}>
+				<div className="row show-for-mobile">
+					<div className="col-md-12">
+						<div className="header__logo text-center">
+							<a href="#">
+								<img src="/templates/ArtOfLiving/images/logo.png" alt="logo" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12">
+						<div className="highlight--right_block-new">
+							<h4>Choose a Date & Time</h4>
+							<select className={eventid ? 'selectbox' : 'selectbox no-event'} ref={(select) => {this.SelectBox = select }}>
+								{selected}
+								{selectBox}
+							</select>
 						</div>
 						<div className="col-md-12 clearfix contact-error">
 							<Messages messages={this.props.messages}/>
 						</div>
-						<div className="form-group">
-						        <input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name*" required autoComplete="off" />
-						        <div className="error"></div>
-						</div>
-						<div className="form-group">
-						        <input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email*" required autoComplete="off" />
+						<form onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+							<div className="form-group">
+								<input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name*" required autoComplete="off" />
 								<div className="error"></div>
-						</div>
-						<div className="form-group">
-						        <input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone No*" required autoComplete="off" />
+							</div>
+							<div className="form-group">
+								<input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email*" required autoComplete="off" />
+								<div className="error"></div>
+							</div>
+							<div className="form-group">
+								<input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone*" required autoComplete="off" />
 								<div className="error"></div>
 								{checkIfEvent}
-						</div>
-						<div className="form_footer--1">
-							<div class="col-sm-12 col-xs-12" style={style.footerstyle}>
-								We respect your <a href="https://www.artofliving.org/us-en/privacy-policy"> privacy </a>
 							</div>
-						</div>
-					</form>
+							<p className="padding-top-20">
+								We respect your <a href="https://www.artofliving.org/us-en/privacy-policy" target="_blank">privacy</a>
+							</p>
+						</form>
+					</div>
 				</div>
+			</section>
+	    </div>
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
