@@ -208,7 +208,7 @@ class Contact extends React.Component {
 	
 	if(eventid){
 		var selected = (<option value="">Select Date</option>);
-		var checkIfEvent = (<button className="btn inputs_sset_button inputs_sset">Register for Free <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
+		var checkIfEvent = (<button className="btn--1 inputs_sset_button inputs_sset">Register for Free <i ref={(loader) => this.loader = loader} className="fa fa-circle-o-notch fa-spin fa-fw display-none" aria-hidden="true"></i></button>);
 		var selectBox = events.map(function(item, i) {
 			if(eventid == item.event_web_id){
 				that.state.event = item;

@@ -12571,7 +12571,7 @@ var Contact = function (_get__$Component) {
 				);
 				var checkIfEvent = _react2.default.createElement(
 					'button',
-					{ className: 'btn inputs_sset_button inputs_sset' },
+					{ className: 'btn--1 inputs_sset_button inputs_sset' },
 					'Register for Free ',
 					_react2.default.createElement('i', { ref: function ref(loader) {
 							return _this2.loader = loader;
@@ -12901,55 +12901,51 @@ var Footer = function (_get__$Component) {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
-				"section",
-				null,
+				"footer",
+				{ className: "footer" },
 				_react2.default.createElement(
-					"footer",
-					{ className: "footer" },
+					"div",
+					{ className: "row" },
 					_react2.default.createElement(
 						"div",
-						{ className: "row" },
+						{ className: "col-md-12" },
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-12" },
+							{ className: "footer__logo" },
 							_react2.default.createElement(
-								"div",
-								{ className: "footer__logo" },
+								"a",
+								{ href: "#" },
+								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
+							)
+						),
+						_react2.default.createElement(
+							"ul",
+							{ className: "footer__links" },
+							_react2.default.createElement(
+								"li",
+								null,
 								_react2.default.createElement(
-									"a",
-									{ href: "#" },
-									_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
+									"span",
+									null,
+									"\xA9 2018 Art of Living"
 								)
 							),
 							_react2.default.createElement(
-								"ul",
-								{ className: "footer__links" },
+								"li",
+								null,
 								_react2.default.createElement(
-									"li",
-									null,
-									_react2.default.createElement(
-										"span",
-										null,
-										"\xA9 2018 Art of Living"
-									)
-								),
+									"a",
+									{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
+									"Terms of Use"
+								)
+							),
+							_react2.default.createElement(
+								"li",
+								null,
 								_react2.default.createElement(
-									"li",
-									null,
-									_react2.default.createElement(
-										"a",
-										{ href: "https://www.artofliving.org/us-en/terms-use", target: "_blank" },
-										"Terms of Use"
-									)
-								),
-								_react2.default.createElement(
-									"li",
-									null,
-									_react2.default.createElement(
-										"a",
-										{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
-										"Privacy Policy"
-									)
+									"a",
+									{ href: "https://www.artofliving.org/us-en/privacy-policy", target: "_blank" },
+									"Privacy Policy"
 								)
 							)
 						)
@@ -13536,17 +13532,15 @@ var Index = function (_get__$Component) {
 				var street_address_2 = ', ' + event.address.street_address_2;
 			}
 
-			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-				var _Contact_Component3 = _get__('Contact');
-
-				mobile_contact = _react2.default.createElement(_Contact_Component3, { id: 'chose_day_mobile', addClassName: 'contact-form-mobile show-for-mobile', events: events, eventid: eventid });
-			}
+			// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+			// 	mobile_contact = (<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />);
+			// }
 
 			var _Helmet_Component = _get__('Helmet');
 
 			var _Header_Component = _get__('Header');
 
-			var _Contact_Component2 = _get__('Contact');
+			var _Contact_Component = _get__('Contact');
 
 			var _Footer_Component = _get__('Footer');
 
@@ -13616,7 +13610,7 @@ var Index = function (_get__$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-sm-6' },
-							_react2.default.createElement(_Contact_Component2, { id: 'chose_day', addClassName: 'hide-for-mobile', events: events, eventid: eventid })
+							_react2.default.createElement(_Contact_Component, { id: 'chose_day', addClassName: 'hide-for-mobile', events: events, eventid: eventid })
 						)
 					)
 				),
@@ -13680,7 +13674,7 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block--1' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos1.png", alt: 'logo' }),
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/3.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
 									null,
@@ -13696,7 +13690,7 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block--1' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos4.png", alt: 'logo' }),
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/4.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
 									null,
@@ -13710,7 +13704,7 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block--1' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png", alt: 'logo' }),
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/5.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
 									null,
@@ -13724,7 +13718,7 @@ var Index = function (_get__$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'logos_sect--block--1' },
-								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png", alt: 'logo' }),
+								_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/6.png", alt: 'logo' }),
 								_react2.default.createElement(
 									'p',
 									null,
@@ -14291,7 +14285,7 @@ var Index = function (_get__$Component) {
 				),
 				_react2.default.createElement(
 					'section',
-					{ className: 'research' },
+					{ className: 'research--1' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
@@ -14300,7 +14294,7 @@ var Index = function (_get__$Component) {
 							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								'h2',
-								{ className: 'research__title' },
+								{ className: 'research__title--1' },
 								'Scientific Research on the ',
 								_react2.default.createElement('br', null),
 								' Art of Living Breathing Techniques',
@@ -14314,7 +14308,7 @@ var Index = function (_get__$Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'row research__container' },
+						{ className: 'row research__container--1' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-3 col-sm-6 col-xs-6 research__block' },
@@ -14569,14 +14563,14 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
-		case 'Contact':
-			return _contact2.default;
-
 		case 'Helmet':
 			return _reactHelmet.Helmet;
 
 		case 'Header':
 			return _header2.default;
+
+		case 'Contact':
+			return _contact2.default;
 
 		case 'Footer':
 			return _footer2.default;

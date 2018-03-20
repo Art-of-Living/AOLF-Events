@@ -185,9 +185,9 @@ class Index extends React.Component {
 	}
 	
 	
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-		mobile_contact = (<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />);
-	}
+	// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+	// 	mobile_contact = (<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />);
+	// }
 	
     return (
       <div className="mm_landing">
@@ -264,7 +264,7 @@ class Index extends React.Component {
 		<div className="row logos_sect--container--1">
 			<div className="col-md-3 col-sm-6 col-xs-6">
 				<div className="logos_sect--block--1">
-				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos1.png"} alt="logo" />
+				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/3.png"} alt="logo" />
 					
 					<p>
 						"Life <br/> Changing"
@@ -273,7 +273,7 @@ class Index extends React.Component {
 			</div>
 			<div className="col-md-3 col-sm-6 col-xs-6">
 				<div className="logos_sect--block--1">
-				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos4.png"} alt="logo" />
+				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/4.png"} alt="logo" />
 					
 					<p>
 						"May be the fastest growing spiritual practice on the planet"
@@ -282,7 +282,7 @@ class Index extends React.Component {
 			</div>
 			<div className="col-md-3 col-sm-6 col-xs-6">
 				<div className="logos_sect--block--1">
-				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos2.png"} alt="logo" />
+				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/5.png"} alt="logo" />
 					
 					<p>
 						"Shows promise in providing relief for depression"
@@ -291,7 +291,7 @@ class Index extends React.Component {
 			</div>
 			<div className="col-md-3 col-sm-6 col-xs-6">
 				<div className="logos_sect--block--1">
-				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logos3.png"} alt="logo" />
+				<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/6.png"} alt="logo" />
 					<p>
 						"Like Fresh air to millions"
 					</p>
@@ -300,7 +300,7 @@ class Index extends React.Component {
 		</div>
 	</section>
 	
-	<section className="get_tast--1" >
+	<section className="get_tast--1">
 		<div className="row">
 			<div className="col-md-12" >
 				<h2 className="get_tast--title--1">
@@ -597,15 +597,15 @@ class Index extends React.Component {
 			</div>
 		</div>
 	</section>
-	<section className="research">
+	<section className="research--1">
 		<div className="row">
 			<div className="col-md-12">
-				<h2 className="research__title">
+				<h2 className="research__title--1">
 					Scientific Research on the <br/> Art of Living Breathing Techniques<span>*</span>
 				</h2>
 			</div>
 		</div>
-		<div className="row research__container">
+		<div className="row research__container--1">
 			<div className="col-md-3 col-sm-6 col-xs-6 research__block">
 				<h4 className="research__block--title">
 					Deep Sleep
