@@ -2299,82 +2299,7 @@ border-radius: 0; }
       right: 15px;
       bottom: 15px;
       margin: 0; }
-      @media (max-width: 1300px) {
-        .mm_landing .video_section--btn {
-          font-size: 32px; } }
-      @media (max-width: 1024px) {
-        .mm_landing .video_section--btn {
-          font-size: 28px; } }
-      @media (max-width: 991px) {
-        .mm_landing .video_section--btn {
-          font-size: 24px; } }
-      @media (max-width: 767px) {
-        .mm_landing .video_section--btn {
-          position: static;
-          color: #333; } }
-      @media (max-width: 480px) {
-        .mm_landing .video_section--btn {
-          font-size: 22px; } }
-      .mm_landing .video_section--btn--1 .icon--1 {
-        display: inline-block;
-        position: relative; }
-        @media (max-width: 767px) {
-          .mm_landing .video_section--btn .icon {
-            color: #fead24; } }
-        .mm_landing .video_section--btn .icon:before {
-          position: absolute;
-          content: "";
-          left: 0;
-          right: 0;
-          width: 90px;
-          height: 90px;
-          margin: 0 auto;
-          top: 50%;
-          -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-          border-radius: 50%;
-          background: #fead24; }
-          @media (max-width: 1300px) {
-            .mm_landing .video_section--btn .icon:before {
-              width: 70px;
-              height: 70px; } }
-          @media (max-width: 1024px) {
-            .mm_landing .video_section--btn .icon:before {
-              width: 50px;
-              height: 50px; } }
-          @media (max-width: 767px) {
-            .mm_landing .video_section--btn .icon:before {
-              background: #fff; } }
-          @media (max-width: 640px) {
-            .mm_landing .video_section--btn .icon:before {
-              width: 40px;
-              height: 40px; } }
-          @media (max-width: 480px) {
-            .mm_landing .video_section--btn .icon:before {
-              width: 25px;
-              height: 25px; } }
-        .mm_landing .video_section--btn .icon .fa {
-          font-size: 125px;
-          line-height: 0.85;
-          position: relative; }
-          @media (max-width: 1300px) {
-            .mm_landing .video_section--btn .icon .fa {
-              font-size: 105px; } }
-          @media (max-width: 1024px) {
-            .mm_landing .video_section--btn .icon .fa {
-              font-size: 90px; } }
-          @media (max-width: 640px) {
-            .mm_landing .video_section--btn .icon .fa {
-              font-size: 65px; } }
-          @media (max-width: 480px) {
-            .mm_landing .video_section--btn .icon .fa {
-              font-size: 40px; } }
-      .mm_landing .video_section--btn:hover, .mm_landing .video_section--btn:active, .mm_landing .video_section--btn:focus {
-        color: #fead24;
-        text-decoration: none; }
-        .mm_landing .video_section--btn:hover .icon, .mm_landing .video_section--btn:active .icon, .mm_landing .video_section--btn:focus .icon {
-          color: #fff; }
+     
   
   .mm_landing .mob_sect_btn_block {
     padding: 30px 0 10px;
@@ -3138,6 +3063,7 @@ border-radius: 0; }
   font-size: 42px!important;
 }
 .mm_landing .video_section--btn {
+  position: absolute;
 	font-size: 36px;
 	color: #FFF;
 	letter-spacing: .4px;
@@ -3168,3 +3094,80 @@ border-radius: 0; }
   margin-left: 10px;
   text-align: left;
 }
+@media (max-width: 1300px) {
+  .mm_landing .video_section--btn {
+    font-size: 32px; } }
+@media (max-width: 1024px) {
+  .mm_landing .video_section--btn {
+    font-size: 28px; } }
+@media (max-width: 991px) {
+  .mm_landing .video_section--btn {
+    font-size: 24px; } }
+@media (max-width: 767px) {
+  .mm_landing .video_section--btn {
+    position: static;
+    color: #333; } }
+@media (max-width: 480px) {
+  .mm_landing .video_section--btn {
+    font-size: 22px;
+    position: relative !important; } }
+.mm_landing .video_section--btn--1 .icon--1 {
+  display: inline-block;
+  position: relative; }
+  @media (max-width: 767px) {
+    .mm_landing .video_section--btn .icon {
+      color: #fead24; } }
+  .mm_landing .video_section--btn .icon:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: #fead24; }
+    @media (max-width: 1300px) {
+      .mm_landing .video_section--btn .icon:before {
+        width: 70px;
+        height: 70px; } }
+    @media (max-width: 1024px) {
+      .mm_landing .video_section--btn .icon:before {
+        width: 50px;
+        height: 50px; } }
+    @media (max-width: 767px) {
+      .mm_landing .video_section--btn .icon:before {
+        background: #fff; } }
+    @media (max-width: 640px) {
+      .mm_landing .video_section--btn .icon:before {
+        width: 40px;
+        height: 40px; } }
+    @media (max-width: 480px) {
+      .mm_landing .video_section--btn .icon:before {
+        width: 25px;
+        height: 25px; } }
+  .mm_landing .video_section--btn .icon .fa {
+    font-size: 125px;
+    line-height: 0.85;
+    position: relative; }
+    @media (max-width: 1300px) {
+      .mm_landing .video_section--btn .icon .fa {
+        font-size: 105px; } }
+    @media (max-width: 1024px) {
+      .mm_landing .video_section--btn .icon .fa {
+        font-size: 90px; } }
+    @media (max-width: 640px) {
+      .mm_landing .video_section--btn .icon .fa {
+        font-size: 65px; } }
+    @media (max-width: 480px) {
+      .mm_landing .video_section--btn .icon .fa {
+        font-size: 40px; } }
+.mm_landing .video_section--btn:hover, .mm_landing .video_section--btn:active, .mm_landing .video_section--btn:focus {
+  color: #fead24;
+  text-decoration: none; }
+  .mm_landing .video_section--btn:hover .icon, .mm_landing .video_section--btn:active .icon, .mm_landing .video_section--btn:focus .icon {
+    color: #fff; }
