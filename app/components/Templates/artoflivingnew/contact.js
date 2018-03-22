@@ -219,7 +219,7 @@ class Contact extends React.Component {
 		})
 	} else {
 		var selected = (<option value="" selected>Select Date</option>);
-		var checkIfEvent = (<button className="disabled savespot" disabled>Save My Spot</button>);
+		var checkIfEvent = (<button className="disabled btn--1 savespot" disabled>Register for Free</button>);
 		var selectBox = events.map(function(item, i) {
 			return <option value={item.event_web_id}>{that.formatDateTime(item)}</option>
 		})
@@ -247,15 +247,15 @@ class Contact extends React.Component {
 							<Messages messages={this.props.messages}/>
 						</div>
 						<div className="form-group">
-						        <input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name*" required autoComplete="off" />
+						        <input type="text" ref={(name) => this.name = name} name="name" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="First Name *" required autoComplete="off" />
 						        <div className="error"></div>
 						</div>
 						<div className="form-group">
-						        <input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email*" required autoComplete="off" />
+						        <input type="email" name="email" ref={(email) => this.email = email}  onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Email *" required autoComplete="off" />
 								<div className="error"></div>
 						</div>
 						<div className="form-group">
-						        <input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone No*" required autoComplete="off" />
+						        <input type="text" ref={(tel) => this.tel = tel} name="tel" onfocusout={this.handleChange.bind(this)} onChange={this.handleChange.bind(this)} placeholder="Phone *" required autoComplete="off" />
 								<div className="error"></div>
 								{checkIfEvent}
 						</div>
