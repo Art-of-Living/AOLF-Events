@@ -11938,7 +11938,7 @@ img {
   /* font-weight: bold; */
   text-transform: uppercase;
 }
-.footer{position:relative; left:unset; right:unset; bottom:unset; background:#E8E6E3; padding:25px 0 }
+.footer{position:relative; left:unset; right:unset; bottom:unset; background:#E8E6E3 !important; padding:25px 0 }
 @media (min-width: 481px) and (max-width: 767px) {
 	.landing_featured_sect img {
 		width: 9%;
