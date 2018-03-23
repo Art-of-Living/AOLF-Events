@@ -12908,13 +12908,13 @@ var Footer = function (_get__$Component) {
 					{ className: "row" },
 					_react2.default.createElement(
 						"div",
-						{ className: "col-md-12" },
+						{ className: "col-md-12 footersec" },
 						_react2.default.createElement(
 							"div",
 							{ className: "footer__logo" },
 							_react2.default.createElement(
 								"a",
-								{ href: "#" },
+								{ href: "http://events.us.artofliving.org" },
 								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
 							)
 						),
@@ -13145,7 +13145,7 @@ var Header = function (_get__$Component) {
 														{ className: 'header__logo text-center' },
 														_react2.default.createElement(
 																'a',
-																{ href: '#' },
+																{ href: 'http://events.us.artofliving.org' },
 																_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png", alt: 'logo' })
 														)
 												)
@@ -15394,7 +15394,8 @@ var Index = function (_get__$Component) {
 			});
 
 			$('.home_banner--top_subtitle--1 .arrow').on("click", function () {
-				$('.home_banner--locations--1').toggleClass('hdn');
+				$(".home_banner--locations--1").toggle();
+				//$('.home_banner--locations--1').toggleClass('hdn');
 			});
 
 			//Make elements equal height
@@ -16004,7 +16005,7 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'p',
 									null,
-									'The Happiness Program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on ',
+									'The Happiness Program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique in ',
 									_react2.default.createElement(
 										'span',
 										null,
@@ -16022,7 +16023,7 @@ var Index = function (_get__$Component) {
 										{ href: 'https://www.artofliving.org/us-en/research-sudarshan-kriya', target: '_blank' },
 										'research-backed'
 									),
-									' breathing tech nique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
+									' breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.'
 								)
 							)
 						)
@@ -16039,7 +16040,7 @@ var Index = function (_get__$Component) {
 							{ className: 'col-sm-6 col-sm-push-6' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'video_section--title--1' },
+								{ className: 'video_section--title--1 hide-for-mobile' },
 								_react2.default.createElement(
 									'h3',
 									null,
@@ -16088,7 +16089,7 @@ var Index = function (_get__$Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'video_section--title--1 show-for-mobile' },
+					{ className: 'video_section--title--1 show-for-mobile mobtext' },
 					_react2.default.createElement(
 						'h3',
 						null,
@@ -16097,10 +16098,10 @@ var Index = function (_get__$Component) {
 				),
 				_react2.default.createElement(
 					'section',
-					{ className: 'reviews' },
+					{ className: 'reviews--1' },
 					_react2.default.createElement(
 						'h2',
-						{ className: 'reviews__overlay_title' },
+						{ className: 'reviews__overlay_title--1' },
 						'Reviews'
 					),
 					_react2.default.createElement(
@@ -16132,17 +16133,17 @@ var Index = function (_get__$Component) {
 										_react2.default.createElement(
 											'div',
 											{ className: 'slide_info--img' },
-											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg", alt: 'img' })
+											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.png", alt: 'img' })
 										),
 										_react2.default.createElement(
 											'h5',
 											{ className: 'author_title' },
-											'Louis Gagnon'
+											'Louis Gagnon-'
 										),
 										_react2.default.createElement(
 											'span',
 											{ className: 'job_position' },
-											'President, ',
+											'President of, ',
 											_react2.default.createElement(
 												'a',
 												{ href: '#' },
@@ -16154,11 +16155,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -16192,11 +16188,6 @@ var Index = function (_get__$Component) {
 									'div',
 									{ className: 'reviews--slide' },
 									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
-									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
 										_react2.default.createElement(
@@ -16228,11 +16219,6 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'reviews--slide' },
-									_react2.default.createElement(
-										'h4',
-										{ className: 'show-for-mobile' },
-										'How The Happiness Program is Changing Lives'
-									),
 									_react2.default.createElement(
 										'div',
 										{ className: 'slide_content' },
@@ -16280,7 +16266,7 @@ var Index = function (_get__$Component) {
 								{ className: 'research__title--1' },
 								'Scientific Research on the ',
 								_react2.default.createElement('br', null),
-								' Art of Living Breathing Techniques',
+								'Art of Living Breathing Techniques',
 								_react2.default.createElement(
 									'span',
 									null,

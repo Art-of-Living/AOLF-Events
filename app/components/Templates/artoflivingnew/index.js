@@ -2077,7 +2077,8 @@ class Index extends React.Component {
         });
 
 		 $('.home_banner--top_subtitle--1 .arrow').on("click", function(){
-		 	$('.home_banner--locations--1').toggleClass('hdn');
+			$(".home_banner--locations--1").toggle();
+		 	//$('.home_banner--locations--1').toggleClass('hdn');
 		 })
 
 
@@ -2475,7 +2476,7 @@ class Index extends React.Component {
 				</h2>
 				<div className="happiness--content">
 					<p>
-						The Happiness Program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique on <span>The Happiness Program</span> is called <b>Sudarshan Kriya™</b>, a  <a href="https://www.artofliving.org/us-en/research-sudarshan-kriya" target="_blank">research-backed</a> breathing tech nique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
+						The Happiness Program is a transformative 3-day immersion in powerful breathing techniques and mind mastery. The main technique in <span>The Happiness Program</span> is called <b>Sudarshan Kriya™</b>, a  <a href="https://www.artofliving.org/us-en/research-sudarshan-kriya" target="_blank">research-backed</a> breathing technique that has helped millions of people release stress, experience deep meditation, and get back in touch with their true self.
 					</p>
 				</div>
 			</div>
@@ -2484,7 +2485,7 @@ class Index extends React.Component {
 	<section className="video_section hide-for-mobile" style={style.video_banner} >
 		<div className="row video_section_row">
 			<div className="col-sm-6 col-sm-push-6">
-				<div className="video_section--title--1">
+				<div className="video_section--title--1 hide-for-mobile">
 					<h3>
 						How The Happiness Program is Changing Lives
 					</h3>
@@ -2517,13 +2518,13 @@ class Index extends React.Component {
 			</div>
 		</div>
 	</div>
-	<div className="video_section--title--1 show-for-mobile">
+	<div className="video_section--title--1 show-for-mobile mobtext">
 		<h3>
 			How The Happiness Program is Changing Lives
 		</h3>
 	</div>
-	<section className="reviews">
-		<h2 className="reviews__overlay_title">
+	<section className="reviews--1">
+		<h2 className="reviews__overlay_title--1">
 			Reviews
 		</h2>
 		<div className="row">
@@ -2537,20 +2538,17 @@ class Index extends React.Component {
 						</div>
 						<div className="slide_info">
 							<div className="slide_info--img">
-							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.jpg"} alt="img" />
+							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.png"} alt="img" />
 							</div>
 							<h5 className="author_title">
-								Louis Gagnon
+								Louis Gagnon-
 							</h5>
 							<span className="job_position">
-								President, <a href="#">Ride.com</a>
+								President of, <a href="#">Ride.com</a>
 							</span>
 						</div>
 					</div>
 					<div className="reviews--slide">
-						<h4 className="show-for-mobile">
-							How The Happiness Program is Changing Lives
-						</h4>
 						<div className="slide_content">
 							<p>
 								Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
@@ -2569,9 +2567,6 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="reviews--slide">
-						<h4 className="show-for-mobile">
-							How The Happiness Program is Changing Lives
-						</h4>
 						<div className="slide_content">
 							<p>
 								I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
@@ -2590,9 +2585,6 @@ class Index extends React.Component {
 						</div>
 					</div>
 					<div className="reviews--slide">
-						<h4 className="show-for-mobile">
-							How The Happiness Program is Changing Lives
-						</h4>
 						<div className="slide_content">
 							<p>
 								I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.
@@ -2618,7 +2610,7 @@ class Index extends React.Component {
 		<div className="row">
 			<div className="col-md-12">
 				<h2 className="research__title--1">
-					Scientific Research on the <br/> Art of Living Breathing Techniques<span>*</span>
+					Scientific Research on the <br/>Art of Living Breathing Techniques<span>*</span>
 				</h2>
 			</div>
 		</div>

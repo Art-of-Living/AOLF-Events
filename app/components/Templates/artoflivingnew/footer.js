@@ -5,9 +5,9 @@ class Footer extends React.Component {
     return (
 			<footer className="footer">
 					<div className="row">
-						<div className="col-md-12">
+						<div className="col-md-12 footersec">
 							<div className="footer__logo">
-								<a href="#">
+								<a href="http://events.us.artofliving.org">
 								<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png"} alt='logo' />
 								</a>
 							</div>
