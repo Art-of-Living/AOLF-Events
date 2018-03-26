@@ -30,8 +30,6 @@ class Index extends React.Component {
 			$("html, body").animate({ scrollTop: 200 }, "fast");
 			return false;
 		  });
-
-		
 		(function (window, document, $, undefined) {
 			"use strict";
 		
@@ -2078,8 +2076,13 @@ class Index extends React.Component {
 
 		 $('.home_banner--top_subtitle--1 .arrow').on("click", function(){
 			$(".home_banner--locations--1").toggle();
+			$(this).find('img').toggle();
 		 	//$('.home_banner--locations--1').toggleClass('hdn');
-		 })
+		 });
+
+		 $('#arrow').on("click", function(){
+			$(this).find('img').toggle();
+		 });
 
 
 
@@ -2094,7 +2097,7 @@ class Index extends React.Component {
 
 
 
-		$('.reviews__slider').slick({
+		$('.reviews__slider--1').slick({
 			// cssEase: 'ease',
 			// fade: true,
 			arrows: false,
@@ -2105,7 +2108,7 @@ class Index extends React.Component {
 			autoplaySpeed: 5000,
 			slidesToShow: 1,
 			slidesToScroll: 1,
-			slide: '.reviews--slide'
+			slide: '.reviews--slide--1'
 		});
 
 
@@ -2160,7 +2163,7 @@ class Index extends React.Component {
 	var mobile_contact;
 	var style = {
 		home_banner : {
-			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
+			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 0% / cover"
 		},
 		home_banner2 : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 0% / cover"
@@ -2228,9 +2231,10 @@ class Index extends React.Component {
 					<h1 className="home_banner--top_title--1">
 						Mind & Meditation
 					</h1>
-					<h6 className="home_banner--top_subtitle--1">
+					<h6 id="arrow" className="home_banner--top_subtitle--1">
 					
 						Los Angeles, CA <img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png"} className="arrow"/>
+						<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/uparrow.png"} className="arrow" style={style.display_none}/>
 					</h6>
 					<span className="home_banner--locations--1">
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
@@ -2259,10 +2263,9 @@ class Index extends React.Component {
 			Event Location
 		</h2>
 		<p>
-			2354 Walsh Ave<br/>
-			Santa Clara, CA<br/>
-			United States<br/>
-			95051
+			2354 Walsh Ave <br/>
+			Santa Clara, CA <br/>
+			United States, 95051	
 		</p>
 		<a href="https://www.google.com.ua/maps?q=2354+Walsh+Ave+Santa+Clara+California+United+States+95051&um=1&ie=UTF-8&sa=X&ved=0ahUKEwjo5YbXlKrXAhXsL8AKHYyGAa0Q_AUICigB" className="show-on-map show-for-mobile" target="_blank">
 			Show on map
@@ -2387,6 +2390,7 @@ class Index extends React.Component {
 					<p>
 						This free 60-90 minute session will give you a taste of the power of breath and effortless meditation.
 					</p>
+					<br/>
 					<h4>
 						Here are a few things people often experience during the sessions:
 					</h4>
@@ -2464,7 +2468,7 @@ class Index extends React.Component {
 				</div>
 			</div>
 		</div>
-	</section>	
+	</section>
 	<section className="happiness--1">
 		<h2 className="happiness__overlay_title--1">
 			The Happiness Program
@@ -2522,82 +2526,95 @@ class Index extends React.Component {
 		<h3>
 			How The Happiness Program is Changing Lives
 		</h3>
-	</div>
+	</div>	
+
 	<section className="reviews--1">
 		<h2 className="reviews__overlay_title--1">
 			Reviews
 		</h2>
 		<div className="row">
 			<div className="col-md-12">
-				<div className="reviews__slider" ref={(ele) => this.reviews__slider = ele} >
-					<div className="reviews--slide">
-						<div className="slide_content">
+				<div className="reviews__slider--1" ref={(ele) => this.reviews__slider = ele}>
+					<div className="reviews--slide--1">
+						<h4 className="show-for-mobile">
+							How The Happiness Program is Changing Lives
+						</h4>
+						<div className="slide_content--1">
 							<p>
 								It changed my life literally overnight... whenever you find that your mind is agitated or the stress is high, take a moment to take a deep breath in while putting all of your attention on it.
 							</p>
 						</div>
-						<div className="slide_info">
-							<div className="slide_info--img">
+						<div className="slide_info--1">
+							<div className="slide_info--img--1">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.png"} alt="img" />
 							</div>
-							<h5 className="author_title">
-								Louis Gagnon-
+							<h5 className="author_title--1">
+								Louis Gagnon
 							</h5>
-							<span className="job_position">
-								President of, <a href="#">Ride.com</a>
+							<span className="job_position--1">
+								President, <a href="#">Ride.com</a>
 							</span>
 						</div>
 					</div>
-					<div className="reviews--slide">
-						<div className="slide_content">
+					<div className="reviews--slide--1">
+						<h4 className="show-for-mobile">
+							How The Happiness Program is Changing Lives
+						</h4>
+						<div className="slide_content--1">
 							<p>
 								Within three days I started experiencing a deep shift within myself from anxiousness to peace, from sadness to joy. As each day progresses, I find myself more and more centered In the joy and clarity of a calm and peaceful existence.
 							</p>
 						</div>
-						<div className="slide_info">
-							<div className="slide_info--img">
+						<div className="slide_info--1">
+							<div className="slide_info--img--1">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg"} alt="img" />
 							</div>
-							<h5 className="author_title">
+							<h5 className="author_title--1">
 								Glenn-Douglas Haig
 							</h5>
-							<span className="job_position">
+							<span className="job_position--1">
 								CEO
 							</span>
 						</div>
 					</div>
-					<div className="reviews--slide">
-						<div className="slide_content">
+					<div className="reviews--slide--1">
+						<h4 className="show-for-mobile">
+							How The Happiness Program is Changing Lives
+						</h4>
+						<div className="slide_content--1">
 							<p>
 								I have been looking for this for 15 years! The techniques are truly a gift. When I practice them regularly, I feel great no matter what has happened during the day.
 							</p>
 						</div>
-						<div className="slide_info">
-							<div className="slide_info--img">
+						<div className="slide_info--1">
+							<div className="slide_info--img--1">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg"} alt="img" />
 							</div>
-							<h5 className="author_title">
+							<h5 className="author_title--1">
 								Charlotte Plus
 							</h5>
-							<span className="job_position">
+							<span className="job_position--1">
 								Lawyer
 							</span>
 						</div>
 					</div>
-					<div className="reviews--slide">
-						<div className="slide_content">
+					<div className="reviews--slide--1">
+						<h4 className="show-for-mobile">
+							How The Happiness Program is Changing Lives
+						</h4>
+						<div className="slide_content--1">
 							<p>
 								I felt a huge change in my whole body. After almost three years and nothing working, a simple breathing technique had just changed my life. I now feel amazing. I'm back to the old me and I see the world differently.
 							</p>
 						</div>
-						<div className="slide_info">
-							<div className="slide_info--img">
+						<div className="slide_info--1">
+							<div className="slide_info--img--1">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg"} alt="img" />
 							</div>
-							<h5 className="author_title">
+							<h5 className="author_title--1">
 								Maddy King
 							</h5>
-							<span className="job_position">
+							<span className="job_position--1">
 								Model
 							</span>
 						</div>
@@ -2606,6 +2623,7 @@ class Index extends React.Component {
 			</div>
 		</div>
 	</section>
+
 	<section className="research--1">
 		<div className="row">
 			<div className="col-md-12">

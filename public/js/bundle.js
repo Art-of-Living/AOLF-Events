@@ -13381,7 +13381,6 @@ var Index = function (_get__$Component) {
 				$("html, body").animate({ scrollTop: 200 }, "fast");
 				return false;
 			});
-
 			(function (window, document, $, undefined) {
 				"use strict";
 
@@ -15395,7 +15394,12 @@ var Index = function (_get__$Component) {
 
 			$('.home_banner--top_subtitle--1 .arrow').on("click", function () {
 				$(".home_banner--locations--1").toggle();
+				$(this).find('img').toggle();
 				//$('.home_banner--locations--1').toggleClass('hdn');
+			});
+
+			$('#arrow').on("click", function () {
+				$(this).find('img').toggle();
 			});
 
 			//Make elements equal height
@@ -15405,7 +15409,7 @@ var Index = function (_get__$Component) {
 			$('.research__block--subtitle').matchHeight();
 			$('.logos_sect--block').matchHeight();
 
-			$('.reviews__slider').slick({
+			$('.reviews__slider--1').slick({
 				// cssEase: 'ease',
 				// fade: true,
 				arrows: false,
@@ -15416,7 +15420,7 @@ var Index = function (_get__$Component) {
 				autoplaySpeed: 5000,
 				slidesToShow: 1,
 				slidesToScroll: 1,
-				slide: '.reviews--slide'
+				slide: '.reviews--slide--1'
 			});
 
 			$('a[href*="#"]').click(function (event) {
@@ -15474,7 +15478,7 @@ var Index = function (_get__$Component) {
 			var mobile_contact;
 			var style = {
 				home_banner: {
-					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
+					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 0% / cover"
 				},
 				home_banner2: {
 					"background": "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 0% / cover"
@@ -15568,9 +15572,10 @@ var Index = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'h6',
-									{ className: 'home_banner--top_subtitle--1' },
+									{ id: 'arrow', className: 'home_banner--top_subtitle--1' },
 									'Los Angeles, CA ',
-									_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png", className: 'arrow' })
+									_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png", className: 'arrow' }),
+									_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/uparrow.png", className: 'arrow', style: style.display_none })
 								),
 								_react2.default.createElement(
 									'span',
@@ -15617,13 +15622,11 @@ var Index = function (_get__$Component) {
 						_react2.default.createElement(
 							'p',
 							null,
-							'2354 Walsh Ave',
+							'2354 Walsh Ave ',
 							_react2.default.createElement('br', null),
-							'Santa Clara, CA',
+							'Santa Clara, CA ',
 							_react2.default.createElement('br', null),
-							'United States',
-							_react2.default.createElement('br', null),
-							'95051'
+							'United States, 95051'
 						),
 						_react2.default.createElement(
 							'a',
@@ -15835,6 +15838,7 @@ var Index = function (_get__$Component) {
 									null,
 									'This free 60-90 minute session will give you a taste of the power of breath and effortless meditation.'
 								),
+								_react2.default.createElement('br', null),
 								_react2.default.createElement(
 									'h4',
 									null,
@@ -16112,15 +16116,20 @@ var Index = function (_get__$Component) {
 							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'reviews__slider', ref: function ref(ele) {
+								{ className: 'reviews__slider--1', ref: function ref(ele) {
 										return _this2.reviews__slider = ele;
 									} },
 								_react2.default.createElement(
 									'div',
-									{ className: 'reviews--slide' },
+									{ className: 'reviews--slide--1' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_content' },
+										{ className: 'slide_content--1' },
 										_react2.default.createElement(
 											'p',
 											null,
@@ -16129,21 +16138,21 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info--1' },
 										_react2.default.createElement(
 											'div',
-											{ className: 'slide_info--img' },
+											{ className: 'slide_info--img--1' },
 											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info0.png", alt: 'img' })
 										),
 										_react2.default.createElement(
 											'h5',
-											{ className: 'author_title' },
-											'Louis Gagnon-'
+											{ className: 'author_title--1' },
+											'Louis Gagnon'
 										),
 										_react2.default.createElement(
 											'span',
-											{ className: 'job_position' },
-											'President of, ',
+											{ className: 'job_position--1' },
+											'President, ',
 											_react2.default.createElement(
 												'a',
 												{ href: '#' },
@@ -16154,10 +16163,15 @@ var Index = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'reviews--slide' },
+									{ className: 'reviews--slide--1' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_content' },
+										{ className: 'slide_content--1' },
 										_react2.default.createElement(
 											'p',
 											null,
@@ -16166,30 +16180,35 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info--1' },
 										_react2.default.createElement(
 											'div',
-											{ className: 'slide_info--img' },
+											{ className: 'slide_info--img--1' },
 											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info1.jpg", alt: 'img' })
 										),
 										_react2.default.createElement(
 											'h5',
-											{ className: 'author_title' },
+											{ className: 'author_title--1' },
 											'Glenn-Douglas Haig'
 										),
 										_react2.default.createElement(
 											'span',
-											{ className: 'job_position' },
+											{ className: 'job_position--1' },
 											'CEO'
 										)
 									)
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'reviews--slide' },
+									{ className: 'reviews--slide--1' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_content' },
+										{ className: 'slide_content--1' },
 										_react2.default.createElement(
 											'p',
 											null,
@@ -16198,30 +16217,35 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info--1' },
 										_react2.default.createElement(
 											'div',
-											{ className: 'slide_info--img' },
+											{ className: 'slide_info--img--1' },
 											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info2.jpg", alt: 'img' })
 										),
 										_react2.default.createElement(
 											'h5',
-											{ className: 'author_title' },
+											{ className: 'author_title--1' },
 											'Charlotte Plus'
 										),
 										_react2.default.createElement(
 											'span',
-											{ className: 'job_position' },
+											{ className: 'job_position--1' },
 											'Lawyer'
 										)
 									)
 								),
 								_react2.default.createElement(
 									'div',
-									{ className: 'reviews--slide' },
+									{ className: 'reviews--slide--1' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'show-for-mobile' },
+										'How The Happiness Program is Changing Lives'
+									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_content' },
+										{ className: 'slide_content--1' },
 										_react2.default.createElement(
 											'p',
 											null,
@@ -16230,20 +16254,20 @@ var Index = function (_get__$Component) {
 									),
 									_react2.default.createElement(
 										'div',
-										{ className: 'slide_info' },
+										{ className: 'slide_info--1' },
 										_react2.default.createElement(
 											'div',
-											{ className: 'slide_info--img' },
+											{ className: 'slide_info--img--1' },
 											_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/slide_info3.jpg", alt: 'img' })
 										),
 										_react2.default.createElement(
 											'h5',
-											{ className: 'author_title' },
+											{ className: 'author_title--1' },
 											'Maddy King'
 										),
 										_react2.default.createElement(
 											'span',
-											{ className: 'job_position' },
+											{ className: 'job_position--1' },
 											'Model'
 										)
 									)

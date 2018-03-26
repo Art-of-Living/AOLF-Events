@@ -912,16 +912,15 @@
     padding: 8px 28px 8px 8px;
     font-size: 14px;
     font-family: "Open Sans", sans-serif !important; }
-    @media (max-width: 1024px) {
+    @media (max-width: 1280px) {
       input[type='text'],
       input[type='search'],
       input[type='number'],
       input[type='email'],
       textarea {
-        font-size: 15px;
-        height: 31px;
+        height: 40px !important;
         padding: 4px 20px 4px 8px;
-        font-size: 14px; } }
+        font-size: 14px !important; } }
   
   textarea {
     height: 150px;
@@ -1252,7 +1251,7 @@ border-radius: 0; }
         width: 100%;
         text-align: center;
         text-transform: none;
-        margin-top: 24px; }
+        margin-top: 14px; }
         .mm_landing .home_banner--1 .date_box--1 form button:hover {
           background: #029b99; }
       .mm_landing .home_banner--1 .date_box--1 form .form_footer--1 {
@@ -1303,20 +1302,20 @@ border-radius: 0; }
       .mm_landing .home_banner--1 .date_box--1 form .jq-selectbox ul li {
         background: #3C3533;
         color: #fff;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: bold;
         padding: 18px 26px 17px;
         border-radius: 5px;
         border: 1px solid #fff; }
         @media (max-width: 1600px) {
           .mm_landing .home_banner--1 .date_box--1 form .jq-selectbox ul li {
-            font-size: 18px;
-            padding: 15px 22px 15px; } }
+            font-size: 16px;
+            padding: 15px 20px 15px; } }
         @media (max-width: 1024px) {
           .mm_landing .home_banner--1 .date_box--1 form .jq-selectbox ul li {
             font-size: 16px;
             font-weight: 600;
-            padding: 15px; } }
+            padding: 15px 20px; } }
         @media (max-width: 480px) {
           .mm_landing .home_banner--1 .date_box--1 form .jq-selectbox ul li {
             font-size: 14px; } }
@@ -2283,7 +2282,6 @@ border-radius: 0; }
       background-color: #fead24;
       background-image: url("../templates/ArtOfLivingNew/images/overlay.png") !important;
       background-repeat: repeat;
-      max-width: 430px;
       padding: 50px 60px;
       position: relative;
       width: 100%;
@@ -2308,6 +2306,7 @@ border-radius: 0; }
         @media (max-width: 767px) {
           .mm_landing .video_section--title--1 h3 {
             font-size: 24px;
+            width: 100%;
             font-weight: 600;
             line-height: 1.4;
             margin-bottom: 0;
@@ -2426,7 +2425,7 @@ border-radius: 0; }
           .mm_landing .reviews--slide--1 h4 {
             display: none; } }
       .mm_landing .reviews--slide--1 .slide_content--1 {
-        width: calc(100% - 200px);
+       // width: calc(100% - 200px);
         float: left;
         padding-top: 38px;
         padding-bottom: 24px;
@@ -2452,7 +2451,7 @@ border-radius: 0; }
         .mm_landing .reviews--slide--1 .slide_content--1:before {
           position: absolute;
           content: '';
-          background: url("../images/quote.png") no-repeat 50%;
+          background: url("../templates/ArtOfLiving/images/quote.png") no-repeat 50%;
           background-size: contain;
           -webkit-transform: rotate(180deg);
           -ms-transform: rotate(180deg);
@@ -2495,7 +2494,7 @@ border-radius: 0; }
               line-height: 1.45; } }
           .mm_landing .reviews--slide--1 .slide_content--1 p:after {
             content: '';
-            background: url("../images/quote.png") no-repeat 50%;
+            background: url("../templates/ArtOfLiving/images/quote.png") no-repeat 50%;
             background-size: contain;
             width: 42px;
             height: 37px;
@@ -2565,7 +2564,7 @@ border-radius: 0; }
           @media (max-width: 640px) {
             .mm_landing .reviews--slide--1 .slide_info--1 .author_title--1 {
               float: left;
-              width: calc(100% - 115px);
+             // width: calc(100% - 115px);
               text-align: left;
               margin-top: 12px; } }
           @media (max-width: 480px) {
@@ -2579,12 +2578,8 @@ border-radius: 0; }
           margin: 0 auto; }
           @media (max-width: 640px) {
             .mm_landing .reviews--slide--1 .slide_info--1 .job_position--1 {
-              float: left;
-              width: calc(100% - 115px);
+             // width: calc(100% - 115px);
               text-align: left; } }
-          @media (max-width: 480px) {
-            .mm_landing .reviews--slide--1 .slide_info--1 .job_position--1 {
-              font-size: 13px; } }
           .mm_landing .reviews--slide--1 .slide_info--1 .job_position--1 a {
             text-decoration: underline;
             color: inherit; }
@@ -3063,10 +3058,6 @@ border-radius: 0; }
       .video_section--btn .icon {
         margin-right: 90px!important;
     }
-    @media (min-width:320px) and (max-width:480px){
-    .inner h3 {
-        color: #fff !important;
-    }
     .logos_sect--block--1 > p{
     font-family:"Open Sans",sans-serif;
   }
@@ -3092,16 +3083,14 @@ border-radius: 0; }
 .video_section--title--1 > h3 {
   font-size:42px !important;
 } 
-}
+
 .mm_landing .video_section--title--1 {
   background-color: #fead24;
   background-repeat: repeat;
   padding: 70px 47px 65px 87px;
-  max-width: 518px;
   position: relative;
   padding: 50px 60px 50px;
-  max-width: 430px;
-  width: 100%;
+  width: 430px; 
 }
 .mm_landing .video_section--title--1 h3 {
   font-weight: bold!important;
@@ -3219,14 +3208,24 @@ border-radius: 0; }
       .mm_landing .video_section--btn .icon .fa {
         font-size: 65px; } }
     @media (max-width: 480px) {
-      .mm_landing .video_section--btn .icon .fa {
+    .mm_landing .video_section--btn .icon .fa {
         font-size: 40px; } }
-.mm_landing .video_section--btn:hover, .mm_landing .video_section--btn:active, .mm_landing .video_section--btn:focus {
-  color: #fead24;
-  text-decoration: none; }
-  .mm_landing .video_section--btn:hover .icon, .mm_landing .video_section--btn:active .icon, .mm_landing .video_section--btn:focus .icon {
+    .mm_landing .video_section--btn:hover, .mm_landing .video_section--btn:active, .mm_landing .video_section--btn:focus {
+     color: #fead24;
+     text-decoration: none; }
+    .mm_landing .video_section--btn:hover .icon, .mm_landing .video_section--btn:active .icon, .mm_landing .video_section--btn:focus .icon {
     color: #fff; }
     input[type="text"], input[type="search"], input[type="number"], input[type="email"], textarea{
-      font-size:14px; }
-      .col-md-3.col-sm-6.col-xs-6.research__block > p{
+      font-size:14px;
+     height:40px; }
+    .col-md-3.col-sm-6.col-xs-6.research__block > p{
         font-family: "Open Sans",sans-serif; }
+    @media (max-width: 768px) {
+          .mm_landing .inner h3 {
+            color: white !important; } }
+
+
+
+ 
+  
+        
