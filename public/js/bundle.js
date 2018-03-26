@@ -15416,7 +15416,7 @@ var Index = function (_get__$Component) {
 				dots: true,
 				infinite: true,
 				speed: 500,
-				autoplay: false,
+				autoplay: true,
 				autoplaySpeed: 5000,
 				slidesToShow: 1,
 				slidesToScroll: 1,
