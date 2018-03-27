@@ -148,7 +148,7 @@ class ThankYou extends React.Component {
 						The Health Benefits of Meditation From the medical community to the yoga community, the verdict is out: you need to meditate! Recent studies from Harvard
 					</p>
 					<div>
-						<a href="https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation" className="read_more">
+						<a target="_blank" href="https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation" className="read_more">
 							Read more
 						</a>
 					</div>
@@ -164,7 +164,7 @@ class ThankYou extends React.Component {
 						1. Is being stressed a sign of prosperity,  growth, or dignity?
 					</p>
 					<div>
-						<a href="https://www.artofliving.org/us-en/7-attitudes-truly-happy-people" className="read_more">
+						<a target="_blank" href="https://www.artofliving.org/us-en/7-attitudes-truly-happy-people" className="read_more">
 							Read more
 						</a>
 					</div>
@@ -180,7 +180,7 @@ class ThankYou extends React.Component {
 						Change is hard and most of us resist any change. Even though change may be
 					</p>
 					<div>
-						<a href="https://www.artofliving.org/us-en/yoga/sun-salutations" className="read_more">
+						<a target="_blank" href="https://www.artofliving.org/us-en/yoga/sun-salutations" className="read_more">
 							Read more
 						</a>
 					</div>

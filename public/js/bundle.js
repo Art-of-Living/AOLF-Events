@@ -22173,7 +22173,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -22205,7 +22205,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -22237,7 +22237,7 @@ var ThankYou = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/yoga/sun-salutations', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/yoga/sun-salutations', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -22658,7 +22658,7 @@ var ThankYouOnline = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/meditation/meditation-for-you/benefits-of-meditation', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -22690,7 +22690,7 @@ var ThankYouOnline = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/7-attitudes-truly-happy-people', className: 'read_more' },
 									'Read more'
 								)
 							)
@@ -22722,7 +22722,7 @@ var ThankYouOnline = function (_get__$Component) {
 								null,
 								_react2.default.createElement(
 									'a',
-									{ href: 'https://www.artofliving.org/us-en/yoga/sun-salutations', className: 'read_more' },
+									{ target: '_blank', href: 'https://www.artofliving.org/us-en/yoga/sun-salutations', className: 'read_more' },
 									'Read more'
 								)
 							)
