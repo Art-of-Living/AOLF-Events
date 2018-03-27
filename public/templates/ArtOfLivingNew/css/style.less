@@ -910,7 +910,7 @@
     border-radius: 5px;
     height: 40px;
     padding: 8px 28px 8px 8px;
-    font-size: 14px;
+    font-size: 16px !important;
     font-family: "Open Sans", sans-serif !important; }
     @media (max-width: 1280px) {
       input[type='text'],
@@ -920,11 +920,7 @@
       textarea {
         height: 40px !important;
         padding: 4px 20px 4px 8px;
-        font-size: 14px !important; } }
-  
-  textarea {
-    height: 150px;
-    padding: 8px; }
+        font-size: 16px !important; } }
   
   .btn--1 {
 -moz-user-select: none;
@@ -1028,7 +1024,7 @@ border-radius: 0; }
     .mm_landing .home_banner--caption--1 {
       max-width: 365px;
       width: 100%;
-      padding-top: 20pc; }
+      padding-top: 17pc; }
       @media (max-width: 767px) {
         .mm_landing .home_banner--caption--1 {
           padding-top: 0;
@@ -1082,7 +1078,8 @@ border-radius: 0; }
       padding: 0;
       margin-bottom: 5px;
       line-height: 1.17;
-      max-width: 350px; }
+      max-width: 350px;
+    margin-top: -53px;  }
       @media (max-width: 767px) {
         .mm_landing .home_banner--top_title--1 {
           font-size: 28px;
@@ -1183,7 +1180,8 @@ border-radius: 0; }
         line-height: 1.4;
         font-size: 18px;
         font-family:"Open Sans",sans-serif !important;
-        word-spacing: 2px; }
+        word-spacing: 2px;
+        padding-top: 60px; }
         @media (max-width: 480px) {
           .mm_landing .home_banner--text--1 p {
             font-size: 15px; } }
@@ -1924,10 +1922,10 @@ border-radius: 0; }
           padding: 15px; } }
       @media (max-width: 480px) {
         .mm_landing .highlight .jq-selectbox ul li {
-          font-size: 14px; } }
+          font-size: 16px; } }
       @media (max-width: 380px) {
         .mm_landing .highlight .jq-selectbox ul li {
-          font-size: 13px; } }
+          font-size: 16px; } }
       .mm_landing .highlight .jq-selectbox ul li + li {
         border-top: none; }
       .mm_landing .highlight .jq-selectbox ul li:hover {
@@ -2124,7 +2122,10 @@ border-radius: 0; }
         padding-left: 45px; } }
     @media (max-width: 480px) {
       .mm_landing .map_section--1 p {
-        font-size: 13.5px; } }
+        font-size: 13.5px;
+        font-family: "Open Sans",sans-serif;
+        margin:-12px 0px -21px;
+       } }
   
   @media (max-width: 767px) {
     .mm_landing .map_section--1 .show-on-map {
@@ -2427,11 +2428,11 @@ border-radius: 0; }
       .mm_landing .reviews--slide--1 .slide_content--1 {
        // width: calc(100% - 200px);
         float: left;
-        padding-top: 38px;
+        padding-top: 12px;
         padding-bottom: 24px;
         padding-right: 75px;
         position: relative;
-        padding-left: 80px;
+        padding-left: 40px;
         border-right: 1px solid #fff; }
         @media (max-width: 1500px) {
           .mm_landing .reviews--slide--1 .slide_content--1 {
@@ -2448,7 +2449,7 @@ border-radius: 0; }
             border: none;
             margin-bottom: 25px;
             padding-left: 4px; } }
-        .mm_landing .reviews--slide--1 .slide_content--1:before {
+        .mm_landing .reviews--slide--1 .slide_content--1 p:before {
           position: absolute;
           content: '';
           background: url("../templates/ArtOfLiving/images/quote.png") no-repeat 50%;
@@ -2461,7 +2462,7 @@ border-radius: 0; }
           left: 8px;
           top: 13px; }
           @media (max-width: 1024px) {
-            .mm_landing .reviews--slide--1 .slide_content--1:before {
+            .mm_landing .reviews--slide--1 .slide_content--1 p:before {
               width: 25px;
               height: 20px;
               top: 2px;
@@ -2497,7 +2498,7 @@ border-radius: 0; }
             background: url("../templates/ArtOfLiving/images/quote.png") no-repeat 50%;
             background-size: contain;
             width: 42px;
-            height: 37px;
+            height: 23px;
             display: inline-block;
             position: relative;
             top: 11px; }
@@ -2575,7 +2576,7 @@ border-radius: 0; }
           font-size: 14px;
           font-family: "Open Sans", sans-serif;
           max-width: 170px;
-          margin: 0 auto; }
+          }
           @media (max-width: 640px) {
             .mm_landing .reviews--slide--1 .slide_info--1 .job_position--1 {
              // width: calc(100% - 115px);
@@ -3215,8 +3216,8 @@ border-radius: 0; }
      text-decoration: none; }
     .mm_landing .video_section--btn:hover .icon, .mm_landing .video_section--btn:active .icon, .mm_landing .video_section--btn:focus .icon {
     color: #fff; }
-    input[type="text"], input[type="search"], input[type="number"], input[type="email"], textarea{
-      font-size:14px;
+    input[type="text"], input[type="search"], input[type="number"], input[type="email"] textarea{
+      font-size:16px !important;
      height:40px; }
     .col-md-3.col-sm-6.col-xs-6.research__block > p{
         font-family: "Open Sans",sans-serif; }
