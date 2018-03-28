@@ -12914,7 +12914,7 @@ var Footer = function (_get__$Component) {
 							{ className: "footer__logo" },
 							_react2.default.createElement(
 								"a",
-								{ href: "http://events.us.artofliving.org" },
+								{ href: "#" },
 								_react2.default.createElement("img", { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png", alt: "logo" })
 							)
 						),
@@ -13145,7 +13145,7 @@ var Header = function (_get__$Component) {
 														{ className: 'header__logo text-center' },
 														_react2.default.createElement(
 																'a',
-																{ href: 'http://events.us.artofliving.org' },
+																{ href: '#' },
 																_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png", alt: 'logo' })
 														)
 												)
