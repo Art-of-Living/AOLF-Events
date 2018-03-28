@@ -2229,17 +2229,17 @@ class Index extends React.Component {
 			<div className="col-sm-6">
 				<div className="home_banner--caption--1">
 					<h1 className="home_banner--top_title--1">
-						Mind & Meditation
+					{event.event_name}
 					</h1>
 					<h6 id="arrow" className="home_banner--top_subtitle--1">
 					
-						Los Angeles, CA <img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png"} className="arrow"/>
+					{event.address.city}, {event.address.state} <img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png"} className="arrow"/>
 						<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/uparrow.png"} className="arrow" style={style.display_none}/>
 					</h6>
 					<span className="home_banner--locations--1" style={style.display_none }>
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
-						2354 Walsh Ave  <br/> 
-						Santa Clara, California, 95051
+						{event.address.street_address_1}  <br/> 
+						{street_address_2} {event.address.zipcode}
 					</span>
 					<div className="home_banner--text--1">
 						<p>

@@ -15568,12 +15568,15 @@ var Index = function (_get__$Component) {
 								_react2.default.createElement(
 									'h1',
 									{ className: 'home_banner--top_title--1' },
-									'Mind & Meditation'
+									event.event_name
 								),
 								_react2.default.createElement(
 									'h6',
 									{ id: 'arrow', className: 'home_banner--top_subtitle--1' },
-									'Los Angeles, CA ',
+									event.address.city,
+									', ',
+									event.address.state,
+									' ',
 									_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png", className: 'arrow' }),
 									_react2.default.createElement('img', { src: "/templates/" + process.env.REACT_TEMPLATE + "/images/uparrow.png", className: 'arrow', style: style.display_none })
 								),
@@ -15581,9 +15584,12 @@ var Index = function (_get__$Component) {
 									'span',
 									{ className: 'home_banner--locations--1', style: style.display_none },
 									_react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
-									'2354 Walsh Ave  ',
+									event.address.street_address_1,
+									'  ',
 									_react2.default.createElement('br', null),
-									'Santa Clara, California, 95051'
+									street_address_2,
+									' ',
+									event.address.zipcode
 								),
 								_react2.default.createElement(
 									'div',
