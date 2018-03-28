@@ -2238,8 +2238,8 @@ class Index extends React.Component {
 					</h6>
 					<span className="home_banner--locations--1" style={style.display_none }>
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
-						{event.address.street_address_1}  <br/> 
-						{street_address_2} {event.address.zipcode}
+						{event.address.street_address_1} {street_address_2} <br/> 
+						{event.address.city}, {event.address.state}, {event.address.zipcode}
 					</span>
 					<div className="home_banner--text--1">
 						<p>

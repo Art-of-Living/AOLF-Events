@@ -15585,10 +15585,14 @@ var Index = function (_get__$Component) {
 									{ className: 'home_banner--locations--1', style: style.display_none },
 									_react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
 									event.address.street_address_1,
-									'  ',
-									_react2.default.createElement('br', null),
+									' ',
 									street_address_2,
 									' ',
+									_react2.default.createElement('br', null),
+									event.address.city,
+									', ',
+									event.address.state,
+									', ',
 									event.address.zipcode
 								),
 								_react2.default.createElement(
