@@ -7,7 +7,7 @@ class Footer extends React.Component {
 					<div className="row">
 						<div className="col-md-12 footersec">
 							<div className="footer__logo">
-								<a href="#">
+								<a href="javascript:void(0)">
 								<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/footer_logo.png"} alt='logo' />
 								</a>
 							</div>

@@ -9,7 +9,7 @@ class Header extends React.Component {
 			<div className="row">
 				<div className="col-md-12">
 					<div className="header__logo text-center">
-						<a href="#">
+						<a href="javascript:void(0)">
 							<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/logo.png"} alt="logo" />
 						</a>
 					</div>
