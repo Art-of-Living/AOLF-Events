@@ -15579,7 +15579,7 @@ var Index = function (_get__$Component) {
 								),
 								_react2.default.createElement(
 									'span',
-									{ className: 'home_banner--locations--1' },
+									{ className: 'home_banner--locations--1', style: style.display_none },
 									_react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
 									'2354 Walsh Ave  ',
 									_react2.default.createElement('br', null),

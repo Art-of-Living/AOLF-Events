@@ -2236,9 +2236,9 @@ class Index extends React.Component {
 						Los Angeles, CA <img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/downarrow.png"} className="arrow"/>
 						<img src={"/templates/" + process.env.REACT_TEMPLATE + "/images/uparrow.png"} className="arrow" style={style.display_none}/>
 					</h6>
-					<span className="home_banner--locations--1">
+					<span className="home_banner--locations--1" style={style.display_none }>
 						<i className="fa fa-map-marker" aria-hidden="true"></i>
-						2354 Walsh Ave  <br/>
+						2354 Walsh Ave  <br/> 
 						Santa Clara, California, 95051
 					</span>
 					<div className="home_banner--text--1">

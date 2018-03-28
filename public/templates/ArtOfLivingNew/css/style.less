@@ -2255,6 +2255,7 @@ border-radius: 0; }
     @media (max-width: 1500px) {
       .mm_landing .video_section {
         height: 630px; } }
+		
     @media (max-width: 1300px) {
       .mm_landing .video_section {
         height: auto;
@@ -2262,7 +2263,6 @@ border-radius: 0; }
     @media (max-width: 767px) {
       .mm_landing .video_section {
         padding-top: 0;
-        padding-bottom: 50%;
         position: relative; } }
     .mm_landing .video_section .row {
       -webkit-box-flex: 1;
@@ -2284,19 +2284,22 @@ border-radius: 0; }
       background-repeat: repeat;
       padding: 50px 60px;
       position: relative;
-      width: 100%;
+      width: 430px;
  }
  @media (max-width: 480px) {
   .mm_landing .video_section--title--1 {
     padding: 0px 20px !important;
+	width:100%;
   } }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .mm_landing .video_section--title--1 {
+      background-color: #fead24;
+      background-repeat: repeat;
+      padding: 40px 50px;
+      position: relative;
+      width: 350px;
+    } }
    
-      @media (max-width: 767px) {
-        .mm_landing .video_section--title--1 {
-          max-width: 100%;
-          padding: 40px 15px;
-          border-top: 3px solid #fff;
-          border-bottom: 3px solid #fff; } }
       .mm_landing .video_section--title--1 h3 {
         font-size: 24px;
         font-weight: bold;
@@ -3084,14 +3087,6 @@ border-radius: 0; }
   font-size:42px !important;
 } 
 
-.mm_landing .video_section--title--1 {
-  background-color: #fead24;
-  background-repeat: repeat;
-  padding: 70px 47px 65px 87px;
-  position: relative;
-  padding: 50px 60px 50px;
-  width: 430px; 
-}
 .mm_landing .video_section--title--1 h3 {
   font-weight: bold!important;
   color: #FFF;
