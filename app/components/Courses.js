@@ -6,6 +6,7 @@ import queryString from 'query-string';
 import moment from 'moment';
 
 import CountdownTimer from 'react-awesome-countdowntimer';
+import GoogleTagManager from './GoogleTagManager';
 
 var store = require('../store/configureStore').default;
 
@@ -207,6 +208,7 @@ class Courses extends React.Component {
     if (this.state.noCources) {
       return (
         <div className="container-fluid no-margin-padding">
+          <GoogleTagManager gtmId='GTM-P67SD28' />
           <link rel="stylesheet" href="/courses/css/style.css" />
           <div className="text-center">
             <h1 className="landing_banner--title">
@@ -219,6 +221,7 @@ class Courses extends React.Component {
     else {
       return (
         <div className="container-fluid no-margin-padding">
+          <GoogleTagManager gtmId='GTM-N2J496' />
           <link rel="stylesheet" href="/courses/css/style.css" />
           <div className="text-center">
             <h1 className="landing_banner--title">

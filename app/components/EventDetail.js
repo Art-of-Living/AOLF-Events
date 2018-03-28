@@ -5,6 +5,8 @@ import { withRouter } from 'react-router'
 import Template from './Templates/Template';
 import { browserHistory } from 'react-router';
 
+import GoogleTagManager from './GoogleTagManager';
+
 class EventDetail extends React.Component {
 	constructor(props) {
 		super(props)
@@ -103,6 +105,7 @@ class EventDetail extends React.Component {
 		var template = this.state.template;
 		return (
 			<div>
+				<GoogleTagManager gtmId='GTM-N2J496' />
 				<Template name={template} eventid={eventid} data={renderedItem}/>
 			</div>
 		);
