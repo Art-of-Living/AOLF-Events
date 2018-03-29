@@ -141,6 +141,7 @@ class Contact extends React.Component {
 			  var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 			  
 			  browserHistory.push('/online/event/' + that.slugifyUrl(event.event_name) +  '/' + event.event_web_series_name + eventId);
+			  window.location.reload();
 		  },
 	  });
   }

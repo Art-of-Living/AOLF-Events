@@ -15472,6 +15472,7 @@ var Contact = function (_get__$Component) {
 					var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 					_get__('browserHistory').push('/online/event/' + that.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + eventId);
+					window.location.reload();
 				}
 			});
 		}
@@ -21039,6 +21040,10 @@ var _reactRouter = require('react-router');
 
 var _reactHelmet = require('react-helmet');
 
+var _GoogleTagManager = require('./GoogleTagManager');
+
+var _GoogleTagManager2 = _interopRequireDefault(_GoogleTagManager);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21112,11 +21117,14 @@ var ThankYouOnline = function (_get__$Component) {
 				});
 			}
 
+			var _GoogleTagManager_Component = _get__('GoogleTagManager');
+
 			var _Helmet_Component = _get__('Helmet');
 
 			return _react2.default.createElement(
 				'div',
 				null,
+				_react2.default.createElement(_GoogleTagManager_Component, { gtmId: 'GTM-N2J496' }),
 				_react2.default.createElement(
 					_Helmet_Component,
 					null,
@@ -21381,6 +21389,9 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
 	switch (variableName) {
+		case 'GoogleTagManager':
+			return _GoogleTagManager2.default;
+
 		case 'Helmet':
 			return _reactHelmet.Helmet;
 
@@ -21502,7 +21513,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"react":355,"react-helmet":168,"react-redux":173,"react-router":207}],49:[function(require,module,exports){
+},{"./GoogleTagManager":18,"react":355,"react-helmet":168,"react-redux":173,"react-router":207}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

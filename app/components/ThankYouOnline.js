@@ -4,6 +4,8 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet';
 
+import GoogleTagManager from './GoogleTagManager';
+
 class ThankYouOnline extends React.Component {
 	
   constructor(props) {
@@ -70,6 +72,7 @@ class ThankYouOnline extends React.Component {
 	
 	return (
 		<div>
+			<GoogleTagManager gtmId='GTM-N2J496' />
 			<Helmet>
 				<title data-react-helmet="true">{event.event_name}</title>
 				<meta data-react-helmet="true" property="og:url" content={window.INITIAL_STATE.url.baseurl +'online/event/' + this.slugifyUrl(this.state.event.event_name) +  '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} />
