@@ -8616,6 +8616,8 @@ var Contact = function (_get__$Component) {
 					var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 					_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + eventId);
+
+					window.location.reload();
 				}
 			});
 		}
@@ -11089,6 +11091,8 @@ var Contact = function (_get__$Component) {
 					var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 					_get__('browserHistory').push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + eventId);
+
+					window.location.reload();
 				}
 			});
 		}
@@ -15472,6 +15476,7 @@ var Contact = function (_get__$Component) {
 					var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 					_get__('browserHistory').push('/online/event/' + that.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + eventId);
+
 					window.location.reload();
 				}
 			});
