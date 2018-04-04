@@ -16,6 +16,7 @@ import Reset from './components/Account/Reset';
 import Followup from './components/Followup/Index';
 
 import Courses from './components/Courses';
+import Referral from './components/Referral';
 
 export default function getRoutes(store) {
   const ensureAuthenticated = (nextState, replace) => {
@@ -45,6 +46,7 @@ export default function getRoutes(store) {
       <Route path="/product-group" component={Followup} onLeave={clearMessages}/>
 
 	  <Route path="/courses" component={Courses} onLeave={clearMessages}/>
+	  <Route path="/referral" component={Referral} onLeave={clearMessages}/>
 
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/online/event/:eventname/:eventsid/:eventid/thankyou" component={ThankYouOnline} onLeave={clearMessages}/>
