@@ -4,7 +4,8 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet';
 
-import GoogleTagManager from './GoogleTagManager';
+//import GoogleTagManager from './GoogleTagManager';
+import ReactGA from 'react-ga';
 
 var store = require('../store/configureStore').default;
 
@@ -26,6 +27,9 @@ class ThankYou extends React.Component {
 	}
 
 	componentDidMount() {
+		ReactGA.initialize('UA-5335998-1');
+		ReactGA.pageview(window.location.pathname + window.location.search);
+				
 		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 			$('body').addClass('ios thank-you-page');
 		} else {
@@ -83,7 +87,6 @@ class ThankYou extends React.Component {
 
 		return (
 			<div>
-				<GoogleTagManager gtmId='GTM-N2J496' />
 				<Helmet>
 					<title data-react-helmet="true">{event.event_name}</title>
 					<meta data-react-helmet="true" property="og:url" content={window.INITIAL_STATE.url.baseurl + this.slugifyUrl(this.state.event.event_name) + '/' + this.state.event.event_web_series_name + '/' + this.state.event.event_web_id} />
