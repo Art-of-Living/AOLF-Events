@@ -23,11 +23,11 @@ config.development = {
         ssl: false
 	},
     application: {
-        port: 8888,
+        port: 3000,
         cookieKey: '8YQM5GUAtLAT34',
     },
     clusters: {
-		enabled	: true,
+		enabled	: false,
 		limit 	: 4
 	}
 };
