@@ -27,8 +27,8 @@ config.development = {
         cookieKey: '8YQM5GUAtLAT34',
     },
     clusters: {
-		enabled	: false,
-		limit 	: 4
+		enabled	: true,
+		limit 	: 'auto', //4
 	}
 };
  

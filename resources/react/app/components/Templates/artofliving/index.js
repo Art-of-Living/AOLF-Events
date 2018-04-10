@@ -107,6 +107,7 @@ class Index extends React.Component {
 	}
 
   render() {	
+	var mobile_contact;
 	var style = {
 		home_banner : {
 			"background" : "rgba(0, 0, 0, 0) url(/templates/" + process.env.REACT_TEMPLATE + "/images/home_banner.jpg) no-repeat scroll 50% 50% / cover"
@@ -136,6 +137,11 @@ class Index extends React.Component {
 		var street_address_2 = ', ' + event.address.street_address_2; 
 	}
 	
+	
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		mobile_contact = (<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />);
+	}
+	
     return (
       <div>
 		<Helmet>
@@ -149,8 +155,7 @@ class Index extends React.Component {
 			<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
         </Helmet>
 		<Header/>
-			<Contact id="chose_day_mobile" addClassName="contact-form-mobile show-for-mobile" events={events} eventid={eventid} />
-			
+			{mobile_contact}			
 			<section className="home_banner hide-for-mobile" style={style.home_banner}>
 				<div className="home_banner--caption">
 					<h1 className="home_banner--top_title">

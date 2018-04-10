@@ -7,7 +7,7 @@
 
     if ($('.landing_testimonial__slider').length){
       $('.landing_testimonial__slider').slick({
-        arrows: false,
+        arrows: true,
         dots: true,
         infinite: true,
         speed: 500,

@@ -6,6 +6,7 @@ import queryString from 'query-string';
 import moment from 'moment';
 
 import CountdownTimer from 'react-awesome-countdowntimer';
+import GoogleTagManager from './GoogleTagManager';
 
 var store = require('../store/configureStore').default;
 
@@ -45,21 +46,32 @@ class Courses extends React.Component {
     let params = queryString.parse(this.props.location.search);
     //this.params = this.state.params = params;
     console.log("this.props.location, params", this.props.location, params);
-    if (params.hasOwnProperty('code')) {
+    if (Object.hasOwnProperty.call(params, 'code')) {
       this.state.code = params.code;
     }
-    if (params.hasOwnProperty('email')) {
+    else if (Object.hasOwnProperty.call(params,'gift_code')) {
+      this.state.code = params.gift_code;
+    }
+    if (Object.hasOwnProperty.call(params,'email')) {
       this.state.email = params.email;
     }
-    if (params.hasOwnProperty('expire')) {
+    else if (Object.hasOwnProperty.call(params,'gift_email')) {
+      this.state.email = params.gift_email;
+    }
+    if (Object.hasOwnProperty.call(params,'expire')) {
       this.state.expire = params.expire;
     }
+    else if (Object.hasOwnProperty.call(params,'gift_expiry')) {
+      this.state.expire = params.gift_expiry;
+    }
+
     this.state.cources = [];
+    console.log('::this.state.params.code::', this.state.code);
     console.log('::this.state.params.courses::', params.courses);
     console.log('::this.state.params.courses[]::', params["courses[0][city]"]);
     for (var i = 0; i < 100; i++) {
       console.log('::this.state.params::', params);
-      if (params.hasOwnProperty("courses[" + i + "]['saoid']")) {
+      if (Object.hasOwnProperty.call(params,"courses[" + i + "]['saoid']")) {
         let startDateMonth = moment(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         let endDateMonth = moment(params["courses[" + i + "]['end']"], "MM/DD/YYYY HH:mm A").format('MMMM');
         let startDateDay = moment(params["courses[" + i + "]['start']"], "MM/DD/YYYY HH:mm A").format('DD');
@@ -124,21 +136,58 @@ class Courses extends React.Component {
       timeRemaining: temp
     })
   }
+  _getCources() {
+    if (this.state.cources.length > 0) {
+      return (
+        this.state.cources.map((object, index) => {
+          return (
+            <div className="find_course_slide" key={index}>
+              <div className="inner_block">
+                <h5 className="title">
+                  {object.startDateMonth}
+                  {" "}
+                  {object.startDateDay}
+                  {" - "}
+                  {object.endDateDay}
+                </h5>
+                <div className="location">
+                  {object.city}
+                </div>
+                <a href={object.link} target="_blank" className="btn_yellow">
+                  Learn More
+                </a>
+              </div>
+            </div>
+          );
+        })
+      )
+    }
+    else {
+      return (
+        <div className="no-cources-found">
+          <a className="btn btn-danger" href="//www.artofliving.org/us-en/search/course#distance=5&sSearch=United%20States&st=&lat=&lng=&ctype=12371,12517,54553,12519,398713,411097,455542,456483,458421,435714,12371,253133&mctype=&acol=0&c=&cc=&d1=&d2=">Register Now</a>
+        </div>
+      )
+    }
+  }
   _getRemainingHours() {
     var all_empty = false;
-    console.log(this.state.timeRemaining.months, " Months");
-    console.log(this.state.timeRemaining.days, " Days, ");
-    console.log(this.state.timeRemaining.h, " Hours");
-    console.log(this.state.timeRemaining.m, " Minutes");
-    console.log(this.state.timeRemaining.s, " Seconds");
+    //console.log(this.state.timeRemaining.months, " Months");
+    //console.log(this.state.timeRemaining.days, " Days, ");
+    //console.log(this.state.timeRemaining.h, " Hours");
+    //console.log(this.state.timeRemaining.m, " Minutes");
+    //console.log(this.state.timeRemaining.s, " Seconds");
     if (this.state.timeRemaining.months == '' && this.state.timeRemaining.days == '' && this.state.timeRemaining.h == '' && this.state.timeRemaining.m == '' && this.state.timeRemaining.s == '') {
-      console.log("All Empty - Code Expired!");
+      //console.log("All Empty - Code Expired!");
       all_empty = true;
     }
     if (all_empty == false) {
       var code_expires_in = '';
-      code_expires_in += (this.state.timeRemaining.months * 30 * 24) + (this.state.timeRemaining.days * 24) + this.state.timeRemaining.h + " : ";
-      code_expires_in += this.state.timeRemaining.m + " : ";
+      code_expires_in += (parseInt(this.state.timeRemaining.months || 0) * 30 * 24) + (parseInt(this.state.timeRemaining.days || 0) * 24) + parseInt(this.state.timeRemaining.h || 0) + ":";
+      //code_expires_in += this.state.timeRemaining.months + " : ";
+      //code_expires_in += this.state.timeRemaining.days + " : ";
+      //code_expires_in += this.state.timeRemaining.h + " : ";
+      code_expires_in += this.state.timeRemaining.m + ":";
       code_expires_in += this.state.timeRemaining.s + " Hours ";
       return (
         <span>
@@ -159,6 +208,7 @@ class Courses extends React.Component {
     if (this.state.noCources) {
       return (
         <div className="container-fluid no-margin-padding">
+          <GoogleTagManager gtmId='GTM-P67SD28' />
           <link rel="stylesheet" href="/courses/css/style.css" />
           <div className="text-center">
             <h1 className="landing_banner--title">
@@ -171,6 +221,7 @@ class Courses extends React.Component {
     else {
       return (
         <div className="container-fluid no-margin-padding">
+          <GoogleTagManager gtmId='GTM-N2J496' />
           <link rel="stylesheet" href="/courses/css/style.css" />
           <div className="text-center">
             <h1 className="landing_banner--title">
@@ -215,29 +266,8 @@ class Courses extends React.Component {
                 </p>
                 </div>
                 <div className="landing_find_course_slider">
-
                   {
-                    this.state.cources.map((object, index) => {
-                      return (
-                        <div className="find_course_slide" key={index}>
-                          <div className="inner_block">
-                            <h5 className="title">
-                              {object.startDateMonth}
-                              {" "}
-                              {object.startDateDay}
-                              {" - "}
-                              {object.endDateDay}
-                            </h5>
-                            <div className="location">
-                              {object.city}
-                            </div>
-                            <a href={object.link} target="_blank" className="btn_yellow">
-                              Learn More
-                              </a>
-                          </div>
-                        </div>
-                      );
-                    })
+                    this._getCources()
                   }
                 </div>
 
@@ -266,7 +296,7 @@ class Courses extends React.Component {
               </div>
             </div>
           </section>
-
+          {/*
           <section className="share_sect">
             <div className="row">
               <div className="col-md-12">
@@ -274,7 +304,7 @@ class Courses extends React.Component {
                   Share this gift with a friend
                 </h3>
                 <div className="addthis_inline_share_toolbox"></div>
-                {/*
+                {/--*
                 <ul>
                   <li>
                     <a target="_blank" href={"http://www.facebook.com/sharer/sharer.php?s=100&p[images][0]=" + this.state.shareOrigin + "/courses/images/logo.png&p[title]=Art+of+Livinggift+card+to+save+on+an+upcoming+Happiness&p[summary]=Use gift card to save on an upcoming Happiness Program&p[url]=" + this.state.shareUrl}>
@@ -297,7 +327,7 @@ class Courses extends React.Component {
                     </a>
                   </li>
                 </ul>
-                */}
+                *--/}
                 <div className="text-center">
                   <p>
                     (this code is good for two uses)
@@ -306,7 +336,7 @@ class Courses extends React.Component {
               </div>
             </div>
           </section>
-
+          */}
           <section className="landing_testimonial_sect" style={{ backgroundImage: "url(/courses/images/landing_testimonial_sect.png)" }}>
             <div className="row">
               <div className="col-md-12">
@@ -421,7 +451,9 @@ class Courses extends React.Component {
           <footer className="footer">
             <div className="row">
               <div className="col-md-8 col-sm-7">
-                <img src="/courses/images/logo.png" alt="logo" />
+                <a href="https://www.artofliving.org/us-en" target="_blank">
+                  <img src="/courses/images/logo.png" alt="logo" />
+                </a>
                 <div className="footer__text">
                   <p>
                     *exclusions apply - Valid for single purchase only, regular price, cannot be combined with any other offer, USA only, No cash value/ may not be redeemed as cash, only valid for recipient of this offer.
@@ -431,8 +463,8 @@ class Courses extends React.Component {
                   <li>
                     <span>&copy; 2018 art of living</span>
                   </li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Terms of Use</a></li>
+                  <li><a href="//www.artofliving.org/us-en/privacy-policy" target="_blank">Privacy Policy</a></li>
+                  <li><a href="//www.artofliving.org/us-en/terms-use" target="_blank">Terms of Use</a></li>
                 </ul>
               </div>
               <div className="col-md-4 col-sm-5">
