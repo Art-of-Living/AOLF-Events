@@ -5,6 +5,7 @@ import Footer from './footer';
 import Contact from './contact';
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router'
+import GoogleTagManager from '../../GoogleTagManager';
 
 class Index extends React.Component {
 	constructor(props) {
@@ -2222,7 +2223,8 @@ class Index extends React.Component {
 					<meta property="fb:app_id" content="547829512233839" />
 					<meta property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
 				</Helmet>
-				<Header />
+				<GoogleTagManager gtmId='GTM-N2J496' />
+				<Header />				
 				{mobile_contact}
 				<section className="home_banner--1" style={style.home_banner} >
 					<div className="row">
