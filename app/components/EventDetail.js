@@ -19,8 +19,8 @@ class EventDetail extends React.Component {
 	}
 
 	componentDidMount() {
-		ReactGA.initialize('UA-5335998-1');
-		ReactGA.pageview(window.location.pathname + window.location.search);			
+		//ReactGA.initialize('UA-5335998-1');
+		//ReactGA.pageview(window.location.pathname + window.location.search);			
 	}
 
 	componentWillMount() {

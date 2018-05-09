@@ -169,14 +169,12 @@ class Contact extends React.Component {
 				var eventCity = event.address.city ? that.slugifyUrl(event.address.city) : 'los-angeles';
 
 				browserHistory.push('/' + eventState + '/' + eventCity + '/' + that.slugifyUrl(event.event_name) + '/' + event.event_web_series_name + eventId);
-
-				that.GAFire();
 			});
 		}
 
 	}
 
-	GAFire() {
+	/* GAFire() {
 		if (this.GAUnlocked) {
 			this.GAUnlocked = false;
 			ReactGA.initialize('UA-5335998-1');
@@ -186,7 +184,7 @@ class Contact extends React.Component {
 				this.GAUnlocked = true;
 			}, 5000);
 		}
-	}
+	} */
 
 	onError(json) {
 		$(this.loader).addClass('display-none');

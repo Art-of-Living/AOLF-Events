@@ -25,8 +25,8 @@ class ThankYouOnline extends React.Component {
 	}
 
 	componentDidMount() {
-		ReactGA.initialize('UA-5335998-1');
-		ReactGA.pageview(window.location.pathname + window.location.search);
+		/* ReactGA.initialize('UA-5335998-1');
+		ReactGA.pageview(window.location.pathname + window.location.search); */
 
 		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 			$('body').addClass('ios thank-you-page');
