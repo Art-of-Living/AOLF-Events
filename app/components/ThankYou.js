@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet';
 
-import GoogleTagManager from './GoogleTagManager';
+// import GoogleTagManager from './GoogleTagManager';
 import ReactGA from 'react-ga';
 
 var store = require('../store/configureStore').default;

@@ -13921,10 +13921,6 @@ var _reactHelmet = require('react-helmet');
 
 var _reactRouter = require('react-router');
 
-var _GoogleTagManager = require('../../GoogleTagManager');
-
-var _GoogleTagManager2 = _interopRequireDefault(_GoogleTagManager);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13932,6 +13928,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import GoogleTagManager from '../../GoogleTagManager';
 
 var Index = function (_get__$Component) {
 	_inherits(Index, _get__$Component);
@@ -16111,8 +16109,6 @@ var Index = function (_get__$Component) {
 
 			var _Helmet_Component = _get__('Helmet');
 
-			var _GoogleTagManager_Component = _get__('GoogleTagManager');
-
 			var _Header_Component = _get__('Header');
 
 			var _Contact_Component = _get__('Contact');
@@ -16138,7 +16134,6 @@ var Index = function (_get__$Component) {
 					_react2.default.createElement('meta', { property: 'fb:app_id', content: '547829512233839' }),
 					_react2.default.createElement('meta', { property: 'og:description', content: 'Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions.' })
 				),
-				_react2.default.createElement(_GoogleTagManager_Component, { gtmId: 'GTM-N2J496' }),
 				_react2.default.createElement(_Header_Component, null),
 				mobile_contact,
 				_react2.default.createElement(
@@ -17163,9 +17158,6 @@ function _get_original__(variableName) {
 		case 'Helmet':
 			return _reactHelmet.Helmet;
 
-		case 'GoogleTagManager':
-			return _GoogleTagManager2.default;
-
 		case 'Header':
 			return _header2.default;
 
@@ -17294,7 +17286,7 @@ exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
 }).call(this,require('_process'))
-},{"../../GoogleTagManager":25,"./contact":36,"./footer":37,"./header":38,"_process":1,"react":362,"react-helmet":175,"react-redux":180,"react-router":214}],40:[function(require,module,exports){
+},{"./contact":36,"./footer":37,"./header":38,"_process":1,"react":362,"react-helmet":175,"react-redux":180,"react-router":214}],40:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22562,10 +22554,6 @@ var _reactRouter = require('react-router');
 
 var _reactHelmet = require('react-helmet');
 
-var _GoogleTagManager = require('./GoogleTagManager');
-
-var _GoogleTagManager2 = _interopRequireDefault(_GoogleTagManager);
-
 var _reactGa = require('react-ga');
 
 var _reactGa2 = _interopRequireDefault(_reactGa);
@@ -22577,6 +22565,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import GoogleTagManager from './GoogleTagManager';
+
 
 var store = require('../store/configureStore').default;
 
@@ -23081,7 +23072,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"../store/configureStore":63,"./GoogleTagManager":25,"react":362,"react-ga":169,"react-helmet":175,"react-redux":180,"react-router":214}],56:[function(require,module,exports){
+},{"../store/configureStore":63,"react":362,"react-ga":169,"react-helmet":175,"react-redux":180,"react-router":214}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
