@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet';
 
-//import GoogleTagManager from './GoogleTagManager';
+import GoogleTagManager from './GoogleTagManager';
 import ReactGA from 'react-ga';
 
 class ThankYouOnline extends React.Component {
@@ -85,13 +85,14 @@ class ThankYouOnline extends React.Component {
 					<meta data-react-helmet="true" property="fb:app_id" content="547829512233839" />
 					<meta data-react-helmet="true" property="og:description" content="Unlock the power of your breath and discover the easy, effective approach to meditation that has already helped millions." />
 				</Helmet>
+				<GoogleTagManager gtmId='GTM-N2J496' />
 				<section className="thank_you_container">
 					<div className="inner_container">
 						<h6>Thank you, your seat has been reserved</h6>
 						<p>A confirmation email has been sent to {this.state.userEmail}</p>
 						<h1>
 							You&#8217;re all set to experience the <strong>Mind & Meditation</strong> workshop and discover the power of the breath.
-				</h1>
+						</h1>
 
 						<div className="thank_you_buttons">
 							<a href="#">
